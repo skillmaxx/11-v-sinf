@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>11-V Family | Bitiruvchilar Vinetkasi</title>
     <style>
-        /* Umumiy sozlamalar va oqshom (midnight) dizayni */
         :root {
             --primary-bg: #0b0f19; 
             --secondary-bg: #111827;
@@ -29,7 +28,6 @@
             overflow-x: hidden;
         }
 
-        /* Navigatsiya menyusi */
         header {
             background-color: rgba(17, 24, 39, 0.95);
             position: fixed;
@@ -75,7 +73,6 @@
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        /* Asosiy sahifa bo'limlari */
         section {
             padding: 100px 5% 50px;
             min-height: 100vh;
@@ -99,7 +96,6 @@
             text-align: center;
         }
 
-        /* Bosh sahifa (Home) */
         #bosh-sahifa {
             display: flex;
             flex-direction: column;
@@ -140,7 +136,6 @@
             max-width: 600px;
         }
 
-        /* Galereya grid tizimi */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -173,12 +168,6 @@
             text-align: center;
         }
 
-        .photo-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
         footer {
             background-color: var(--secondary-bg);
             text-align: center;
@@ -187,17 +176,10 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Mobil qurilmalar uchun moslashuv */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            #bosh-sahifa {
-                padding-top: 100px;
-            }
+            .nav-links { display: none; }
+            .hero-title { font-size: 2.5rem; }
+            #bosh-sahifa { padding-top: 100px; }
         }
     </style>
 </head>
@@ -208,7 +190,7 @@
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
                 <li><a href="#bosh-sahifa">Bosh sahifa</a></li>
-                <li><a href="#vinetka-rasmlari">Vinetka rasmlari</a></li>
+                <li><a href="vinetka.html">Vinetka rasmlari</a></li>
                 <li><a href="#esdalik-rasmlar">Esdalik rasmlar</a></li>
             </ul>
         </nav>
@@ -217,40 +199,8 @@
     <section id="bosh-sahifa">
         <div class="hero-content-wrapper">
             <h1 class="hero-title">Bitiruv - 2026</h1>
-            
             <img src="DSC08744.JPG" alt="11-V Sinfdoshlar" class="hero-image">
-            
             <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
-        </div>
-    </section>
-
-    <section id="vinetka-rasmlari">
-        <div class="title-wrapper">
-            <h2 class="section-title">Vinetka Rasmlari</h2>
-        </div>
-        
-        <div class="gallery-grid">
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 1">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1506869640319-ce1a44a66a1e?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 2">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 3">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
-                </div>
-            </div>
         </div>
     </section>
 
