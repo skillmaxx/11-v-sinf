@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Bitiruvchilar Vinetkasi</title>
+    <title>11-V Family | Vinetka Rasmlari</title>
     <style>
-        /* Umumiy sozlamalar va oqshom (midnight) dizayni */
+        /* Umumiy sozlamalar (index.html bilan bir xil oqshom uslubi) */
         :root {
             --primary-bg: #0b0f19; 
             --secondary-bg: #111827;
@@ -19,14 +19,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--primary-bg);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* Navigatsiya menyusi */
@@ -70,86 +68,45 @@
             transition: color 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: #ffffff;
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        /* Asosiy sahifa bo'limlari */
-        section {
-            padding: 100px 5% 50px;
-            min-height: 100vh;
+        /* Vinetka bo'limi */
+        .vinetka-container {
+            padding: 120px 5% 50px;
             max-width: 1200px;
             margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #ffffff;
-            border-bottom: 2px solid var(--accent-silver);
-            display: inline-block;
-            padding-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .title-wrapper {
-            text-align: center;
-        }
-
-        /* Bosh sahifa (Home) */
-        #bosh-sahifa {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             min-height: 100vh;
-            padding-top: 150px; 
         }
 
-        .hero-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 800px;
-        }
-
-        .hero-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-            border: 2px solid var(--accent-glow);
-        }
-
-        .hero-title {
-            font-size: 4rem;
+        .page-title {
+            text-align: center;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #c0c5ce, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
+        .page-subtitle {
+            text-align: center;
             color: var(--accent-silver);
-            max-width: 600px;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
         }
 
-        /* Galereya grid tizimi */
+        /* Rasmlar Gridi */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
         }
 
         .photo-card {
             background-color: var(--secondary-bg);
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -158,14 +115,14 @@
 
         .photo-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
         .photo-card img {
             width: 100%;
-            height: 350px;
+            height: 380px;
             object-fit: cover;
-            border-bottom: 2px solid var(--accent-glow);
+            border-bottom: 3px solid var(--accent-glow);
         }
 
         .photo-info {
@@ -175,7 +132,13 @@
 
         .photo-info h3 {
             font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            color: #ffffff;
+        }
+
+        .photo-info p {
+            color: var(--accent-silver);
+            font-size: 0.9rem;
         }
 
         /* Footer */
@@ -183,21 +146,12 @@
             background-color: var(--secondary-bg);
             text-align: center;
             padding: 2rem;
-            margin-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Mobil qurilmalar uchun moslashuv */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            #bosh-sahifa {
-                padding-top: 100px;
-            }
+            .nav-links { display: none; }
+            .page-title { font-size: 2rem; }
         }
     </style>
 </head>
@@ -207,75 +161,44 @@
         <nav>
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
-                <li><a href="#bosh-sahifa">Bosh sahifa</a></li>
-                <li><a href="#vinetka-rasmlari">Vinetka rasmlari</a></li>
-                <li><a href="#esdalik-rasmlar">Esdalik rasmlar</a></li>
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="vinetka.html" class="active">Vinetka rasmlari</a></li>
+                <li><a href="index.html#esdalik-rasmlar">Esdalik rasmlar</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="bosh-sahifa">
-        <div class="hero-content-wrapper">
-            <h1 class="hero-title">Bitiruv - 2026</h1>
-            
-            <img src="DSC08744.JPG" alt="11-V Sinfdoshlar" class="hero-image">
-            
-            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
-        </div>
-    </section>
-
-    <section id="vinetka-rasmlari">
-        <div class="title-wrapper">
-            <h2 class="section-title">Vinetka Rasmlari</h2>
-        </div>
+    <main class="vinetka-container">
+        <h1 class="page-title">Sinf Vinetkasi</h1>
+        <p class="page-subtitle">11-V sinfining ahil va qadrdon bitiruvchilari</p>
         
         <div class="gallery-grid">
             <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 1">
+                <img src="vinetka1.jpg" alt="O'quvchi 1">
                 <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
+                    <h3>Alibek ...</h3>
+                    <p>11-V sinf bitiruvchisi</p>
                 </div>
             </div>
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1506869640319-ce1a44a66a1e?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 2">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 3">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf o'quvchisi</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="esdalik-rasmlar">
-        <div class="title-wrapper">
-            <h2 class="section-title">Esdalik Rasmlar</h2>
-        </div>
-        
-        <div class="gallery-grid">
             <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd0?auto=format&fit=crop&q=80&w=500" alt="Esdalik 1">
+                <img src="vinetka2.jpg" alt="O'quvchi 2">
                 <div class="photo-info">
-                    <h3>So'nggi qo'ng'iroq</h3>
-                    <p>Unutilmas daqiqalar</p>
+                    <h3>Ism Familiya</h3>
+                    <p>11-V sinf bitiruvchisi</p>
                 </div>
             </div>
+
             <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
+                <img src="vinetka3.jpg" alt="O'quvchi 3">
                 <div class="photo-info">
-                    <h3>Sinfdoshlar bilan</h3>
-                    <p>Maktab hovlisida</p>
+                    <h3>Ism Familiya</h3>
+                    <p>11-V sinf bitiruvchisi</p>
                 </div>
             </div>
-        </div>
-    </section>
+
+            </div>
+    </main>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
