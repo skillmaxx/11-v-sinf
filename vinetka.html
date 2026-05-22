@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>11-V Sinf QR Kodi</title>
+    <!-- Ishonchli QR kod yaratuvchi kutubxona -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #0f172a; /* Midnight / To'q ko'k fond */
+            color: #f8fafc;
+        }
+        #qrcode { 
+            margin: 20px; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); 
+        }
+        h2 { margin-bottom: 5px; font-weight: 600; }
+        p { color: #94a3b8; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <h2>11-V Sinf Veb-sayti</h2>
+    <p>Kamerani QR kodga qarating</p>
+    
+    <div id="qrcode"></div>
+
+    <script>
+        // Havolani QR kodga aylantirish
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://skillmaxx.github.io/11-v-sinf/",
+            width: 256,
+            height: 256,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
