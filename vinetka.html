@@ -32,44 +32,74 @@
         .page-title { text-align: center; font-size: 2.8rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
         .page-subtitle { text-align: center; color: var(--accent-silver); margin-bottom: 4rem; }
 
-        /* O'QUVCHILAR RO'YXATI (GRID) */
-        .students-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
-        
-        /* Albom kartochkasi silka bo'ladi */
+        /* O'QUVCHILAR GRID STILIDAN BLOK STILIGA O'ZGARTIRILDI (YONMA-YON SATRLAR UCHUN) */
+        .students-wrapper { display: flex; flex-direction: column; gap: 4rem; }
         .student-album-link { text-decoration: none; color: inherit; display: block; }
 
-        .student-card {
+        .student-row-card {
+            display: grid;
+            grid-template-columns: 350px 1fr; /* Rasm va matn yonma-yon */
             background-color: var(--secondary-bg);
-            border-radius: 16px; overflow: hidden;
+            border-radius: 20px; overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        .student-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
+        /* ✨ Kursorda faqat emotsiya (silliq o'zgarish va neon nuri) bo'ladi, ortiqcha matnlar yo'q */
+        .student-row-card:hover {
+            transform: scale(1.015);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
             border-color: var(--accent-glow);
         }
 
-        .img-box { width: 100%; height: 380px; overflow: hidden; position: relative; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Papka ochish effekti uchun qoplama */
-        .img-box::after {
-            content: "Albomni ochish 📂";
-            position: absolute; inset: 0;
-            background-color: rgba(11, 15, 25, 0.7);
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; font-weight: 600; color: #ffffff;
-            opacity: 0; transition: opacity 0.3s ease;
-        }
-        .student-card:hover .img-box::after { opacity: 1; }
+        .img-box { width: 100%; height: 450px; overflow: hidden; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .student-row-card:hover .img-box img { transform: scale(1.04); }
 
-        .student-info { padding: 1.5rem; text-align: center; background-color: rgba(0, 0, 0, 0.2); }
-        .student-info h3 { font-size: 1.4rem; color: #ffffff; margin-bottom: 0.3rem; }
-        .student-info p { color: var(--accent-silver); font-size: 0.95rem; }
+        /* RASM YONIDAGI CHIROYLI SATRLAR HUDUDI */
+        .student-lyrics-info { 
+            padding: 3rem; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0) 0%, rgba(11, 15, 25, 0.8) 100%);
+        }
+        
+        .student-lyrics-info h3 { 
+            font-size: 2.2rem; 
+            color: #ffffff; 
+            margin-bottom: 1.5rem; 
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(255,255,255,0.1);
+        }
+
+        /* Chiroyli she'riy yoki ta'sirli satrlar stili */
+        .poetic-lines {
+            font-size: 1.25rem;
+            color: var(--accent-silver);
+            font-style: italic;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-glow);
+        }
+
+        .click-hint {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: rgba(192, 197, 206, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
         footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 4rem; background-color: var(--secondary-bg); }
+
+        @media (max-width: 768px) {
+            .student-row-card { grid-template-columns: 1fr; }
+            .img-box { height: 350px; }
+            .student-lyrics-info { padding: 1.5rem; }
+            .student-lyrics-info h3 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -87,18 +117,26 @@
 
     <main class="vinetka-container">
         <h1 class="page-title">Sinfdoshlar Albomlari</h1>
-        <p class="page-subtitle">O'quvchining ustiga bosib, uning shaxsiy raqamli albomiga kiring</p>
+        <p class="page-subtitle">Har bir sahifada bir dunyo unutilmas xotiralar...</p>
         
-        <div class="students-grid">
+        <div class="students-wrapper">
             
             <a href="sohiba.html" class="student-album-link">
-                <div class="student-card">
+                <div class="student-row-card">
                     <div class="img-box">
-                        <img src="Sohiba/sohiba (11).jpg" alt="Sohiba">
+                        <img src="sohiba (11).jpg" alt="Sohiba">
                     </div>
-                    <div class="student-info">
+                    <div class="student-lyrics-info">
                         <h3>Sohiba</h3>
-                        <p>11-V Sinf Bitiruvchisi</p>
+                        
+                        <div class="poetic-lines">
+                            Yillar o'tib ortga boqqanda bir kun,<br>
+                            Yodga tushar shirin, begubor damlar.<br>
+                            Ushbu sahifalarda yashaydi butun —<br>
+                            Maktab davridagi eng go'zal onlar...
+                        </div>
+
+                        <div class="click-hint">Albomni varaqlash uchun bosing</div>
                     </div>
                 </div>
             </a>
