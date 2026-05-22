@@ -2,49 +2,201 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>11-V Sinf QR Kodi</title>
-    <!-- Ishonchli QR kod yaratuvchi kutubxona -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-V Family | Vinetka Rasmlari</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0; 
-            background-color: #0f172a; /* Midnight / To'q ko'k fond */
-            color: #f8fafc;
+        :root {
+            --primary-bg: #0b0f19; 
+            --secondary-bg: #111827;
+            --text-main: #f3f4f6;
+            --accent-silver: #c0c5ce;
+            --accent-glow: #3b82f6;
         }
-        #qrcode { 
-            margin: 20px; 
-            padding: 20px; 
-            background: white; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        h2 { margin-bottom: 5px; font-weight: 600; }
-        p { color: #94a3b8; font-size: 14px; }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(17, 24, 39, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--accent-silver);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .vinetka-container {
+            padding: 120px 5% 50px;
+            max-width: 1200px;
+            margin: auto;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--accent-silver);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .photo-card {
+            background-color: var(--secondary-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(192, 197, 206, 0.1);
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--accent-glow);
+        }
+
+        .photo-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .photo-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: #ffffff;
+        }
+
+        .photo-info p {
+            color: var(--accent-silver);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-title { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <h2>11-V Sinf Veb-sayti</h2>
-    <p>Kamerani QR kodga qarating</p>
-    
-    <div id="qrcode"></div>
+    <header>
+        <nav>
+            <div class="logo">11-V Family</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="vinetka.html" class="active">Vinetka rasmlari</a></li>
+                <li><a href="index.html#esdalik-rasmlar">Esdalik rasmlar</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <script>
-        // Havolani QR kodga aylantirish
-        new QRCode(document.getElementById("qrcode"), {
-            text: "https://skillmaxx.github.io/11-v-sinf/",
-            width: 256,
-            height: 256,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
-    </script>
+    <main class="vinetka-container">
+        <h1 class="page-title">Sinf Vinetkasi</h1>
+        <p class="page-subtitle">11-V sinfining ahil va qadrdon bitiruvchilari</p>
+        
+        <div class="gallery-grid">
+            <div class="photo-card">
+                <img src="vinetka1.jpg" alt="O'quvchi 1">
+                <div class="photo-info">
+                    <h3>Alibek</h3>
+                    <p>11-V sinf bitiruvchisi</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="vinetka2.jpg" alt="O'quvchi 2">
+                <div class="photo-info">
+                    <h3>Ism Familiya</h3>
+                    <p>11-V sinf bitiruvchisi</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="vinetka3.jpg" alt="O'quvchi 3">
+                <div class="photo-info">
+                    <h3>Ism Familiya</h3>
+                    <p>11-V sinf bitiruvchisi</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
 </body>
 </html>
