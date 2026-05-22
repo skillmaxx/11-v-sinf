@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Sohibaning Albomi</title>
+    <title>11-V Family | Vinetka Rasmlari</title>
     <style>
         :root {
             --primary-bg: #0b0f19; 
@@ -13,298 +13,63 @@
             --accent-glow: #3b82f6;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--primary-bg); color: var(--text-main); line-height: 1.6; }
 
         header {
             background-color: rgba(17, 24, 39, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1200px;
-            margin: auto;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--accent-silver); text-decoration: none; font-size: 1.1rem; }
+        .nav-links a.active { color: #ffffff; text-shadow: 0 0 8px var(--accent-glow); }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
+        .vinetka-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; min-height: 100vh; }
+        .page-title { text-align: center; font-size: 2.8rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .page-subtitle { text-align: center; color: var(--accent-silver); margin-bottom: 4rem; }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+        /* O'QUVCHILAR RO'YXATI (GRID) */
+        .students-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
+        
+        /* Albom kartochkasi silka bo'ladi */
+        .student-album-link { text-decoration: none; color: inherit; display: block; }
 
-        .nav-links a {
-            color: var(--accent-silver);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: #ffffff;
-            text-shadow: 0 0 8px var(--accent-glow);
-        }
-
-        .vinetka-container {
-            padding: 120px 5% 50px;
-            max-width: 1200px;
-            margin: auto;
-            min-height: 100vh;
-        }
-
-        .page-title {
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .page-subtitle {
-            text-align: center;
-            color: var(--accent-silver);
-            margin-bottom: 4rem;
-            font-size: 1.1rem;
-        }
-
-        .student-name {
-            font-size: 2rem;
-            color: #ffffff;
-            margin-bottom: 2rem;
-            padding-left: 15px;
-            border-left: 5px solid var(--accent-glow);
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-        }
-
-        .album-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        /* ALBOM YUZI (ASOSIY PORTRAIT) */
-        .featured-portrait {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            background-color: rgba(17, 24, 39, 0.6);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(192, 197, 206, 0.1);
-            align-items: center;
-        }
-
-        .featured-img-box img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 2px solid var(--accent-glow);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-            cursor: pointer;
-        }
-
-        .featured-info h2 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 1rem;
-        }
-
-        .featured-info p {
-            color: var(--accent-silver);
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* 📁 BOSILADIGAN PAPKA (ACCORDION) TUGMASI */
-        .folder-toggle-btn {
+        .student-card {
             background-color: var(--secondary-bg);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #ffffff;
-            padding: 1.2rem 2rem;
-            font-size: 1.3rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            user-select: none;
-        }
-
-        .folder-toggle-btn:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-            border-color: var(--accent-glow);
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
-        }
-
-        .folder-icon-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* Papka belgisi */
-        .folder-icon::before {
-            content: "📁";
-            font-size: 1.6rem;
-        }
-        .folder-toggle-btn.active .folder-icon::before {
-            content: "📂"; /* Papka ochilganda shakli o'zgaradi */
-        }
-
-        /* O'ng tomondagi ko'rsatkich strelka */
-        .arrow-icon {
-            transition: transform 0.3s ease;
-            font-size: 1rem;
-        }
-        .folder-toggle-btn.active .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        /* YASHIRIN TURADIGAN RASMLAR RO'YXATI */
-        .folder-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); /* Silliq ochilish effekti */
-        }
-
-        .folder-content.open {
-            max-height: 5000px; /* Rasmlar sig'ishi uchun yetarli joy */
-            transition: max-height 0.8s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            padding: 1.5rem 0;
-        }
-
-        .photo-card {
-            background-color: var(--secondary-bg);
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 16px; overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
-        .photo-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        .student-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
             border-color: var(--accent-glow);
         }
 
-        .photo-card img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            cursor: pointer;
+        .img-box { width: 100%; height: 380px; overflow: hidden; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Papka ochish effekti uchun qoplama */
+        .img-box::after {
+            content: "Albomni ochish 📂";
+            position: absolute; inset: 0;
+            background-color: rgba(11, 15, 25, 0.7);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; font-weight: 600; color: #ffffff;
+            opacity: 0; transition: opacity 0.3s ease;
         }
+        .student-card:hover .img-box::after { opacity: 1; }
 
-        .photo-caption {
-            padding: 0.8rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--accent-silver);
-            background-color: rgba(0, 0, 0, 0.2);
-        }
+        .student-info { padding: 1.5rem; text-align: center; background-color: rgba(0, 0, 0, 0.2); }
+        .student-info h3 { font-size: 1.4rem; color: #ffffff; margin-bottom: 0.3rem; }
+        .student-info p { color: var(--accent-silver); font-size: 0.95rem; }
 
-        /* GALEREYA MODAL OYNASI (LIGHTBOX) */
-        .lightbox-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(7, 10, 19, 0.95);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .lightbox-modal.active .lightbox-content {
-            transform: scale(1);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 25px;
-            right: 35px;
-            color: #ffffff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            user-select: none;
-        }
-
-        .lightbox-close:hover {
-            color: var(--accent-glow);
-        }
-
-        footer {
-            background-color: var(--secondary-bg);
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .page-title { font-size: 2rem; }
-            .featured-portrait { grid-template-columns: 1fr; padding: 1.5rem; }
-            .featured-img-box img { height: 350px; }
-            .lightbox-close { top: 15px; right: 25px; font-size: 35px; }
-        }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 4rem; background-color: var(--secondary-bg); }
     </style>
 </head>
 <body>
@@ -322,105 +87,28 @@
 
     <main class="vinetka-container">
         <h1 class="page-title">Sinfdoshlar Albomlari</h1>
-        <p class="page-subtitle">11-V sinfining eng unutilmas lahzalari jamlangan raqamli makon</p>
+        <p class="page-subtitle">O'quvchining ustiga bosib, uning shaxsiy raqamli albomiga kiring</p>
         
-        <div class="album-wrapper">
-            <h2 class="student-name">Sohibaning albomi</h2>
+        <div class="students-grid">
+            
+            <a href="sohiba.html" class="student-album-link">
+                <div class="student-card">
+                    <div class="img-box">
+                        <img src="Sohiba/sohiba (11).jpg" alt="Sohiba">
+                    </div>
+                    <div class="student-info">
+                        <h3>Sohiba</h3>
+                        <p>11-V Sinf Bitiruvchisi</p>
+                    </div>
+                </div>
+            </a>
 
-            <div class="featured-portrait">
-                <div class="featured-img-box">
-                    <img src="Sohiba/sohiba (11).jpg" alt="Sohiba Asosiy Vinetka" class="gallery-img">
-                </div>
-                <div class="featured-info">
-                    <h2>Sohiba</h2>
-                    <p>11-V sinf bitiruvchisi</p>
-                    <p style="font-size: 1rem; font-style: italic;">"Maktab davridagi har bir kun, har bir tanaffus va sinfdoshlar bilan o'tgan har bir lahza hayotimning eng oltin sahifalaridir."</p>
-                </div>
             </div>
-
-            <div class="folder-toggle-btn" id="folder-btn">
-                <div class="folder-icon-wrapper">
-                    <span class="folder-icon"></span>
-                    <span>Sohibaning barcha rasmlari (21 ta rasm)</span>
-                </div>
-                <span class="arrow-icon">▼</span>
-            </div>
-
-            <div class="folder-content" id="folder-gallery">
-                <div class="gallery-grid">
-                    <div class="photo-card"><img src="Sohiba/sohiba (1).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Xotiralar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (2).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Esdalik rasm</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (3).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Dars jarayonida</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (4).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Quvnoq damlar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (5).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Tadbirdan lavha</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (6).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Shirin lahzalar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (7).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Xotira varog'i</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (8).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Maktab hovlisida</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (9).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Dugonalar bilan</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (10).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Bitiruv arafasida</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (12).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Imtihon kunlari</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (13).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Maktab hayoti</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (14).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Portfoliodan</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (15).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Sinfdoshlar davrasida</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (16).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Tanaffus paytida</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (17).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">O'chmas izlar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (18).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Eng yaxshi kunlar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (19).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Yorqin lahzalar</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (20).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Sinfdoshlar bilan</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (21).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Esdalik xotirasi</div></div>
-                    <div class="photo-card"><img src="Sohiba/sohiba (22).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">So'nggi qo'ng'iroq</div></div>
-                </div>
-            </div>
-        </div>
     </main>
-
-    <div class="lightbox-modal" id="lightbox">
-        <span class="lightbox-close" id="close-btn">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
-    </div>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
     </footer>
-
-    <script>
-        // 1. PAPKANI OCHISH VA YOPISH (ACCORDION JAVASCRIPT)
-        const folderBtn = document.getElementById('folder-btn');
-        const folderGallery = document.getElementById('folder-gallery');
-
-        folderBtn.addEventListener('click', () => {
-            folderBtn.classList.toggle('active');
-            folderGallery.classList.toggle('open');
-        });
-
-        // 2. RASMLARNI KATTALASHTIRIB GALEREYA QILIB OCHISH (LIGHTBOX JAVASCRIPT)
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.getElementById('close-btn');
-        const galleryImages = document.querySelectorAll('.gallery-img');
-
-        galleryImages.forEach(image => {
-            image.addEventListener('click', (e) => {
-                e.stopPropagation(); // Papka yopilib ketmasligi uchun block qo'yamiz
-                lightbox.classList.add('active');
-                lightboxImg.src = image.src;
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        closeBtn.addEventListener('click', closeLightbox);
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg && e.target !== closeBtn) {
-                closeLightbox();
-            }
-        });
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    </script>
 
 </body>
 </html>
