@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Sinfdoshlar Albomlari</title>
+    <title>11-V Family | Sohibaning Albomi</title>
     <style>
-        /* Oqshom (Midnight) uslubidagi dizayn ranglari */
         :root {
             --primary-bg: #0b0f19; 
             --secondary-bg: #111827;
@@ -27,7 +26,6 @@
             line-height: 1.6;
         }
 
-        /* Navigatsiya menyusi */
         header {
             background-color: rgba(17, 24, 39, 0.95);
             position: fixed;
@@ -73,7 +71,6 @@
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        /* Asosiy konteyner */
         .vinetka-container {
             padding: 120px 5% 50px;
             max-width: 1200px;
@@ -97,30 +94,57 @@
             font-size: 1.1rem;
         }
 
-        /* Har bitta o'quvchining shaxsiy albom bloki */
-        .student-album-section {
-            background-color: rgba(17, 24, 39, 0.6);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 4rem;
-            border: 1px solid rgba(192, 197, 206, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
         .student-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #ffffff;
-            margin-bottom: 1.5rem;
-            padding-left: 10px;
-            border-left: 4px solid var(--accent-glow);
+            margin-bottom: 2rem;
+            padding-left: 15px;
+            border-left: 5px solid var(--accent-glow);
             text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
         }
 
-        /* Albom ichidagi rasmlar joylashuvi (Grid) */
-        .album-grid {
+        .album-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .featured-portrait {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: rgba(17, 24, 39, 0.6);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(192, 197, 206, 0.1);
+            align-items: center;
+        }
+
+        .featured-img-box img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid var(--accent-glow);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .featured-info h2 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .featured-info p {
+            color: var(--accent-silver);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
         }
 
         .photo-card {
@@ -139,7 +163,7 @@
 
         .photo-card img {
             width: 100%;
-            height: 300px;
+            height: 320px;
             object-fit: cover;
         }
 
@@ -151,18 +175,19 @@
             background-color: rgba(0, 0, 0, 0.2);
         }
 
-        /* Footer */
         footer {
             background-color: var(--secondary-bg);
             text-align: center;
             padding: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 4rem;
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .page-title { font-size: 2rem; }
-            .student-album-section { padding: 1rem; }
+            .featured-portrait { grid-template-columns: 1fr; padding: 1.5rem; }
+            .featured-img-box img { height: 350px; }
         }
     </style>
 </head>
@@ -181,45 +206,48 @@
 
     <main class="vinetka-container">
         <h1 class="page-title">Sinfdoshlar Albomlari</h1>
-        <p class="page-subtitle">Har bir bitiruvchining maktab davridagi unutilmas lahzalari</p>
+        <p class="page-subtitle">11-V sinfining eng unutilmas lahzalari jamlangan raqamli makon</p>
         
-        <div class="student-album-section">
-            <h2 class="student-name">Alibekning albomi</h2>
-            <div class="album-grid">
-                <div class="photo-card">
-                    <img src="alibek_vinetka.jpg" alt="Alibek Vinetka">
-                    <div class="photo-caption">Rasmiy Vinetka</div>
+        <div class="album-wrapper">
+            <h2 class="student-name">Sohibaning albomi</h2>
+
+            <div class="featured-portrait">
+                <div class="featured-img-box">
+                    <img src="Sohiba/sohiba (11).jpg" alt="Sohiba Asosiy Vinetka">
                 </div>
-                <div class="photo-card">
-                    <img src="alibek_darsda.jpg" alt="Alibek darsda">
-                    <div class="photo-caption">Dars jarayonida</div>
-                </div>
-                <div class="photo-card">
-                    <img src="alibek_do'stlar.jpg" alt="Alibek do'stlar bilan">
-                    <div class="photo-caption">Sinfdoshlar davrasida</div>
+                <div class="featured-info">
+                    <h2>Sohiba</h2>
+                    <p>11-V sinf bitiruvchisi</p>
+                    <p style="font-size: 1rem; font-style: italic;">"Maktab davridagi har bir kun, har bir tanaffus va sinfdoshlar bilan o'tgan har bir lahza hayotimning eng oltin sahifalaridir."</p>
                 </div>
             </div>
-        </div>
 
-        <div class="student-album-section">
-            <h2 class="student-name">Sinfdosh Ismi (Masalan: Sardor)</h2>
-            <div class="album-grid">
-                <div class="photo-card">
-                    <img src="sardor1.jpg" alt="Sardor Vinetka">
-                    <div class="photo-caption">Rasmiy Vinetka</div>
-                </div>
-                <div class="photo-card">
-                    <img src="sardor2.jpg" alt="Sardor tadbirda">
-                    <div class="photo-caption">Maktab tadbirida</div>
-                </div>
-                <div class="photo-card">
-                    <img src="sardor3.jpg" alt="Sardor do'stlar bilan">
-                    <div class="photo-caption">Tanaffus paytida</div>
-                </div>
+            <div class="gallery-grid">
+                <div class="photo-card"><img src="Sohiba/sohiba (1).jpg" alt="Sohiba"><div class="photo-caption">Xotiralar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (2).jpg" alt="Sohiba"><div class="photo-caption">Esdalik rasm</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (3).jpg" alt="Sohiba"><div class="photo-caption">Dars jarayonida</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (4).jpg" alt="Sohiba"><div class="photo-caption">Quvnoq damlar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (5).jpg" alt="Sohiba"><div class="photo-caption">Tadbirdan lavha</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (6).jpg" alt="Sohiba"><div class="photo-caption">Shirin lahzalar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (7).jpg" alt="Sohiba"><div class="photo-caption">Xotira varog'i</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (8).jpg" alt="Sohiba"><div class="photo-caption">Maktab hovlisida</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (9).jpg" alt="Sohiba"><div class="photo-caption">Dugonalar bilan</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (10).jpg" alt="Sohiba"><div class="photo-caption">Bitiruv arafasida</div></div>
+                
+                <div class="photo-card"><img src="Sohiba/sohiba (12).jpg" alt="Sohiba"><div class="photo-caption">Imtihon kunlari</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (13).jpg" alt="Sohiba"><div class="photo-caption">Maktab hayoti</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (14).jpg" alt="Sohiba"><div class="photo-caption">Portfoliodan</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (15).jpg" alt="Sohiba"><div class="photo-caption">Sinfdoshlar davrasida</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (16).jpg" alt="Sohiba"><div class="photo-caption">Tanaffus paytida</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (17).jpg" alt="Sohiba"><div class="photo-caption">O'chmas izlar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (18).jpg" alt="Sohiba"><div class="photo-caption">Eng yaxshi kunlar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (19).jpg" alt="Sohiba"><div class="photo-caption">Yorqin lahzalar</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (20).jpg" alt="Sohiba"><div class="photo-caption">Sinfdoshlar bilan</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (21).jpg" alt="Sohiba"><div class="photo-caption">Esdalik xotirasi</div></div>
+                <div class="photo-card"><img src="Sohiba/sohiba (22).jpg" alt="Sohiba"><div class="photo-caption">So'nggi qo'ng'iroq</div></div>
             </div>
         </div>
-
-        </main>
+    </main>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
