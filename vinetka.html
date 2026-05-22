@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Vinetka Rasmlari</title>
+    <title>11-V Family | Sinfdoshlar Albomlari</title>
     <style>
+        /* Oqshom (Midnight) uslubidagi dizayn ranglari */
         :root {
             --primary-bg: #0b0f19; 
             --secondary-bg: #111827;
@@ -26,6 +27,7 @@
             line-height: 1.6;
         }
 
+        /* Navigatsiya menyusi */
         header {
             background-color: rgba(17, 24, 39, 0.95);
             position: fixed;
@@ -71,6 +73,7 @@
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
+        /* Asosiy konteyner */
         .vinetka-container {
             padding: 120px 5% 50px;
             max-width: 1200px;
@@ -81,7 +84,7 @@
         .page-title {
             text-align: center;
             font-size: 2.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -90,53 +93,65 @@
         .page-subtitle {
             text-align: center;
             color: var(--accent-silver);
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             font-size: 1.1rem;
         }
 
-        .gallery-grid {
+        /* Har bitta o'quvchining shaxsiy albom bloki */
+        .student-album-section {
+            background-color: rgba(17, 24, 39, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(192, 197, 206, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .student-name {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-glow);
+            text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Albom ichidagi rasmlar joylashuvi (Grid) */
+        .album-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
         }
 
         .photo-card {
             background-color: var(--secondary-bg);
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(192, 197, 206, 0.1);
         }
 
         .photo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            border-color: var(--accent-glow);
         }
 
         .photo-card img {
             width: 100%;
-            height: 380px;
+            height: 300px;
             object-fit: cover;
-            border-bottom: 3px solid var(--accent-glow);
         }
 
-        .photo-info {
-            padding: 1.5rem;
+        .photo-caption {
+            padding: 0.8rem;
             text-align: center;
-        }
-
-        .photo-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-            color: #ffffff;
-        }
-
-        .photo-info p {
-            color: var(--accent-silver);
             font-size: 0.9rem;
+            color: var(--accent-silver);
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
+        /* Footer */
         footer {
             background-color: var(--secondary-bg);
             text-align: center;
@@ -147,6 +162,7 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .page-title { font-size: 2rem; }
+            .student-album-section { padding: 1rem; }
         }
     </style>
 </head>
@@ -164,35 +180,46 @@
     </header>
 
     <main class="vinetka-container">
-        <h1 class="page-title">Sinf Vinetkasi</h1>
-        <p class="page-subtitle">11-V sinfining ahil va qadrdon bitiruvchilari</p>
+        <h1 class="page-title">Sinfdoshlar Albomlari</h1>
+        <p class="page-subtitle">Har bir bitiruvchining maktab davridagi unutilmas lahzalari</p>
         
-        <div class="gallery-grid">
-            <div class="photo-card">
-                <img src="vinetka1.jpg" alt="O'quvchi 1">
-                <div class="photo-info">
-                    <h3>Alibek</h3>
-                    <p>11-V sinf bitiruvchisi</p>
+        <div class="student-album-section">
+            <h2 class="student-name">Alibekning albomi</h2>
+            <div class="album-grid">
+                <div class="photo-card">
+                    <img src="alibek_vinetka.jpg" alt="Alibek Vinetka">
+                    <div class="photo-caption">Rasmiy Vinetka</div>
                 </div>
-            </div>
-
-            <div class="photo-card">
-                <img src="vinetka2.jpg" alt="O'quvchi 2">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf bitiruvchisi</p>
+                <div class="photo-card">
+                    <img src="alibek_darsda.jpg" alt="Alibek darsda">
+                    <div class="photo-caption">Dars jarayonida</div>
                 </div>
-            </div>
-
-            <div class="photo-card">
-                <img src="vinetka3.jpg" alt="O'quvchi 3">
-                <div class="photo-info">
-                    <h3>Ism Familiya</h3>
-                    <p>11-V sinf bitiruvchisi</p>
+                <div class="photo-card">
+                    <img src="alibek_do'stlar.jpg" alt="Alibek do'stlar bilan">
+                    <div class="photo-caption">Sinfdoshlar davrasida</div>
                 </div>
             </div>
         </div>
-    </main>
+
+        <div class="student-album-section">
+            <h2 class="student-name">Sinfdosh Ismi (Masalan: Sardor)</h2>
+            <div class="album-grid">
+                <div class="photo-card">
+                    <img src="sardor1.jpg" alt="Sardor Vinetka">
+                    <div class="photo-caption">Rasmiy Vinetka</div>
+                </div>
+                <div class="photo-card">
+                    <img src="sardor2.jpg" alt="Sardor tadbirda">
+                    <div class="photo-caption">Maktab tadbirida</div>
+                </div>
+                <div class="photo-card">
+                    <img src="sardor3.jpg" alt="Sardor do'stlar bilan">
+                    <div class="photo-caption">Tanaffus paytida</div>
+                </div>
+            </div>
+        </div>
+
+        </main>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
