@@ -106,9 +106,10 @@
         .album-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 2.5rem;
         }
 
+        /* ALBOM YUZI (ASOSIY PORTRAIT) */
         .featured-portrait {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -127,6 +128,7 @@
             border-radius: 15px;
             border: 2px solid var(--accent-glow);
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            cursor: pointer;
         }
 
         .featured-info h2 {
@@ -141,10 +143,71 @@
             margin-bottom: 1.5rem;
         }
 
+        /* 📁 BOSILADIGAN PAPKA (ACCORDION) TUGMASI */
+        .folder-toggle-btn {
+            background-color: var(--secondary-bg);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #ffffff;
+            padding: 1.2rem 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            user-select: none;
+        }
+
+        .folder-toggle-btn:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-glow);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .folder-icon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Papka belgisi */
+        .folder-icon::before {
+            content: "📁";
+            font-size: 1.6rem;
+        }
+        .folder-toggle-btn.active .folder-icon::before {
+            content: "📂"; /* Papka ochilganda shakli o'zgaradi */
+        }
+
+        /* O'ng tomondagi ko'rsatkich strelka */
+        .arrow-icon {
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+        }
+        .folder-toggle-btn.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* YASHIRIN TURADIGAN RASMLAR RO'YXATI */
+        .folder-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); /* Silliq ochilish effekti */
+        }
+
+        .folder-content.open {
+            max-height: 5000px; /* Rasmlar sig'ishi uchun yetarli joy */
+            transition: max-height 0.8s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 2rem;
+            padding: 1.5rem 0;
         }
 
         .photo-card {
@@ -165,6 +228,7 @@
             width: 100%;
             height: 320px;
             object-fit: cover;
+            cursor: pointer;
         }
 
         .photo-caption {
@@ -173,6 +237,57 @@
             font-size: 0.9rem;
             color: var(--accent-silver);
             background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* GALEREYA MODAL OYNASI (LIGHTBOX) */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(7, 10, 19, 0.95);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-glow);
         }
 
         footer {
@@ -188,6 +303,7 @@
             .page-title { font-size: 2rem; }
             .featured-portrait { grid-template-columns: 1fr; padding: 1.5rem; }
             .featured-img-box img { height: 350px; }
+            .lightbox-close { top: 15px; right: 25px; font-size: 35px; }
         }
     </style>
 </head>
@@ -213,7 +329,7 @@
 
             <div class="featured-portrait">
                 <div class="featured-img-box">
-                    <img src="Sohiba/sohiba (11).jpg" alt="Sohiba Asosiy Vinetka">
+                    <img src="Sohiba/sohiba (11).jpg" alt="Sohiba Asosiy Vinetka" class="gallery-img">
                 </div>
                 <div class="featured-info">
                     <h2>Sohiba</h2>
@@ -222,36 +338,89 @@
                 </div>
             </div>
 
-            <div class="gallery-grid">
-                <div class="photo-card"><img src="Sohiba/sohiba (1).jpg" alt="Sohiba"><div class="photo-caption">Xotiralar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (2).jpg" alt="Sohiba"><div class="photo-caption">Esdalik rasm</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (3).jpg" alt="Sohiba"><div class="photo-caption">Dars jarayonida</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (4).jpg" alt="Sohiba"><div class="photo-caption">Quvnoq damlar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (5).jpg" alt="Sohiba"><div class="photo-caption">Tadbirdan lavha</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (6).jpg" alt="Sohiba"><div class="photo-caption">Shirin lahzalar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (7).jpg" alt="Sohiba"><div class="photo-caption">Xotira varog'i</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (8).jpg" alt="Sohiba"><div class="photo-caption">Maktab hovlisida</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (9).jpg" alt="Sohiba"><div class="photo-caption">Dugonalar bilan</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (10).jpg" alt="Sohiba"><div class="photo-caption">Bitiruv arafasida</div></div>
-                
-                <div class="photo-card"><img src="Sohiba/sohiba (12).jpg" alt="Sohiba"><div class="photo-caption">Imtihon kunlari</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (13).jpg" alt="Sohiba"><div class="photo-caption">Maktab hayoti</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (14).jpg" alt="Sohiba"><div class="photo-caption">Portfoliodan</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (15).jpg" alt="Sohiba"><div class="photo-caption">Sinfdoshlar davrasida</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (16).jpg" alt="Sohiba"><div class="photo-caption">Tanaffus paytida</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (17).jpg" alt="Sohiba"><div class="photo-caption">O'chmas izlar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (18).jpg" alt="Sohiba"><div class="photo-caption">Eng yaxshi kunlar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (19).jpg" alt="Sohiba"><div class="photo-caption">Yorqin lahzalar</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (20).jpg" alt="Sohiba"><div class="photo-caption">Sinfdoshlar bilan</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (21).jpg" alt="Sohiba"><div class="photo-caption">Esdalik xotirasi</div></div>
-                <div class="photo-card"><img src="Sohiba/sohiba (22).jpg" alt="Sohiba"><div class="photo-caption">So'nggi qo'ng'iroq</div></div>
+            <div class="folder-toggle-btn" id="folder-btn">
+                <div class="folder-icon-wrapper">
+                    <span class="folder-icon"></span>
+                    <span>Sohibaning barcha rasmlari (21 ta rasm)</span>
+                </div>
+                <span class="arrow-icon">▼</span>
+            </div>
+
+            <div class="folder-content" id="folder-gallery">
+                <div class="gallery-grid">
+                    <div class="photo-card"><img src="Sohiba/sohiba (1).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Xotiralar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (2).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Esdalik rasm</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (3).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Dars jarayonida</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (4).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Quvnoq damlar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (5).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Tadbirdan lavha</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (6).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Shirin lahzalar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (7).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Xotira varog'i</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (8).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Maktab hovlisida</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (9).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Dugonalar bilan</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (10).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Bitiruv arafasida</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (12).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Imtihon kunlari</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (13).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Maktab hayoti</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (14).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Portfoliodan</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (15).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Sinfdoshlar davrasida</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (16).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Tanaffus paytida</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (17).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">O'chmas izlar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (18).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Eng yaxshi kunlar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (19).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Yorqin lahzalar</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (20).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Sinfdoshlar bilan</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (21).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">Esdalik xotirasi</div></div>
+                    <div class="photo-card"><img src="Sohiba/sohiba (22).jpg" alt="Sohiba" class="gallery-img"><div class="photo-caption">So'nggi qo'ng'iroq</div></div>
+                </div>
             </div>
         </div>
     </main>
 
+    <div class="lightbox-modal" id="lightbox">
+        <span class="lightbox-close" id="close-btn">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
+    </div>
+
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
     </footer>
+
+    <script>
+        // 1. PAPKANI OCHISH VA YOPISH (ACCORDION JAVASCRIPT)
+        const folderBtn = document.getElementById('folder-btn');
+        const folderGallery = document.getElementById('folder-gallery');
+
+        folderBtn.addEventListener('click', () => {
+            folderBtn.classList.toggle('active');
+            folderGallery.classList.toggle('open');
+        });
+
+        // 2. RASMLARNI KATTALASHTIRIB GALEREYA QILIB OCHISH (LIGHTBOX JAVASCRIPT)
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', (e) => {
+                e.stopPropagation(); // Papka yopilib ketmasligi uchun block qo'yamiz
+                lightbox.classList.add('active');
+                lightboxImg.src = image.src;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg && e.target !== closeBtn) {
+                closeLightbox();
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 
 </body>
 </html>
