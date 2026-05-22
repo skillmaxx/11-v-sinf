@@ -23,9 +23,12 @@
         }
 
         body {
-    background-image: url (sinfdoshlar (404).jpg);
-    
-}
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden; /* Gorizontal scrolldan qochish */
+        }
+
         /* Navigatsiya menyusi */
         header {
             background-color: rgba(17, 24, 39, 0.95);
@@ -96,7 +99,7 @@
             text-align: center;
         }
 
-        /* Bosh sahifa (Home) */
+        /* Bosh sahifa (Home) - Yangilangan qism */
         #bosh-sahifa {
             display: flex;
             flex-direction: column;
@@ -104,6 +107,23 @@
             align-items: center;
             text-align: center;
             min-height: 100vh;
+            padding-top: 150px; /* Navigatsiya menyusi uchun ko'proq joy */
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+        }
+
+        .hero-image {
+            max-width: 100%; /* Rasm moslashuvchan bo'ladi */
+            height: auto; /* Balandligi avtomatik */
+            border-radius: 20px; /* Burchaklari yumaloqlanadi */
+            margin-bottom: 2rem; /* Matndan ajratish */
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); /* Yaxshi soya */
+            border: 2px solid var(--accent-glow); /* Yoritish */
         }
 
         .hero-title {
@@ -175,12 +195,14 @@
             .hero-title {
                 font-size: 2.5rem;
             }
+            #bosh-sahifa {
+                padding-top: 100px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigatsiya menyusi -->
     <header>
         <nav>
             <div class="logo">11-V Family</div>
@@ -192,29 +214,28 @@
         </nav>
     </header>
 
-    <!-- 1. Bosh sahifa -->
     <section id="bosh-sahifa">
-        <h1 class="hero-title">Bitiruv - 2026</h1>
-        <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
+        <div class="hero-content-wrapper">
+            <h1 class="hero-title">Bitiruv - 2026</h1>
+            <img src="sinfdoshlar (404).jpg" alt="11-V Sinfdoshlar" class="hero-image">
+            
+            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
+        </div>
     </section>
 
-    <!-- 2. Vinetka rasmlari -->
     <section id="vinetka-rasmlari">
         <div class="title-wrapper">
             <h2 class="section-title">Vinetka Rasmlari</h2>
         </div>
         
         <div class="gallery-grid">
-            <!-- Rasm 1 -->
             <div class="photo-card">
-                <!-- Rasmni ulash uchun 'src' ichidagi manzilni o'zgartiring -->
                 <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 1">
                 <div class="photo-info">
                     <h3>Ism Familiya</h3>
                     <p>11-V sinf o'quvchisi</p>
                 </div>
             </div>
-            <!-- Rasm 2 -->
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1506869640319-ce1a44a66a1e?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 2">
                 <div class="photo-info">
@@ -222,7 +243,6 @@
                     <p>11-V sinf o'quvchisi</p>
                 </div>
             </div>
-            <!-- Rasm 3 -->
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=500" alt="O'quvchi 3">
                 <div class="photo-info">
@@ -233,14 +253,12 @@
         </div>
     </section>
 
-    <!-- 3. Esdalik rasmlar -->
     <section id="esdalik-rasmlar">
         <div class="title-wrapper">
             <h2 class="section-title">Esdalik Rasmlar</h2>
         </div>
         
         <div class="gallery-grid">
-            <!-- Esdalik Rasm 1 -->
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd0?auto=format&fit=crop&q=80&w=500" alt="Esdalik 1">
                 <div class="photo-info">
@@ -248,7 +266,6 @@
                     <p>Unutilmas daqiqalar</p>
                 </div>
             </div>
-            <!-- Esdalik Rasm 2 -->
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
                 <div class="photo-info">
@@ -259,7 +276,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
     </footer>
