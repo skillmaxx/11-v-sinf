@@ -32,20 +32,19 @@
         .page-title { text-align: center; font-size: 2.8rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
         .page-subtitle { text-align: center; color: var(--accent-silver); margin-bottom: 4rem; }
 
-        /* O'QUVCHILAR GRID STILIDAN BLOK STILIGA O'ZGARTIRILDI (YONMA-YON SATRLAR UCHUN) */
         .students-wrapper { display: flex; flex-direction: column; gap: 4rem; }
         .student-album-link { text-decoration: none; color: inherit; display: block; }
 
         .student-row-card {
             display: grid;
-            grid-template-columns: 350px 1fr; /* Rasm va matn yonma-yon */
+            grid-template-columns: 350px 1fr;
             background-color: var(--secondary-bg);
             border-radius: 20px; overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        /* ✨ Kursorda faqat emotsiya (silliq o'zgarish va neon nuri) bo'ladi, ortiqcha matnlar yo'q */
+        /* ✨ Kursor borganda ortiqcha yozuvlarsiz faqatgina silliq emotsiya va neon nuri chiqadi */
         .student-row-card:hover {
             transform: scale(1.015);
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
@@ -56,7 +55,6 @@
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .student-row-card:hover .img-box img { transform: scale(1.04); }
 
-        /* RASM YONIDAGI CHIROYLI SATRLAR HUDUDI */
         .student-lyrics-info { 
             padding: 3rem; 
             display: flex; 
@@ -70,10 +68,8 @@
             color: #ffffff; 
             margin-bottom: 1.5rem; 
             letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(255,255,255,0.1);
         }
 
-        /* Chiroyli she'riy yoki ta'sirli satrlar stili */
         .poetic-lines {
             font-size: 1.25rem;
             color: var(--accent-silver);
@@ -121,7 +117,7 @@
         
         <div class="students-wrapper">
             
-            <a href="sohiba.html" class="student-album-link">
+            <a href="royxat/Sohiba.html" class="student-album-link">
                 <div class="student-row-card">
                     <div class="img-box">
                         <img src="sohiba (11).jpg" alt="Sohiba">
