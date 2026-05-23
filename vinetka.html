@@ -44,7 +44,6 @@
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        /* ✨ Kursor borganda ortiqcha yozuvlarsiz faqatgina silliq emotsiya va neon nuri chiqadi */
         .student-row-card:hover {
             transform: scale(1.015);
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
@@ -117,10 +116,10 @@
         
         <div class="students-wrapper">
             
-            <a href="royxat/sohiba.html" class="student-album-link">
+            <a href="royxat/Sohiba.html" class="student-album-link">
                 <div class="student-row-card">
                     <div class="img-box">
-                        <img src="sohiba (11).jpg" alt="Sohiba">
+                        <img src="sohiba (11).jpg" alt="Sohiba" onerror="handleImageError(this)">
                     </div>
                     <div class="student-lyrics-info">
                         <h3>Sohiba</h3>
@@ -137,12 +136,25 @@
                 </div>
             </a>
 
-            </div>
+        </div>
     </main>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
     </footer>
 
+    <script>
+        // Rasmdagi .jpg yoki .JPG muammosini hal qiluvchi funksiya
+        function handleImageError(img) {
+            if (!img.dataset.triedUppercase) {
+                if (img.src.endsWith('.jpg')) {
+                    img.src = img.src.replace('.jpg', '.JPG');
+                } else if (img.src.endsWith('.JPG')) {
+                    img.src = img.src.replace('.JPG', '.jpg');
+                }
+                img.dataset.triedUppercase = true;
+            }
+        }
+    </script>
 </body>
 </html>
