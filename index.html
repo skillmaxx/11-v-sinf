@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Bitiruvchilar Vinetkasi</title>
+    <title>11-V Family | Rasmiy Bosh Sahifa</title>
     <style>
         :root {
             --primary-bg: #0b0f19; 
@@ -12,177 +12,203 @@
             --accent-silver: #c0c5ce;
             --accent-glow: #3b82f6;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', sans-serif; 
         }
-
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+        
+        body { 
+            background-color: var(--primary-bg); 
+            color: var(--text-main); 
+            line-height: 1.6; 
         }
-
-        /* Navigatsiya menyusi - rasm ustida tiniq ko'rinishi uchun */
-        header {
-            background-color: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(10px); /* Orqani xiralashtirish effekti */
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        
+        header { 
+            background-color: rgba(17, 24, 39, 0.95); 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(10px); 
         }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1200px;
+        
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 5%; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+        
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            text-shadow: 0 0 10px var(--accent-glow); 
+        }
+        
+        .nav-links { 
+            list-style: none; 
+            display: flex; 
+            gap: 1.5rem; 
+        }
+        
+        .nav-links a { 
+            color: var(--accent-silver); 
+            text-decoration: none; 
+            font-size: 1rem; 
+            transition: color 0.3s;
+        }
+        
+        .nav-links a.active, .nav-links a:hover { 
+            color: #ffffff; 
+            text-shadow: 0 0 8px var(--accent-glow); 
+        }
+        
+        /* Hero (Asosiy qism) */
+        .hero-section {
+            padding: 150px 5% 60px;
+            text-align: center;
+            max-width: 800px;
             margin: auto;
         }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffffff;
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--accent-glow);
         }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
+        
+        .hero-section p {
             color: var(--accent-silver);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
+            font-size: 1.2rem;
         }
-
-        .nav-links a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px var(--accent-glow);
+        
+        /* Albomlar bo'limi */
+        .main-container { 
+            padding: 20px 5% 60px; 
+            max-width: 1200px; 
+            margin: auto; 
         }
-
-        /* 1-BO'LIM: BUTUN ORQA FONNI RASM EGALLAGAN QISM */
-        #bosh-sahifa {
-            position: relative;
-            height: 100vh; /* Butun ekran balandligi */
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            /* Rasm shu yerda orqa fonga o'rnatiladi */
-            background-image: linear-gradient(rgba(11, 15, 25, 0.65), rgba(11, 15, 25, 0.85)), url('DSC08744.JPG');
-            background-size: cover; /* Rasmni ekranga to'liq yoyish */
-            background-position: center; /* Rasmni markazlash */
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Skroll bo'lganda rasm joyida qoladi (Parallax effekt) */
-        }
-
-        .hero-content-wrapper {
-            max-width: 800px;
-            padding: 0 20px;
-            z-index: 2; /* Matn rasm ustida turishi uchun */
-        }
-
-        .hero-title {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            letter-spacing: 3px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: #e5e7eb;
-            max-width: 650px;
-            margin: 0 auto;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        }
-
-        /* 2-BO'LIM: ESDALIK RASMLARI */
-        section {
-            padding: 100px 5% 50px;
-            min-height: 100vh;
-            max-width: 1200px;
-            margin: auto;
-        }
-
+        
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #ffffff;
-            border-bottom: 2px solid var(--accent-silver);
-            display: inline-block;
-            padding-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0.5rem;
+        }
+        
+        /* KOMPYUTER UCHUN GRID (3 ta ustun) */
+        .albums-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 2.5rem; 
+        }
+        
+        .album-card-link {
+            text-decoration: none; 
+            color: inherit; 
+            display: block;
+        }
+        
+        .album-card { 
+            background: var(--secondary-bg); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease; 
+        }
+        
+        .album-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2); 
+            border-color: var(--accent-glow); 
+        }
+        
+        .album-img-box { 
+            width: 100%; 
+            height: 260px; 
+            overflow: hidden; 
+            background: #1f2937; 
+        }
+        
+        .album-img-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease; 
+        }
+        
+        .album-card:hover .album-img-box img { 
+            transform: scale(1.04); 
+        }
+        
+        .album-card-info { 
+            padding: 2rem; 
+        }
+        
+        .album-card-info h3 { 
+            font-size: 1.6rem; 
+            color: #ffffff; 
+            margin-bottom: 0.6rem; 
+        }
+        
+        .album-card-info p { 
+            color: var(--accent-silver); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+        }
+        
+        .view-album-btn { 
+            margin-top: 1.5rem; 
+            font-size: 0.85rem; 
+            color: var(--accent-glow); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-weight: bold; 
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .title-wrapper {
-            text-align: center;
+        footer { 
+            text-align: center; 
+            padding: 2.5rem; 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+            background-color: var(--secondary-bg); 
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .photo-card {
-            background-color: var(--secondary-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(192, 197, 206, 0.1);
-        }
-
-        .photo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-bottom: 2px solid var(--accent-glow);
-        }
-
-        .photo-info {
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        footer {
-            background-color: var(--secondary-bg);
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Mobil qurilmalar uchun moslashtirish */
+        /* TELEFON VA PLANSHEТ UCHUN MOSLASHUV */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-title { font-size: 2.8rem; }
-            .hero-subtitle { font-size: 1.1rem; }
-            #bosh-sahifa { background-attachment: scroll; } /* Mobilda qotib qolish effekti o'chiriladi */
+            nav { padding: 1rem 4%; }
+            .logo { font-size: 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.9rem; }
+            
+            .hero-section { padding: 110px 4% 40px; }
+            .hero-section h1 { font-size: 2rem; }
+            .hero-section p { font-size: 1rem; }
+            
+            .main-container { padding: 10px 4% 40px; }
+            .section-title { font-size: 1.4rem; margin-bottom: 1.5rem; }
+            
+            /* Telefonda gridni 1 ustunli qilish */
+            .albums-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
+            .album-img-box { height: 220px; }
+            .album-card-info { padding: 1.5rem; }
+            .album-card-info h3 { font-size: 1.35rem; }
         }
     </style>
 </head>
@@ -192,42 +218,63 @@
         <nav>
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
-                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="index.html" class="active">Bosh sahifa</a></li>
                 <li><a href="vinetka.html">Vinetka rasmlari</a></li>
-                <li><a href="#esdalik-rasmlar">Esdalik rasmlar</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="bosh-sahifa">
-        <div class="hero-content-wrapper">
-            <h1 class="hero-title">Bitiruv - 2026</h1>
-            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
-        </div>
+    <section class="hero-section">
+        <h1>11-V Sinf Oilasi</h1>
+        <p>Maktab davridagi eng go'zal xotiralar, unutilmas lahzalar va qadrdon sinfdoshlarimizning raqamli albomlar to'plami.</p>
     </section>
 
-    <section id="esdalik-rasmlar">
-        <div class="title-wrapper">
-            <h2 class="section-title">Esdalik Rasmlar</h2>
-        </div>
+    <main class="main-container">
+        <h2 class="section-title">Foto Albomlar</h2>
         
-        <div class="gallery-grid">
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd0?auto=format&fit=crop&q=80&w=500" alt="Esdalik 1">
-                <div class="photo-info">
-                    <h3>So'nggi qo'ng'iroq</h3>
-                    <p>Unutilmas daqiqalar</p>
+        <div class="albums-grid">
+
+            <a href="vinetka.html" class="album-card-link">
+                <div class="album-card">
+                    <div class="album-img-box">
+                        <img src="Diana/diana (18).jpg" alt="Vinetka Albomi" onerror="this.src='Diana/diana (18).JPG'">
+                    </div>
+                    <div class="album-card-info">
+                        <h3>Vinetka Rasmlari</h3>
+                        <p>11-V sinf o'quvchilarining maxsus bitiruv vinetkalari hamda har bir sinfdoshning shaxsiy fotoalbomlari jamlangan bo'lim.</p>
+                        <div class="view-album-btn">Albomni ochish &rarr;</div>
+                    </div>
                 </div>
-            </div>
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
-                <div class="photo-info">
-                    <h3>Sinfdoshlar bilan</h3>
-                    <p>Maktab hovlisida</p>
+            </a>
+
+            <a href="#" class="album-card-link">
+                <div class="album-card">
+                    <div class="album-img-box">
+                        <img src="Alibek/alibek (1).jpg" alt="Sinf hayoti" onerror="this.src='Alibek/alibek (1).JPG'">
+                    </div>
+                    <div class="album-card-info">
+                        <h3>Maktab Quchog'ida</h3>
+                        <p>Dars jarayonlari, tanaffuslar va maktab tadbirlarida olingan eng qiziqarli va quvnoq lahzalar fotosilsilasi.</p>
+                        <div class="view-album-btn">Albomni ochish &rarr;</div>
+                    </div>
                 </div>
-            </div>
+            </a>
+
+            <a href="#" class="album-card-link">
+                <div class="album-card">
+                    <div class="album-img-box">
+                        <img src="Sohiba/sohiba (11).jpg" alt="Sayohatlar" onerror="this.src='Sohiba/sohiba (11).JPG'">
+                    </div>
+                    <div class="album-card-info">
+                        <h3>Unutilmas Sayohatlar</h3>
+                        <p>Sinfdoshlar bilan birgalikda o'tkazilgan tog' sayohatlari, tarixiy shaharlarga tashriflar va dam olish kunlari xotiralari.</p>
+                        <div class="view-album-btn">Albomni ochish &rarr;</div>
+                    </div>
+                </div>
+            </a>
+
         </div>
-    </section>
+    </main>
 
     <footer>
         <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
