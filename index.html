@@ -3,42 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Premium Midnight Gold</title>
+    <title>11-V Family | Glassmorphism Edition</title>
     <style>
-        /* Midnight Gold ranglar palitrasi */
+        /* Glassmorphic ranglar palitrasi va gradientlar */
         :root {
-            --primary-bg: #070b12;       /* Chuqur va to'q tun foni */
-            --secondary-bg: #0f1624;     /* Elementlar uchun boy to'q ko'k-kulrang */
-            --text-main: #f3f4f6;        /* Toza oqish matn */
-            --accent-gold: #dfb743;      /* Oqish tilla rang (Premium urg'u) */
-            --accent-gold-glow: rgba(223, 183, 67, 0.4);
-            --border-gold: rgba(223, 183, 67, 0.15);
+            --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(59, 130, 246, 0.4);
+            --text-main: #f3f4f6;
+            --accent-glow: #3b82f6;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Georgia', 'Segoe UI', serif; /* Klassik va elegant shrift */
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--primary-bg);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Navigatsiya menyusi */
+        /* Navigatsiya menyusi - To'liq shaffof oyna effekti */
         header {
-            background-color: rgba(7, 11, 18, 0.9);
-            backdrop-filter: blur(12px);
+            background-color: rgba(6, 9, 19, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         nav {
@@ -51,33 +53,31 @@
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-family: 'Segoe UI', sans-serif;
-            text-shadow: 0 0 10px var(--accent-gold-glow);
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 2rem;
-            font-family: 'Segoe UI', sans-serif;
         }
 
         .nav-links a {
-            color: #a0a5b0;
+            color: #9ca3af;
             text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 1px;
+            font-size: 1.05rem;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--accent-gold);
-            text-shadow: 0 0 8px var(--accent-gold-glow);
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         /* Bosh qism (Hero Section) */
@@ -89,7 +89,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-image: linear-gradient(rgba(7, 11, 18, 0.7), rgba(7, 11, 18, 0.95)), url('DSC08744.JPG');
+            background-image: linear-gradient(rgba(6, 9, 19, 0.5), rgba(6, 9, 19, 0.85)), url('DSC08744.JPG');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -103,22 +103,22 @@
         }
 
         .hero-title {
-            font-size: 4.5rem;
+            font-size: 4.8rem;
+            font-weight: 900;
             margin-bottom: 1.5rem;
             color: #ffffff;
-            font-weight: normal;
-            letter-spacing: 4px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
-            color: #d1d5db;
+            font-size: 1.3rem;
+            color: #cbd5e1;
             max-width: 650px;
             margin: 0 auto;
-            font-style: italic;
-            font-family: 'Segoe UI', sans-serif;
-            opacity: 0.9;
+            font-weight: 400;
         }
 
         /* Albomlar bo'limi */
@@ -131,13 +131,14 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.4rem;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 4rem;
-            color: var(--accent-gold);
-            font-weight: normal;
-            border-bottom: 1px solid var(--border-gold);
+            color: #ffffff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             display: inline-block;
             padding-bottom: 15px;
+            text-transform: uppercase;
             letter-spacing: 2px;
         }
 
@@ -147,8 +148,8 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
         }
 
         .album-link {
@@ -157,39 +158,36 @@
             display: block;
         }
 
-        /* Premium oltin simmetriyali kartalar */
+        /* Shaffof shisha uslubidagi iOS kartalar */
         .photo-card {
-            background-color: var(--secondary-bg);
-            border-radius: 4px; /* Burchaklar klassik va jiddiy bo'lishi uchun biroz tekislindi */
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px; /* Zamonaviy va o'ta yumaloq burchaklar */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-            border: 1px solid var(--border-gold);
-            min-height: 460px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            min-height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        /* Elegant oltin ramka effekti (Hover bo'lganda) */
+        /* Hover bo'lganda shishaning yorishishi va ko'tarilishi */
         .album-link:hover .photo-card, .photo-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 40px rgba(223, 183, 67, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.25);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .photo-card img {
             width: 100%;
-            height: 360px;
+            height: 350px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border-gold);
-            transition: opacity 0.3s ease;
-        }
-
-        .album-link:hover .photo-card img {
-            opacity: 0.95;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .photo-info {
@@ -199,38 +197,36 @@
 
         .photo-info h3 {
             font-size: 1.6rem;
+            font-weight: 700;
             color: #ffffff;
-            font-weight: normal;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .photo-info p {
-            color: var(--accent-gold);
-            font-size: 0.95rem;
-            font-family: 'Segoe UI', sans-serif;
-            letter-spacing: 1px;
-            opacity: 0.85;
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-top: 0.4rem;
+            font-weight: 500;
         }
 
         footer {
-            background-color: #04070c;
+            background: rgba(6, 9, 19, 0.7);
+            backdrop-filter: blur(10px);
             text-align: center;
             padding: 2.5rem;
-            border-top: 1px solid var(--border-gold);
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            color: #717782;
+            border-top: 1px solid var(--glass-border);
+            color: #64748b;
+            font-weight: 500;
         }
 
-        /* Mobil moslashuvchanlik */
+        /* Mobil qurilmalar interfeysi */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero-title { font-size: 2.6rem; letter-spacing: 2px; }
-            .hero-subtitle { font-size: 1.05rem; }
+            .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1.1rem; }
             #bosh-sahifa { background-attachment: scroll; }
             .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .photo-card { min-height: 280px; }
+            .photo-card { min-height: 250px; border-radius: 20px; }
         }
     </style>
 </head>
@@ -261,19 +257,21 @@
         
         <div class="gallery-grid">
             
+            <!-- 1-KARTA: OYNA EFFEKTLI, SHAFFOF VA TOZA VINETKA KARTASI (BOSILGANDA VINETKA.HTML GA O'TADI) -->
             <a href="vinetka.html" class="album-link">
                 <div class="photo-card">
                     <div class="photo-info">
-                        <h3 style="color: var(--accent-gold);">Vinetka rasmlari</h3>
+                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka rasmlari</h3>
                     </div>
                 </div>
             </a>
 
+            <!-- 2-KARTA: SINFDOSHLAR BILAN -->
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
                 <div class="photo-info">
                     <h3>Sinfdoshlar bilan</h3>
-                    <p style="margin-top: 0.4rem;">Maktab hovlisida</p>
+                    <p>Maktab hovlisida</p>
                 </div>
             </div>
 
