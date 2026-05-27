@@ -28,10 +28,9 @@
             overflow-x: hidden;
         }
 
-        /* Navigatsiya menyusi - rasm ustida tiniq ko'rinishi uchun */
         header {
             background-color: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(10px); /* Orqani xiralashtirish effekti */
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
@@ -75,27 +74,25 @@
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        /* 1-BO'LIM: BUTUN ORQA FONNI RASM EGALLAGAN QISM */
         #bosh-sahifa {
             position: relative;
-            height: 100vh; /* Butun ekran balandligi */
+            height: 100vh;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* Rasm shu yerda orqa fonga o'rnatiladi */
             background-image: linear-gradient(rgba(11, 15, 25, 0.65), rgba(11, 15, 25, 0.85)), url('DSC08744.JPG');
-            background-size: cover; /* Rasmni ekranga to'liq yoyish */
-            background-position: center; /* Rasmni markazlash */
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Skroll bo'lganda rasm joyida qoladi (Parallax effekt) */
+            background-attachment: fixed;
         }
 
         .hero-content-wrapper {
             max-width: 800px;
             padding: 0 20px;
-            z-index: 2; /* Matn rasm ustida turishi uchun */
+            z-index: 2;
         }
 
         .hero-title {
@@ -114,7 +111,6 @@
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
-        /* 2-BO'LIM: ESDALIK RASMLARI */
         section {
             padding: 100px 5% 50px;
             min-height: 100vh;
@@ -144,6 +140,12 @@
             gap: 2rem;
         }
 
+        .album-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
         .photo-card {
             background-color: var(--secondary-bg);
             border-radius: 12px;
@@ -151,9 +153,14 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(192, 197, 206, 0.1);
+            min-height: 440px; /* Ikkinchi rasm bor karta bilan bo'yi teng turishi uchun */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Matn kartaning o'rtasida turishi uchun */
+            align-items: center;
         }
 
-        .photo-card:hover {
+        .album-link:hover .photo-card {
             transform: translateY(-10px);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
@@ -170,6 +177,11 @@
             text-align: center;
         }
 
+        .photo-info h3 {
+            font-size: 1.6rem;
+            color: #ffffff;
+        }
+
         footer {
             background-color: var(--secondary-bg);
             text-align: center;
@@ -177,12 +189,13 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Mobil qurilmalar uchun moslashtirish */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero-title { font-size: 2.8rem; }
             .hero-subtitle { font-size: 1.1rem; }
-            #bosh-sahifa { background-attachment: scroll; } /* Mobilda qotib qolish effekti o'chiriladi */
+            #bosh-sahifa { background-attachment: scroll; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .photo-card { min-height: 250px; } /* Mobilda ixchamroq ko'rinishi uchun */
         }
     </style>
 </head>
@@ -212,19 +225,23 @@
         </div>
         
         <div class="gallery-grid">
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd0?auto=format&fit=crop&q=80&w=500" alt="Esdalik 1">
-                <div class="photo-info">
-                    <h3>Vinetka rasmlari</h3>
-              </div>
-            </div>
+            
+            <a href="vinetka.html" class="album-link">
+                <div class="photo-card">
+                    <div class="photo-info">
+                        <h3>Vinetka rasmlari</h3>
+                    </div>
+                </div>
+            </a>
+
             <div class="photo-card">
                 <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
                 <div class="photo-info">
                     <h3>Sinfdoshlar bilan</h3>
-                    <p>Maktab hovlisida</p>
+                    <p style="color: var(--accent-silver); font-size: 1rem; opacity: 0.8; margin-top: 0.5rem;">Maktab hovlisida</p>
                 </div>
             </div>
+
         </div>
     </section>
 
