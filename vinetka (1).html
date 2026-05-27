@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-V Family | Vinetka Rasmlari</title>
+    <style>
+        :root {
+            --primary-bg: #0b0f19;
+            --secondary-bg: #111827;
+            --text-main: #f3f4f6;
+            --accent-silver: #c0c5ce;
+            --accent-glow: #3b82f6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--primary-bg); color: var(--text-main); line-height: 1.6; }
+
+        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+        .nav-links a { color: var(--accent-silver); text-decoration: none; font-size: 1rem; }
+        .nav-links a.active { color: #ffffff; text-shadow: 0 0 8px var(--accent-glow); font-weight: bold; }
+
+        /* ===== HAMBURGER ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            border: none;
+            background: transparent;
+            z-index: 1100;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 2px;
+            transition: all 0.35s ease;
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ===== MOBIL MENYU ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(6, 9, 19, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu.active { display: flex; opacity: 1; }
+        .mobile-menu a { color: var(--accent-silver); text-decoration: none; font-size: 1.6rem; font-weight: 600; letter-spacing: 1px; transition: all 0.3s ease; }
+        .mobile-menu a:hover, .mobile-menu a.active { color: #ffffff; text-shadow: 0 0 15px var(--accent-glow); }
+
+        /* ===== KONTENT ===== */
+        .vinetka-container { padding: 100px 4% 40px; max-width: 1200px; margin: auto; min-height: 100vh; }
+        .page-title { text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .page-subtitle { text-align: center; color: var(--accent-silver); margin-bottom: 3rem; font-size: 0.95rem; }
+        .students-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
+        .student-album-link { text-decoration: none; color: inherit; display: block; }
+
+        .student-row-card { display: grid; grid-template-columns: 350px 1fr; background-color: var(--secondary-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .student-row-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(59,130,246,0.25); border-color: var(--accent-glow); }
+        .img-box { width: 100%; height: 450px; overflow: hidden; background: #1f2937; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .student-row-card:hover .img-box img { transform: scale(1.03); }
+        .student-lyrics-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+        .student-lyrics-info h3 { font-size: 2rem; color: #ffffff; margin-bottom: 1.2rem; letter-spacing: 1px; }
+        .poetic-lines { font-size: 1.15rem; color: var(--accent-silver); font-style: italic; line-height: 1.7; padding-left: 15px; border-left: 3px solid var(--accent-glow); }
+        .click-hint { margin-top: auto; font-size: 0.85rem; color: rgba(192,197,206,0.5); letter-spacing: 1px; text-transform: uppercase; padding-top: 1.5rem; }
+
+        footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; background-color: var(--secondary-bg); }
+
+        /* ===== MOBIL ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .vinetka-container { padding: 85px 4% 30px; }
+            .page-title { font-size: 1.8rem; }
+            .page-subtitle { font-size: 0.85rem; margin-bottom: 2rem; }
+
+            .student-row-card { grid-template-columns: 1fr; border-radius: 16px; }
+            .img-box { height: 380px; }
+            .student-lyrics-info { padding: 1.5rem; }
+            .student-lyrics-info h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
+            .poetic-lines { font-size: 1rem; line-height: 1.6; }
+            .click-hint { padding-top: 1rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">11-V Family</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="vinetka.html" class="active">Vinetka rasmlari</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMenu()">Bosh sahifa</a>
+        <a href="vinetka.html" class="active" onclick="closeMenu()">Vinetka rasmlari</a>
+    </div>
+
+    <main class="vinetka-container">
+        <h1 class="page-title">Sinfdoshlar Albomlari</h1>
+        <p class="page-subtitle">Rasm ustiga bosib, shaxsiy albom ichidagi barcha foto lavhalarni ko'rishingiz mumkin</p>
+
+        <div class="students-wrapper">
+
+            <a href="royhat/sohiba.html" class="student-album-link">
+                <div class="student-row-card">
+                    <div class="img-box">
+                        <img src="Sohiba/sohiba (11).jpg" alt="Sohiba" onerror="this.src='Sohiba/sohiba (11).JPG'">
+                    </div>
+                    <div class="student-lyrics-info">
+                        <h3>Qodirberganova Sohiba</h3>
+                        <div class="poetic-lines">Yillar o'tib ortga boqqanda bir kun,<br>Yodga tushar shirin, begubor damlar.<br>Ushbu sahifalarda yashaydi butun —<br>Maktab davridagi eng go'zal onlar...</div>
+                        <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="royhat/diana.html" class="student-album-link">
+                <div class="student-row-card">
+                    <div class="img-box">
+                        <img src="Diana/diana (18).jpg" alt="Diana" onerror="this.src='Diana/diana (18).JPG'">
+                    </div>
+                    <div class="student-lyrics-info">
+                        <h3>Dushamova Diana</h3>
+                        <div class="poetic-lines">Nigohi sehrli, begubor chehra,<br>Sinfimiz malikasi bo'lib yuradi.<br>G'amlarni unutib qilganda xira,<br>Atrofga tabassum ulashib turadi.</div>
+                        <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="royhat/alibek.html" class="student-album-link">
+                <div class="student-row-card">
+                    <div class="img-box">
+                        <img src="Alibek/alibek (1).jpg" alt="Alibek" onerror="this.src='Alibek/alibek (1).JPG'">
+                    </div>
+                    <div class="student-lyrics-info">
+                        <h3>Abdullayev Alibek</h3>
+                        <div class="poetic-lines">Samimiy kulgu-yu begubor niyat,<br>Sinfimiz ko'rki u, mardlik timsoli.<br>Har bir amallarda yuksak ma'naviyat...</div>
+                        <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p></footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+
+</body>
+</html>

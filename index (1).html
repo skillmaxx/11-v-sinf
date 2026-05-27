@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-V Family | Glassmorphism Edition</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(59, 130, 246, 0.4);
+            --text-main: #f3f4f6;
+            --accent-glow: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: rgba(6, 9, 19, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* ===== HAMBURGER TUGMASI ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            border: none;
+            background: transparent;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 2px;
+            transition: all 0.35s ease;
+            transform-origin: center;
+        }
+
+        /* X shaklga o'tish animatsiyasi */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ===== MOBIL MENYU OVERLAY ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 9, 19, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Hero */
+        #bosh-sahifa {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: linear-gradient(rgba(6, 9, 19, 0.5), rgba(6, 9, 19, 0.85)), url('DSC08744.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .hero-content-wrapper {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4.8rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        section {
+            padding: 120px 5% 80px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            color: #ffffff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .title-wrapper {
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .album-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .photo-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .album-link:hover .photo-card,
+        .photo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .photo-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .photo-info h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .photo-info p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-top: 0.4rem;
+            font-weight: 500;
+        }
+
+        footer {
+            background: rgba(6, 9, 19, 0.7);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--glass-border);
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* ===== MOBIL ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+
+            .hamburger { display: flex; }
+
+            .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            #bosh-sahifa { background-attachment: scroll; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .photo-card { min-height: 250px; border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">11-V Family</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="vinetka.html">Vinetka rasmlari</a></li>
+                <li><a href="#esdalik-rasmlar">Esdalik rasmlar</a></li>
+            </ul>
+            <!-- Hamburger tugmasi -->
+            <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobil menyu overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html"     onclick="closeMenu()">Bosh sahifa</a>
+        <a href="vinetka.html"   onclick="closeMenu()">Vinetka rasmlari</a>
+        <a href="#esdalik-rasmlar" onclick="closeMenu()">Esdalik rasmlar</a>
+    </div>
+
+    <section id="bosh-sahifa">
+        <div class="hero-content-wrapper">
+            <h1 class="hero-title">Bitiruv - 2026</h1>
+            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
+        </div>
+    </section>
+
+    <section id="esdalik-rasmlar">
+        <div class="title-wrapper">
+            <h2 class="section-title">Esdalik Rasmlar</h2>
+        </div>
+        
+        <div class="gallery-grid">
+            <a href="vinetka.html" class="album-link">
+                <div class="photo-card">
+                    <div class="photo-info">
+                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka rasmlari</h3>
+                    </div>
+                </div>
+            </a>
+
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
+                <div class="photo-info">
+                    <h3>Sinfdoshlar bilan</h3>
+                    <p>Maktab hovlisida</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            // Fon scroll'ini bloklash
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+
+</body>
+</html>
