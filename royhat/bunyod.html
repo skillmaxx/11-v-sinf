@@ -242,7 +242,7 @@
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openLightbox(src);
-            card.innerHTML = `<img src="${src}" alt="Bunyodbek" loading="lazy">`;
+            card.innerHTML = `<img src="${src}" alt="Bunyodbek" loading="lazy" onerror="this.parentElement.style.display='none'">`;
             grid.appendChild(card);
         }
 
