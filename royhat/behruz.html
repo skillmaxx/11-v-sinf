@@ -198,7 +198,7 @@
             <div class="profile-info">
                 <h1>Jumaxanov Bexruzbek</h1>
                 <div class="profile-lyric">
-                    Zehnli va chaqqon, sinfdosh do'stim,<br>
+                    Zehnili va chaqqon, sinfdosh do'stim,<br>
                     Har masalani hal qilur zudlik.<br>
                     Kelajak yo'lida parvoz etgum,<br>
                     Maktab xotiralari — umr yulduz...
@@ -249,7 +249,7 @@
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openLightbox(src);
-            card.innerHTML = `<img src="${src}" alt="Bexruzbek" loading="lazy">`;
+            card.innerHTML = `<img src="${src}" alt="Bexruzbek" loading="lazy" onerror="this.parentElement.style.display='none'">`;
             grid.appendChild(card);
         }
 
