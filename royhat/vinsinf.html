@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-V Sinf Albomi - Bitiruv 2026</title>
+    <style>
+        /* Umumiy fon va premium to'q dizayn */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1a 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Orqaga bosh sahifaga qaytish tugmasi */
+        .back-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Sarlavha va Muqova qismi */
+        .album-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cover-photo {
+            width: 320px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: 0.5s ease;
+        }
+        .cover-photo:hover {
+            transform: scale(1.03);
+            border-color: #00adb5;
+            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.4);
+        }
+
+        .album-header h1 {
+            margin: 20px 0 5px 0;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.1);
+        }
+
+        .album-header p {
+            color: #a0a0b8;
+            font-size: 1.2rem;
+        }
+
+        /* Foto galereya setkasi */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        /* Har bitta rasm kartasi */
+        .photo-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s ease;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.04);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Orqaga qaytish -->
+    <a href="index.html" class="back-btn">← Bosh sahifaga qaytish</a>
+
+    <!-- Albom sarlavhasi va Muqovasi -->
+    <div class="album-header">
+        <!-- Siz so'ragan vinsinf (119).JPG rasm albom yuzi (muqovasi) qilindi -->
+        <img src="Sayt/Sinf_Albomi/vinsinf (119).JPG" alt="11-V Sinf Muqova" class="cover-photo">
+        <h1>11-V FAMILY ALBOMI</h1>
+        <p>Unutilmas Maktab Xotiralari va Birgalikdagi Baxtli Kunlar</p>
+    </div>
+
+    <!-- 262 ta rasmni avtomatik joylashtiradigan galereya paneli -->
+    <div class="gallery-container">
+        
+        <script>
+            const gallery = document.querySelector('.gallery-container');
+            const totalPhotos = 262;
+
+            for (let i = 1; i <= totalPhotos; i++) {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                
+                const img = document.createElement('img');
+                
+                // Birinchi qism rasmlar (1-187) .JPG, qolganlari (188-262) .jpg bo'lishi mumkinligini hisobga olgan aqlli tekshiruv
+                if (i <= 187) {
+                    img.src = `Sayt/Sinf_Albomi/vinsinf (${i}).JPG`;
+                } else {
+                    img.src = `Sayt/Sinf_Albomi/vinsinf (${i}).jpg`;
+                }
+                
+                img.alt = `11-V Sinf Xotiralari - Rasm ${i}`;
+                img.loading = 'lazy'; // Ko'p rasm bo'lgani uchun sahifani qotirmasdan, asta-sekin yuklaydi
+                
+                card.appendChild(img);
+                gallery.appendChild(card);
+            }
+        </script>
+
+    </div>
+
+</body>
+</html>
