@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So'nggi Qo'ng'iroq - Bitiruv 2026</title>
+    <style>
+        /* Umumiy fon va premium to'q dizayn */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1a 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Orqaga bosh sahifaga qaytish tugmasi */
+        .back-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Albom sarlavhasi va Muqovasi */
+        .album-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cover-photo {
+            width: 340px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: 0.5s ease;
+        }
+        .cover-photo:hover {
+            transform: scale(1.03);
+            border-color: #00adb5;
+            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.4);
+        }
+
+        .album-header h1 {
+            margin: 20px 0 5px 0;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.1);
+        }
+
+        .album-header p {
+            color: #a0a0b8;
+            font-size: 1.2rem;
+        }
+
+        /* Foto galereya setkasi */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        /* Har bitta rasm kartasi */
+        .photo-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s ease;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 173, 181, 0.3);
+            border-color: rgba(0, 173, 181, 0.4);
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.04);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Orqaga qaytish -->
+    <a href="index.html" class="back-btn">← Bosh sahifaga qaytish</a>
+
+    <!-- Albom sarlavhasi va Muqovasi -->
+    <div class="album-header">
+        <!-- Siz so'ragan 25may (25).JPG rasm albom yuzi (muqovasi) qilindi -->
+        <img src="Sayt/25may/25may (25).JPG" alt="So'nggi qo'ng'iroq muqova" class="cover-photo">
+        <h1>SO'NGGI QO'NG'IROQ</h1>
+        <p>11-V Sinfining Maktab bilan Xayrlashuv Onlari</p>
+    </div>
+
+    <!-- 68 ta rasmni avtomatik joylashtiradigan galereya paneli -->
+    <div class="gallery-container">
+        
+        <script>
+            const gallery = document.querySelector('.gallery-container');
+            const totalPhotos = 68;
+
+            // 1 dan 68 gacha bo'lgan barcha rasmlarni siklda chiqarish
+            for (let i = 1; i <= totalPhotos; i++) {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                
+                const img = document.createElement('img');
+                // Skrinshotdagi formatga mos ravishda kichik harflarda '25may' va katta harfda '.JPG' saqlandi
+                img.src = `Sayt/25may/25may (${i}).JPG`;
+                img.alt = `11-V Sinf So'nggi Qo'ng'iroq - Rasm ${i}`;
+                img.loading = 'lazy'; // Dynamic va tez yuklanish uchun shart
+                
+                card.appendChild(img);
+                gallery.appendChild(card);
+            }
+        </script>
+
+    </div>
+
+</body>
+</html>
