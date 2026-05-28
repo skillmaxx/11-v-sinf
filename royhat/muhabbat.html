@@ -3,281 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baxtiyorova Muhabbat | Shaxsiy Albom</title>
+    <title>Muhabbat | Shaxsiy Albom</title>
     <style>
         :root {
-            --primary-bg: #0b0f19;
-            --secondary-bg: #111827;
-            --text-main: #f3f4f6;
-            --accent-silver: #c0c5ce;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --text-color: #f3f4f6;
             --accent-glow: #3b82f6;
+            --muted-text: #c0c5ce;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { 
-            background-color: var(--primary-bg); 
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        header { 
-            background-color: rgba(17, 24, 39, 0.95); 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
-            backdrop-filter: blur(10px);
-        }
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 1rem 5%; 
-            max-width: 1200px; 
-            margin: auto; 
-        }
-        .logo { 
-            font-size: 1.5rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-        .nav-links { 
-            list-style: none; 
-            display: flex; 
-            gap: 2rem; 
-        }
-        .nav-links a { 
-            color: var(--accent-silver); 
-            text-decoration: none; 
-        }
-        .album-container { 
-            padding: 120px 5% 50px; 
-            max-width: 1200px; 
-            margin: auto; 
-            flex: 1; 
-            width: 100%; 
-        }
-        .back-btn { 
-            display: inline-block; 
-            margin-bottom: 2rem; 
-            color: var(--accent-silver); 
-            text-decoration: none; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 0.5rem 1.5rem; 
-            border-radius: 30px; 
-            transition: all 0.3s;
-        }
-        .back-btn:hover { 
-            background: var(--accent-glow); 
-            color: white; 
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .profile-header { 
-            display: grid; 
-            grid-template-columns: 350px 1fr; 
-            background: var(--secondary-bg); 
-            border-radius: 24px; 
-            overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            margin-bottom: 4rem; 
-        }
-        .profile-cover-box { 
-            width: 100%; 
-            height: 450px; 
-            overflow: hidden; 
-        }
-        .profile-cover-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .profile-info { 
-            padding: 3rem; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-        .profile-info h1 { 
-            font-size: 2.5rem; 
-            color: #ffffff; 
-            margin-bottom: 1.5rem; 
-        }
-        .profile-lyric { 
-            font-size: 1.2rem; 
-            color: var(--accent-silver); 
-            font-style: italic; 
-            line-height: 1.8; 
-            border-left: 3px solid var(--accent-glow); 
-            padding-left: 20px; 
-        }
-        .gallery-title { 
-            font-size: 1.8rem; 
-            margin-bottom: 2rem; 
-            text-transform: uppercase; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 0.5rem; 
-            letter-spacing: 1px;
-        }
-        .photo-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 1.5rem; 
-        }
-        .photo-card { 
-            background: var(--secondary-bg); 
-            border-radius: 16px; 
-            overflow: hidden; 
-            aspect-ratio: 3/4; 
-            cursor: pointer; 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            border: 1px solid rgba(255,255,255,0.02);
-        }
-        .photo-card:hover { 
-            transform: scale(1.03); 
-            box-shadow: 0 8px 25px rgba(59,130,246,0.2);
-        }
-        .photo-card img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .lightbox { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(5,8,15,0.95); 
-            z-index: 2000; 
-            justify-content: center; 
-            align-items: center; 
-        }
+        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 50px; }
+        
+        /* Orqaga qaytish paneli */
+        .top-bar { background-color: rgba(17, 24, 39, 0.95); padding: 15px 5%; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .back-btn { color: var(--text-color); text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .back-btn:hover { color: var(--accent-glow); text-shadow: 0 0 8px var(--accent-glow); }
+
+        /* Profil bo'limi */
+        .profile-section { max-width: 1200px; margin: 100px auto 40px; padding: 0 4%; text-align: center; }
+        .profile-title { font-size: 2.5rem; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; text-shadow: 0 0 10px rgba(59,130,246,0.3); }
+        .profile-quote { font-style: italic; color: var(--muted-text); font-size: 1.2rem; max-width: 700px; margin: 0 auto; line-height: 1.7; padding: 0 15px; border-left: 3px solid var(--accent-glow); border-right: 3px solid var(--accent-glow); }
+
+        /* Galereya */
+        .gallery-container { max-width: 1200px; margin: 0 auto; padding: 0 4%; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-item { background-color: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer; height: 380px; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(59,130,246,0.2); border-color: var(--accent-glow); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.03); }
+
+        /* Lightbox (Rasmni kattalashtirib ko'rish) */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(6, 9, 19, 0.95); backdrop-filter: blur(10px); z-index: 2000; justify-content: center; align-items: center; }
         .lightbox.active { display: flex; }
-        .lightbox-img { 
-            max-width: 90%; 
-            max-height: 85vh; 
-            border-radius: 8px; 
-            object-fit: contain; 
-        }
-        .lightbox-close { 
-            position: absolute; 
-            top: 30px; 
-            right: 40px; 
-            color: white; 
-            font-size: 2.5rem; 
-            cursor: pointer; 
-            user-select: none;
-        }
-        footer { 
-            text-align: center; 
-            padding: 2rem; 
-            background-color: var(--secondary-bg); 
-            margin-top: auto; 
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        .lightbox-img { max-width: 90%; max-height: 85vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.7); object-fit: contain; }
+        .close-lightbox { position: absolute; top: 25px; right: 35px; color: #fff; font-size: 2.5rem; cursor: pointer; transition: transform 0.3s ease; }
+        .close-lightbox:hover { transform: scale(1.1); color: var(--accent-glow); }
+
         @media (max-width: 768px) {
-            .profile-header { grid-template-columns: 1fr; }
-            .profile-cover-box { height: 350px; }
-            .profile-info { padding: 1.5rem; }
-            .profile-info h1 { font-size: 2rem; }
-            .profile-lyric { font-size: 1rem; }
-            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
+            .profile-title { font-size: 1.8rem; }
+            .profile-quote { font-size: 1rem; }
+            .gallery-container { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .gallery-item { height: 220px; border-radius: 10px; }
+            .close-lightbox { top: 15px; right: 20px; font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">11-V Family</div>
-            <ul class="nav-links">
-                <li><a href="../index.html">Bosh sahifa</a></li>
-            </ul>
-        </nav>
-    </header>
+<div class="top-bar">
+    <!-- Asosiy vinetka sahifasiga qaytish yo'li -->
+    <a href="../vinetka.html" class="back-btn">&#8592; Orqaga qaytish</a>
+</div>
 
-    <main class="album-container">
-        <a href="../vinetka.html" class="back-btn">&larr; Orqaga qaytish</a>
+<div class="profile-section">
+    <h1 class="profile-title">Baxtiyorova Muxabbat</h1>
+    <p class="profile-quote">"Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan, aziz do'st u. Kelajak yo'lida baxt topib turgan, maktab xotiralari — eng go'zal tuyg'u..."</p>
+</div>
 
-        <div class="profile-header">
-            <div class="profile-cover-box">
-                <!-- Albom yuzi sifatida bo'shliqsiz muhabbat(16).jpg o'rnatildi, katta harfli varianti zaxiraga qo'yildi -->
-                <img src="../Muhabbat/muhabbat(16).jpg" alt="Muhabbat" onerror="this.src='../Muhabbat/muhabbat(16).JPG'; this.onerror=()=>this.src='../muhabbat/muhabbat(16).jpg'">
-            </div>
-            <div class="profile-info">
-                <h1>Baxtiyorova Muhabbat</h1>
-                <div class="profile-lyric">
-                    Mehribon yurakda nur sochib turgan,<br>
-                    Sinfdoshlar sevgan, aziz do'st u.<br>
-                    Kelajak yo'lida baxt topib turgan,<br>
-                    Maktab xotiralari — eng go'zal to'y...
-                </div>
-            </div>
-        </div>
+<div class="gallery-container">
+    <!-- 1 va 2-rasmlar katta harfli .JPG bilan -->
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (1).JPG" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (2).JPG" alt="Muhabbat" loading="lazy"></div>
 
-        <h2 class="gallery-title">Foto lavhalar (Muhabbat)</h2>
-        <div class="photo-grid" id="photo-grid"></div>
-    </main>
+    <!-- 3 dan 36 gacha kichik harfli .jpg bilan -->
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (3).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (4).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (5).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (6).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (7).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (8).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (9).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (10).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (11).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (12).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (13).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (14).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (15).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (16).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (17).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (18).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (19).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (20).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (21).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (22).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (23).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (24).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (25).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (26).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (27).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (28).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (29).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (30).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (31).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (32).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (33).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (34).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (35).jpg" alt="Muhabbat" loading="lazy"></div>
+    <div class="gallery-item"><img src="../Sayt/Muhabbat/muhabbat (36).jpg" alt="Muhabbat" loading="lazy"></div>
+</div>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-img" id="lightbox-img" src="">
-    </div>
+<!-- Kattalashtirib ko'rish oynasi -->
+<div class="lightbox" id="lightbox">
+    <span class="close-lightbox" id="closeLightbox">&times;</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Kattalashtirilgan rasm">
+</div>
 
-    <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p></footer>
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const galleryItems = document.querySelectorAll('.gallery-item img');
 
-    <script>
-        const grid = document.getElementById('photo-grid');
+    galleryItems.forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Orqa fon skrollini to'xtatish
+        });
+    });
 
-        // 1. muhabbat(1) — muhabbat(2) -> Asosiysi .JPG, zaxirasi .jpg
-        for (let i = 1; i <= 2; i++) {
-            addCard(`../Muhabbat/muhabbat(${i}).JPG`, i, '.jpg');
+    closeLightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg && e.target !== closeLightbox) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
         }
-
-        // 2. muhabbat(3) — muhabbat(36) -> Asosiysi .jpg, zaxirasi .JPG
-        for (let i = 3; i <= 36; i++) {
-            addCard(`../Muhabbat/muhabbat(${i}).jpg`, i, '.JPG');
-        }
-
-        // 3. muhabbat(37) — muhabbat(65) -> Asosiysi .JPG, zaxirasi .jpg
-        for (let i = 37; i <= 65; i++) {
-            addCard(`../Muhabbat/muhabbat(${i}).JPG`, i, '.jpg');
-        }
-
-        // Sohiba shablonidagi kabi universal rasm qo'shish funksiyasi
-        function addCard(src, index, altExt) {
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.onclick = () => openLightbox(src);
-            
-            // Teskari kengaytma va kichik harfli papka ehtimoli uchun zaxira manzillar
-            const altSrc1 = `../Muhabbat/muhabbat(${index})${altExt}`;
-            const altSrc2 = `../muhabbat/muhabbat(${index})${altExt}`;
-
-            card.innerHTML = `<img src="${src}" alt="Muhabbat rasm" loading="lazy" 
-                onerror="this.src='${altSrc1}'; 
-                this.onerror=()=> { this.src='${altSrc2}'; 
-                this.onerror=()=> { this.parentElement.parentElement.style.display='none'; } }">`;
-                
-            grid.appendChild(card);
-        }
-
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-        }
-
-        function closeLightbox(e) {
-            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
-                document.getElementById('lightbox').classList.remove('active');
-                document.body.style.overflow = ''; 
-            }
-        }
-    </script>
+    });
+</script>
 </body>
 </html>
