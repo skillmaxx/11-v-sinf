@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Vinetka Rasmlari</title>
+    <title>11-V Sinf | Vinetka</title>
     <style>
         :root {
             --primary-bg: #0b0f19;
@@ -12,166 +12,206 @@
             --accent-silver: #c0c5ce;
             --accent-glow: #3b82f6;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--primary-bg); color: var(--text-main); line-height: 1.6; }
-        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
-        .logo { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--accent-glow); }
-        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
-        .nav-links a { color: var(--accent-silver); text-decoration: none; font-size: 1rem; }
-        .nav-links a.active { color: #ffffff; text-shadow: 0 0 8px var(--accent-glow); font-weight: bold; }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: transparent; z-index: 1100; }
-        .hamburger span { display: block; width: 26px; height: 2px; background: #ffffff; border-radius: 2px; transition: all 0.35s ease; transform-origin: center; }
-        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(6,9,19,0.5); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; opacity: 0; transition: opacity 0.3s ease; }
-        .mobile-menu.active { display: flex; opacity: 1; }
-        .mobile-menu a { color: var(--accent-silver); text-decoration: none; font-size: 1.6rem; font-weight: 600; transition: all 0.3s ease; }
-        .mobile-menu a:hover, .mobile-menu a.active { color: #fff; text-shadow: 0 0 15px var(--accent-glow); }
-        .vinetka-container { padding: 100px 4% 40px; max-width: 1200px; margin: auto; min-height: 100vh; }
-        .page-title { text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
-        .page-subtitle { text-align: center; color: var(--accent-silver); margin-bottom: 3rem; font-size: 0.95rem; }
-        .students-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
-        .student-album-link { text-decoration: none; color: inherit; display: block; }
-        .student-row-card { display: grid; grid-template-columns: 350px 1fr; background-color: var(--secondary-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
-        .student-row-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(59,130,246,0.25); border-color: var(--accent-glow); }
-        .img-box { width: 100%; height: 450px; overflow: hidden; background: #1f2937; display: flex; align-items: center; justify-content: center; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .student-row-card:hover .img-box img { transform: scale(1.03); }
-        .student-lyrics-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
-        .student-lyrics-info h3 { font-size: 2rem; color: #ffffff; margin-bottom: 1.2rem; letter-spacing: 1px; }
-        .poetic-lines { font-size: 1.15rem; color: var(--accent-silver); font-style: italic; line-height: 1.7; padding-left: 15px; border-left: 3px solid var(--accent-glow); }
-        .click-hint { margin-top: auto; font-size: 0.85rem; color: rgba(192,197,206,0.5); letter-spacing: 1px; text-transform: uppercase; padding-top: 1.5rem; }
-        footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; background-color: var(--secondary-bg); }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--primary-bg); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        header { 
+            background-color: rgba(17, 24, 39, 0.95); 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+            backdrop-filter: blur(10px);
+        }
+
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 5%; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-links { 
+            list-style: none; 
+            display: flex; 
+            gap: 2rem; 
+        }
+
+        .nav-links a { 
+            color: var(--accent-silver); 
+            text-decoration: none; 
+        }
+
+        .vinetka-container { 
+            padding: 120px 5% 50px; 
+            max-width: 1000px; 
+            margin: auto; 
+            flex: 1; 
+            width: 100%; 
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vinetka-card {
+            display: grid;
+            grid-template-columns: 320px 1fr; 
+            background: var(--secondary-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .vinetka-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59,130,246,0.2);
+        }
+
+        .vinetka-img-box {
+            width: 100%;
+            height: 100%;
+            min-height: 400px; 
+            background: #1f2937;
+        }
+
+        .vinetka-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .vinetka-info {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vinetka-info h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+        }
+
+        .vinetka-lyric {
+            font-size: 1.2rem;
+            color: var(--accent-silver);
+            font-style: italic;
+            line-height: 1.8;
+            border-left: 4px solid var(--accent-glow);
+            padding-left: 20px;
+            margin-bottom: 2.5rem;
+        }
+
+        .vinetka-footer {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 2rem; 
+            background-color: var(--secondary-bg); 
+            margin-top: auto; 
+        }
+
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .vinetka-container { padding: 85px 4% 30px; }
-            .page-title { font-size: 1.8rem; }
-            .page-subtitle { font-size: 0.85rem; margin-bottom: 2rem; }
-            .student-row-card { grid-template-columns: 1fr; border-radius: 16px; }
-            .img-box { height: 380px; }
-            .student-lyrics-info { padding: 1.5rem; }
-            .student-lyrics-info h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
-            .poetic-lines { font-size: 1rem; line-height: 1.6; }
-            .click-hint { padding-top: 1rem; font-size: 0.8rem; }
+            .vinetka-card { grid-template-columns: 1fr; }
+            .vinetka-img-box { height: 380px; min-height: auto; }
+            .vinetka-info { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
-<header>
-    <nav>
-        <div class="logo">11-V Family</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Bosh sahifa</a></li>
-            <li><a href="vinetka.html" class="active">Vinetka rasmlari</a></li>
-        </ul>
-        <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
-</header>
-<div class="mobile-menu" id="mobileMenu">
-    <a href="index.html" onclick="closeMenu()">Bosh sahifa</a>
-    <a href="vinetka.html" class="active" onclick="closeMenu()">Vinetka rasmlari</a>
-</div>
 
-<main class="vinetka-container">
-    <h1 class="page-title">Sinfdoshlar Albomlari</h1>
-    <p class="page-subtitle">Rasm ustiga bosib, shaxsiy albom ichidagi barcha foto lavhalarni ko'rishingiz mumkin</p>
-    <div class="students-wrapper">
+    <header>
+        <nav>
+            <div class="logo">11-V Family</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Bosh sahifa</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <a href="royhat/sohiba.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Sohiba/sohiba (11).jpg" alt="Sohiba" onerror="tryPaths(this, ['Sohiba/sohiba (11).JPG', 'Sohiba/sohiba (11).png'])"></div>
-            <div class="student-lyrics-info"><h3>Qodirberganova Sohiba</h3>
-            <div class="poetic-lines">Yillar o'tib ortga boqqanda bir kun,<br>Yodga tushar shirin, begubor damlar.<br>Ushbu sahifalarda yashaydi butun —<br>Maktab davridagi eng go'zal onlar...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
+    <main class="vinetka-container">
+        <h1 class="page-title">Sinfdoshlar</h1>
 
-        <a href="royhat/muhabbat.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Muhabbat/muhabbat (1).JPG" alt="Muxabbat" onerror="tryPaths(this, ['Muhabbat/muhabbat (1).jpg', 'Muhabbat/muhabbat (1).png'])"></div>
-            <div class="student-lyrics-info"><h3>Baxtiyorova Muxabbat</h3>
-            <div class="poetic-lines">Mehribon yurakda nur sochib turgan,<br>Sinfdoshlar sevgan, aziz do'st u.<br>Kelajak yo'lida baxt topib turgan,<br>Maktab xotiralari — eng go'zal to'y...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
+        <!-- MURODBEK KARTOCHKASI -->
+        <div class="vinetka-card" onclick="window.location.href='Murodbek/murodbek.html'">
+            <div class="vinetka-img-box">
+                <!-- loading="lazy" sahifa ochilganda tezlikni oshirish uchun faqat ko'ringan rasmni yuklaydi -->
+                <img src="Murodbek/photo_2026-04-30_19-01-19 (7).jpg" alt="Murodbek" loading="lazy">
+            </div>
+            <div class="vinetka-info">
+                <h2>Qo'ziyev Murodbek</h2>
+                <div class="vinetka-lyric">
+                    Mardlik va jasurlik — uning belgisi,<br>
+                    Sinfdoshlar ichida o'ziga xos.<br>
+                    Kelajak osmoni — uning dengizi,<br>
+                    Har bir qadamida g'alaba — xos.
+                </div>
+                <div class="vinetka-footer">Albomni varaqlash uchun bosing &rarr;</div>
+            </div>
+        </div>
 
-        <a href="royhat/diana.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Diana/diana (18).jpg" alt="Diana" onerror="tryPaths(this, ['Diana/diana (18).JPG', 'Diana/diana (18).png'])"></div>
-            <div class="student-lyrics-info"><h3>Dushamova Diana</h3>
-            <div class="poetic-lines">Nigohi sehrli, begubor chehra,<br>Sinfimiz malikasi bo'lib yuradi.<br>G'amlarni unutib qilganda xira,<br>Atrofga tabassum ulashib turadi.</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
+        <!-- MUHABBAT KARTOCHKASI -->
+        <div class="vinetka-card" onclick="window.location.href='Muhabbat/muhabbat.html'">
+            <div class="vinetka-img-box">
+                <img src="Muhabbat/muhabbat(16).jpg" alt="Muhabbat" loading="lazy">
+            </div>
+            <div class="vinetka-info">
+                <h2>Baxtiyorova Muhabbat</h2>
+                <div class="vinetka-lyric">
+                    Mehribon yurakda nur sochib turgan,<br>
+                    Sinfdoshlar sevgan, aziz do'st u.<br>
+                    Kelajak yo'lida baxt topib turgan,<br>
+                    Maktab xotiralari — eng go'zal to'y...
+                </div>
+                <div class="vinetka-footer">Albomni varaqlash uchun bosing &rarr;</div>
+            </div>
+        </div>
 
-        <a href="royhat/sevinch.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="T Sevinch/sevinch (1).JPG" alt="Sevinch" onerror="tryPaths(this, ['T Sevinch/sevinch (1).jpg', 'T_Sevinch/sevinch (1).JPG', 'T_Sevinch/sevinch (1).jpg'])"></div>
-            <div class="student-lyrics-info"><h3>To'ravoyeva Sevinch</h3>
-            <div class="poetic-lines">Sevinch nomidek quvnoq va shod,<br>Hayot yo'lida nur sochib yuradi.<br>Ko'ngillarga olib kiradi faryod,<br>Tabassum bilan dunyo bezadi.</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
+    </main>
 
-        <a href="royhat/murodbek.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Murod/murodbek (1).JPG" alt="Murodbek" onerror="tryPaths(this, ['Murod/murodbek (1).jpg', 'murod/murodbek (1).JPG'])"></div>
-            <div class="student-lyrics-info"><h3>Qo'ziyev Murodbek</h3>
-            <div class="poetic-lines">Mardlik va jasurlik — uning belgisi,<br>Sinfdoshlar ichida o'ziga xos.<br>Kelajak osmoni — uning dengizi,<br>Har bir qadamida g'alaba — xos.</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
+    <footer>
+        <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
+    </footer>
 
-        <a href="royhat/alibek.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Alibek/alibek (22).JPG" alt="Alibek" onerror="tryPaths(this, ['Alibek/alibek (22).jpg', 'alibek/alibek (22).JPG'])"></div>
-            <div class="student-lyrics-info"><h3>Abdullayev Alibek</h3>
-            <div class="poetic-lines">Samimiy kulgu-yu begubor niyat,<br>Sinfimiz ko'rki u, mardlik timsoli.<br>Har bir amallarda yuksak ma'naviyat,<br>Kelajak yo'lida porloq yulduzi...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/dildora.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Dildora/dildora (4).JPG" alt="Dildora" onerror="tryPaths(this, ['Dildora/dildora (4).jpg', 'dildora/dildora (4).JPG'])"></div>
-            <div class="student-lyrics-info"><h3>Abdullayeva Dildora</h3>
-            <div class="poetic-lines">Ilm sahifalarida porlab yurgan,<br>Mehribon yurakda mehr-oqibat.<br>Kelajak yo'lida baxt topib turgan,<br>Maktab xotiralari — umr davomi...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/xurshida_ab.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Xurshida AB/xurshida (1).JPG" alt="Xurshida AB" onerror="tryPaths(this, ['Xurshida AB/xurshida (1).jpg', 'Xurshida_AB/xurshida (1).JPG', 'Xurshida_AB/xurshida (1).jpg'])"></div>
-            <div class="student-lyrics-info"><h3>Abdullayeva Xurshida</h3>
-            <div class="poetic-lines">Bilim nurida porlab kelgan qiz,<br>Mehr-muruvvat bilan to'la ko'ngli.<br>Kelajak yo'lida yulduzday tiz,<br>Maktab xotiralari — oltin so'zi...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/xurshida_al.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Xurshida Al/xurshida (4).JPG" alt="Xurshida Al" onerror="tryPaths(this, ['Xurshida Al/xurshida (4).jpg', 'Xurshida_Al/xurshida (4).JPG', 'Xurshida_Al/xurshida (4).jpg'])"></div>
-            <div class="student-lyrics-info"><h3>Allaberganova Xurshida</h3>
-            <div class="poetic-lines">Zukkо zehin, ochiq ko'ngil sohibi,<br>Sinfdoshlar ichida yorqin siymi.<br>Ilm yo'lida intilgan talabi,<br>Kelajakda porlasin baxt chiymi...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/sevinchoy.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Barchinoy/sevinchoy (1).JPG" alt="Sevinchoy" onerror="tryPaths(this, ['Barchinoy/sevinchoy (1).jpg', 'barchinoy/sevinchoy (1).JPG'])"></div>
-            <div class="student-lyrics-info"><h3>Bozorboyeva Sevinchoy</h3>
-            <div class="poetic-lines">Sevinch to'la qalbi, nur to'la ko'zi,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida yonsin yulduzi,<br>Maktab yillari — umrning guvoh...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/dushamboy.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Diana Dushamboy/dushamboy (1).JPG" alt="Dushamboy" onerror="tryPaths(this, ['Diana Dushamboy/dushamboy (1).jpg', 'Diana_Dushamboy/dushamboy (1).JPG', 'Diana_Dushamboy/dushamboy (1).jpg'])"></div>
-            <div class="student-lyrics-info"><h3>Dushamov Dushamboy</h3>
-            <div class="poetic-lines">Jasur va dadil, irodali yigit,<br>Sinfdoshlar ichida o'ziga xos.<br>Kelajak osmoni — uning ovqat,<br>Har bir qadamda g'alaba — xos...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/sanjar.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="sanjar/sanjar (1).JPG" alt="Sanjar" onerror="tryPaths(this, ['sanjar/sanjar (1).jpg', 'Sanjar/sanjar (1).JPG', 'Sanjar/sanjar (1).jpg'])"></div>
-            <div class="student-lyrics-info"><h3>Ganjayev Sanjar</h3>
-            <div class="poetic-lines">Quvnoq va baquvvat, sinfdosh do'stim,<br>Har kuni hayotga zavq bilan keladi.<br>Maktab yo'laklarida aziz yo'ldosh,<br>Xotiralar yodda abad qoladi...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/nodirbek.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Nodir/nodirbek (1).JPG" alt="Nodirbek" onerror="tryPaths(this, ['Nodir/nodirbek (1).jpg', 'nodir/nodirbek (1).JPG'])"></div>
-            <div class="student-lyrics-info"><h3>Gulmatov Nodirbek</h3>
-            <div class="poetic-lines">Irodali va maqsadli yigit,<br>Bilim yo'lida intilgan har kun.<br>Kelajak osmonida porlar yulduz,<br>Maktab davri — eng go'zal bir un...</div>
-            <div class="click-hint">Albomni varaqlash uchun bosing &rarr;</div></div>
-        </div></a>
-
-        <a href="royhat/behruz.html" class="student-album-link"><div class="student-row-card">
-            <div class="img-box"><img src="Behruz/behruz (1).JPG" alt="Bexruzbek" onerror="tryPaths(this,
+</body>
+</html>
