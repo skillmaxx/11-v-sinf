@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamunaning Albomi - Bitiruv 2026</title>
+    <style>
+        /* Umumiy fon va premium quyuq dizayn */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1a 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Orqaga vinetka sahifasiga qaytish tugmasi */
+        .back-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Profil muqova qismi */
+        .profile-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cover-photo {
+            width: 220px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: 0.5s ease;
+        }
+        .cover-photo:hover {
+            transform: scale(1.05);
+            border-color: #00adb5;
+            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.5);
+        }
+
+        .profile-container h1 {
+            margin: 15px 0 5px 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+        }
+
+        .profile-container p {
+            color: #a0a0b8;
+            font-size: 1.1rem;
+        }
+
+        /* Foto galereya setkasi */
+        .gallery-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Har bitta rasm kartasi */
+        .photo-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s ease;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 173, 181, 0.3);
+            border-color: rgba(0, 173, 181, 0.4);
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Orqaga vinetka sahifasiga qaytish -->
+    <a href="vinetka.html" class="back-btn">← Orqaga qaytish</a>
+
+    <!-- Muqova qismi -->
+    <div class="profile-container">
+        <!-- Siz so'ragan photo_2026-04-30_19-02-46 (4).jpg rasm albom yuzi qilindi -->
+        <img src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (4).jpg" alt="Kamuna Muqova" class="cover-photo">
+        <h1>KAMUNA</h1>
+        <p>11-V Sinf O'quvchisi | Bitiruvchi - 2026</p>
+    </div>
+
+    <!-- Fotoalbom rasmlari -->
+    <div class="gallery-container">
+        
+        <!-- Kamunaning barcha rasmlari (Kengaytmasi kichik harfda .jpg) -->
+        <div class="photo-card"><img src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (2).jpg" alt="Kamuna Rasm 2"></div>
+        <div class="photo-card"><img src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (3).jpg" alt="Kamuna Rasm 3"></div>
+        <div class="photo-card"><img src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (4).jpg" alt="Kamuna Rasm 4"></div>
+        <div class="photo-card"><img src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (5).jpg" alt="Kamuna Rasm 5"></div>
+
+    </div>
+
+</body>
+</html>
