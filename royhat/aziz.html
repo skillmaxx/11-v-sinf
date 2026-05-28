@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobirov Azizbek | Shaxsiy Albom</title>
+    <title>Azizbek | Shaxsiy Albom</title>
     <style>
         :root {
             --primary-bg: #0b0f19;
@@ -13,38 +13,166 @@
             --accent-glow: #3b82f6;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
-        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
-        .logo { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
-        .nav-links { list-style: none; display: flex; gap: 2rem; }
-        .nav-links a { color: var(--accent-silver); text-decoration: none; }
-        .album-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; flex: 1; width: 100%; }
-        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; transition: 0.3s; }
-        .back-btn:hover { background: var(--accent-glow); color: white; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
-        .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
-        .profile-cover-box { width: 100%; height: 450px; overflow: hidden; }
-        .profile-cover-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .profile-header:hover .profile-cover-box img { transform: scale(1.05); }
-        .profile-info { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
-        .profile-info h1 { font-size: 2.8rem; color: #ffffff; margin-bottom: 1.5rem; letter-spacing: 1px; }
-        .profile-lyric { font-size: 1.3rem; color: var(--accent-silver); font-style: italic; line-height: 1.8; border-left: 3px solid var(--accent-glow); padding-left: 20px; }
-        .gallery-title { font-size: 2rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
-        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-        .photo-card { background: var(--secondary-bg); border-radius: 16px; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid rgba(255,255,255,0.03); }
-        .photo-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.3); }
-        .photo-card img { width: 100%; height: 100%; object-fit: cover; }
-        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,8,15,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        body { 
+            background-color: var(--primary-bg); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        header { 
+            background-color: rgba(17, 24, 39, 0.95); 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+        }
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 5%; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
+        .nav-links { 
+            list-style: none; 
+            display: flex; 
+            gap: 2rem; 
+        }
+        .nav-links a { 
+            color: var(--accent-silver); 
+            text-decoration: none; 
+        }
+        .album-container { 
+            padding: 120px 5% 50px; 
+            max-width: 1200px; 
+            margin: auto; 
+            flex: 1; 
+            width: 100%; 
+        }
+        .back-btn { 
+            display: inline-block; 
+            margin-bottom: 2rem; 
+            color: var(--accent-silver); 
+            text-decoration: none; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            padding: 0.5rem 1.5rem; 
+            border-radius: 30px; 
+            transition: all 0.3s;
+        }
+        .back-btn:hover { 
+            background: var(--accent-glow); 
+            color: white; 
+        }
+        .profile-header { 
+            display: grid; 
+            grid-template-columns: 350px 1fr; 
+            background: var(--secondary-bg); 
+            border-radius: 24px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            margin-bottom: 4rem; 
+        }
+        .profile-cover-box { 
+            width: 100%; 
+            height: 450px; 
+            overflow: hidden; 
+        }
+        .profile-cover-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .profile-info { 
+            padding: 3rem; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+        .profile-info h1 { 
+            font-size: 2.8rem; 
+            color: #ffffff; 
+            margin-bottom: 1.5rem; 
+        }
+        .profile-lyric { 
+            font-size: 1.3rem; 
+            color: var(--accent-silver); 
+            font-style: italic; 
+            line-height: 1.8; 
+            border-left: 3px solid var(--accent-glow); 
+            padding-left: 20px; 
+        }
+        .gallery-title { 
+            font-size: 2rem; 
+            margin-bottom: 2rem; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 0.5rem; 
+        }
+        .photo-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .photo-card { 
+            background: var(--secondary-bg); 
+            border-radius: 16px; 
+            overflow: hidden; 
+            aspect-ratio: 3/4; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .photo-card:hover { 
+            transform: scale(1.03); 
+        }
+        .photo-card img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .lightbox { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(5,8,15,0.95); 
+            z-index: 2000; 
+            justify-content: center; 
+            align-items: center; 
+        }
         .lightbox.active { display: flex; }
-        .lightbox-img { max-width: 90%; max-height: 85vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
-        .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; transition: 0.2s; }
-        .lightbox-close:hover { color: var(--accent-glow); }
-        footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); }
+        .lightbox-img { 
+            max-width: 90%; 
+            max-height: 85vh; 
+            border-radius: 8px; 
+        }
+        .lightbox-close { 
+            position: absolute; 
+            top: 30px; 
+            right: 40px; 
+            color: white; 
+            font-size: 2.5rem; 
+            cursor: pointer; 
+        }
+        footer { 
+            text-align: center; 
+            padding: 2rem; 
+            background-color: var(--secondary-bg); 
+            margin-top: auto; 
+        }
         @media (max-width: 768px) {
             .profile-header { grid-template-columns: 1fr; }
             .profile-cover-box { height: 350px; }
-            .profile-info { padding: 2rem; }
-            .profile-info h1 { font-size: 2.2rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
         }
     </style>
@@ -65,26 +193,27 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="../aziz/aziz (1).JPG" alt="Sobirov Azizbek">
+                <!-- Asosiy profil rasmi yo'lini Azizbekning papkasiga moslang -->
+                <img src="../Azizbek/azizbek (1).jpg" alt="Azizbek">
             </div>
             <div class="profile-info">
-                <h1>Sobirov Azizbek</h1>
+                <h1>Azizbek</h1>
                 <div class="profile-lyric">
-                    Aziz ismidek aziz sinfdosh yigit,<br>
-                    Hayot yo'llarida dadil odimlar.<br>
-                    Qalbida ezgulik, yuzida tabassum,<br>
-                    Sinf xotirasida yashar bu damlar...
+                    Azizbek — samimiy va do'stga sodiq yigit,<br>
+                    Har bir ishi tartibli, o'ziga xos.<br>
+                    Kelajak sari odimlar dadil,<br>
+                    Sinfimiz faxri, unga g'alaba xos...
                 </div>
             </div>
         </div>
 
-        <h2 class="gallery-title">Foto lavhalar</h2>
+        <h2 class="gallery-title">Foto lavhalar (Azizbek)</h2>
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <span class="lightbox-close" onclick="closeLightbox(forced=true)">&times;</span>
-        <img class="lightbox-img" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" src="">
     </div>
 
     <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p></footer>
@@ -92,39 +221,17 @@
     <script>
         const grid = document.getElementById('photo-grid');
 
-        // aziz (1) dan (12) gacha (Katta harfda)
-        for (let i = 1; i <= 12; i++) {
-            addCard(`../aziz/aziz (${i}).JPG`);
+        // Azizbekning rasmlari tsikli (1 dan 10 gacha deb oldim, rasmlar soniga qarab o'zgartirishingiz mumkin)
+        // GitHub'dagi papka nomi va rasm kengaytmasi (katta-kichik harfga) qat'iy e'tibor bering!
+        for (let i = 1; i <= 10; i++) {
+            addCard(`../Azizbek/azizbek (${i}).jpg`);
         }
-
-        // photo_2026... rasmlar
-        const extras = [
-            'photo_2026-04-30_19-00-38 (3).jpg',
-            'photo_2026-04-30_19-00-38 (4).jpg',
-            'photo_2026-04-30_19-00-38 (5).jpg',
-            'photo_2026-04-30_19-00-52 (2).jpg',
-            'photo_2026-04-30_19-00-52 (4).jpg',
-            'photo_2026-04-30_19-00-52 (6).jpg',
-            'photo_2026-04-30_19-00-52 (8).jpg',
-            'photo_2026-04-30_19-00-52 (11).jpg',
-            'photo_2026-04-30_19-00-52 (12).jpg',
-            'photo_2026-04-30_19-00-52 (13).jpg',
-            'photo_2026-04-30_19-00-59 (3).jpg',
-            'photo_2026-04-30_19-01-20 (2).jpg',
-            'photo_2026-04-30_19-01-20 (4).jpg',
-            'photo_2026-04-30_19-01-20 (6).jpg',
-            'photo_2026-04-30_19-01-20 (8).jpg',
-            'photo_2026-04-30_19-01-20 (14).jpg',
-            'photo_2026-04-30_19-01-20.jpg'
-        ];
-
-        extras.forEach(name => addCard(`../aziz/${name}`));
 
         function addCard(src) {
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openLightbox(src);
-            card.innerHTML = `<img src="${src}" alt="Azizbek rasm" loading="lazy" onerror="this.parentElement.style.display='none'">`;
+            card.innerHTML = `<img src="${src}" alt="Azizbek" loading="lazy" onerror="this.parentElement.style.display='none'">`;
             grid.appendChild(card);
         }
 
@@ -133,14 +240,11 @@
             document.getElementById('lightbox').classList.add('active');
         }
 
-        function closeLightbox(event, forced = false) {
-            if (!forced && event && event.target.id === 'lightbox-img') return;
-            document.getElementById('lightbox').classList.remove('active');
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+            }
         }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox(null, true);
-        });
     </script>
 </body>
 </html>
