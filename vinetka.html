@@ -55,12 +55,6 @@
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .nav-links { 
-            list-style: none; 
-            display: flex; 
-            gap: 2rem; 
-        }
-
         .nav-links a { 
             color: var(--accent-silver); 
             text-decoration: none; 
@@ -82,6 +76,12 @@
             letter-spacing: 2px;
         }
 
+        .vinetka-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
         .vinetka-card {
             display: grid;
             grid-template-columns: 320px 1fr; 
@@ -89,7 +89,6 @@
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 2.5rem;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -163,50 +162,180 @@
     <header>
         <nav>
             <div class="logo">11-V Family</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Bosh sahifa</a></li>
-            </ul>
+            <div class="nav-links"><a href="index.html">Bosh sahifa</a></div>
         </nav>
     </header>
 
     <main class="vinetka-container">
-        <h1 class="page-title">Sinfdoshlar</h1>
+        <h1 class="page-title">Sinfdoshlar ro'yxati</h1>
+        <div class="vinetka-grid">
 
-        <!-- MURODBEK KARTOCHKASI -->
-        <div class="vinetka-card" onclick="window.location.href='Murodbek/murodbek.html'">
-            <div class="vinetka-img-box">
-                <!-- loading="lazy" sahifa ochilganda tezlikni oshirish uchun faqat ko'ringan rasmni yuklaydi -->
-                <img src="Murodbek/photo_2026-04-30_19-01-19 (7).jpg" alt="Murodbek" loading="lazy">
-            </div>
-            <div class="vinetka-info">
-                <h2>Qo'ziyev Murodbek</h2>
-                <div class="vinetka-lyric">
-                    Mardlik va jasurlik — uning belgisi,<br>
-                    Sinfdoshlar ichida o'ziga xos.<br>
-                    Kelajak osmoni — uning dengizi,<br>
-                    Har bir qadamida g'alaba — xos.
+            <div class="vinetka-card" onclick="window.location.href='Gulsevar/gulsevar.html'">
+                <div class="vinetka-img-box">
+                    <img src="Gulsevar/1.jpg" alt="Gulsevar" loading="lazy" onerror="this.src='Gulsevar/1.JPG'">
                 </div>
-                <div class="vinetka-footer">Albomni varaqlash uchun bosing &rarr;</div>
-            </div>
-        </div>
-
-        <!-- MUHABBAT KARTOCHKASI -->
-        <div class="vinetka-card" onclick="window.location.href='Muhabbat/muhabbat.html'">
-            <div class="vinetka-img-box">
-                <img src="Muhabbat/muhabbat(16).jpg" alt="Muhabbat" loading="lazy">
-            </div>
-            <div class="vinetka-info">
-                <h2>Baxtiyorova Muhabbat</h2>
-                <div class="vinetka-lyric">
-                    Mehribon yurakda nur sochib turgan,<br>
-                    Sinfdoshlar sevgan, aziz do'st u.<br>
-                    Kelajak yo'lida baxt topib turgan,<br>
-                    Maktab xotiralari — eng go'zal to'y...
+                <div class="vinetka-info">
+                    <h2>Gulsevar</h2>
+                    <div class="vinetka-lyric">Kelajak sari go'zal maqsadlar ila...</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
                 </div>
-                <div class="vinetka-footer">Albomni varaqlash uchun bosing &rarr;</div>
             </div>
-        </div>
 
+            <div class="vinetka-card" onclick="window.location.href='Intizor/intizor.html'">
+                <div class="vinetka-img-box">
+                    <img src="Intizor/1.jpg" alt="Intizor" loading="lazy" onerror="this.src='Intizor/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Intizor</h2>
+                    <div class="vinetka-lyric">Ganchlar aro yorug' yuzli sinfdoshimiz.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Kamuna/kamuna.html'">
+                <div class="vinetka-img-box">
+                    <img src="Kamuna/1.jpg" alt="Kamuna" loading="lazy" onerror="this.src='Kamuna/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Kamuna</h2>
+                    <div class="vinetka-lyric">Bilim va nafosat timsoli.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Mahmudjon/mahmudjon.html'">
+                <div class="vinetka-img-box">
+                    <img src="Mahmudjon/1.jpg" alt="Mahmudjon" loading="lazy" onerror="this.src='Mahmudjon/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Mahmudjon</h2>
+                    <div class="vinetka-lyric">Sinfimizning tirgagi va do'sti.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Mansur/mansur.html'">
+                <div class="vinetka-img-box">
+                    <img src="Mansur/1.jpg" alt="Mansur" loading="lazy" onerror="this.src='Mansur/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Mansur</h2>
+                    <div class="vinetka-lyric">Har bir qadamda faqat g'alaba.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Muhabbat/muhabbat.html'">
+                <div class="vinetka-img-box">
+                    <img src="Muhabbat/muhabbat (16).jpg" alt="Muhabbat" loading="lazy">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Baxtiyorova Muhabbat</h2>
+                    <div class="vinetka-lyric">Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan aziz do'st.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Murodbek/murodbek.html'">
+                <div class="vinetka-img-box">
+                    <img src="Murodbek/murod (1).JPG" alt="Murodbek" loading="lazy">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Qo'ziyev Murodbek</h2>
+                    <div class="vinetka-lyric">Mardlik va jasurlik — uning belgisi, sinfdoshlar ichida o'ziga xos.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Muxlisa/muxlisa.html'">
+                <div class="vinetka-img-box">
+                    <img src="Muxlisa/1.jpg" alt="Muxlisa" loading="lazy" onerror="this.src='Muxlisa/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Muxlisa</h2>
+                    <div class="vinetka-lyric">Samimiy kulgu va quvnoq xarakter.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Nodirbek/nodirbek.html'">
+                <div class="vinetka-img-box">
+                    <img src="Nodirbek/1.jpg" alt="Nodirbek" loading="lazy" onerror="this.src='Nodirbek/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Nodirbek</h2>
+                    <div class="vinetka-lyric">Katta maqsadlar sari dadil qadam.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Ro\'za/ro\'za.html'">
+                <div class="vinetka-img-box">
+                    <img src="Ro'za/1.jpg" alt="Ro'za" loading="lazy" onerror="this.src='Ro\'za/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Ro'ziyeva Ro'za</h2>
+                    <div class="vinetka-lyric">Sinfimizning eng go'zal chehralaridan biri.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Sanobar/sanobar.html'">
+                <div class="vinetka-img-box">
+                    <img src="Sanobar/1.jpg" alt="Sanobar" loading="lazy" onerror="this.src='Sanobar/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Sanobar</h2>
+                    <div class="vinetka-lyric">Doim yordamga tayyor mehribon do'st.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Sarvinoz/sarvinoz.html'">
+                <div class="vinetka-img-box">
+                    <img src="Sarvinoz/1.jpg" alt="Sarvinoz" loading="lazy" onerror="this.src='Sarvinoz/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Sarvinoz</h2>
+                    <div class="vinetka-lyric">Go'zal qalbli va samimiy sinfdosh.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Sevinchoy/sevinchoy.html'">
+                <div class="vinetka-img-box">
+                    <img src="Sevinchoy/1.jpg" alt="Sevinchoy" loading="lazy" onerror="this.src='Sevinchoy/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Sevinchoy</h2>
+                    <div class="vinetka-lyric">Ismi kabi guruhga doim sevinch ulashuvchi.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Sevrozxon/sevrozxon.html'">
+                <div class="vinetka-img-box">
+                    <img src="Sevrozxon/1.jpg" alt="Sevrozxon" loading="lazy" onerror="this.src='Sevrozxon/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Sevrozxon</h2>
+                    <div class="vinetka-lyric">Tirishqoq va zukko qiz.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+            <div class="vinetka-card" onclick="window.location.href='Shaydo/shaydo.html'">
+                <div class="vinetka-img-box">
+                    <img src="Shaydo/1.jpg" alt="Shaydo" loading="lazy" onerror="this.src='Shaydo/1.JPG'">
+                </div>
+                <div class="vinetka-info">
+                    <h2>Shaydo</h2>
+                    <div class="vinetka-lyric">Maktab xotiralarining eng yorqin qismi.</div>
+                    <div class="vinetka-footer">Albomni ko'rish &rarr;</div>
+                </div>
+            </div>
+
+        </div>
     </main>
 
     <footer>
