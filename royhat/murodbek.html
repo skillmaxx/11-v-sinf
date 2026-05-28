@@ -27,6 +27,7 @@
             top: 0; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+            backdrop-filter: blur(10px);
         }
         nav { 
             display: flex; 
@@ -37,10 +38,11 @@
             margin: auto; 
         }
         .logo { 
-            font-size: 1.8rem; 
+            font-size: 1.5rem; 
             font-weight: bold; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
+            text-shadow: 0 0 10px var(--accent-glow);
         }
         .nav-links { 
             list-style: none; 
@@ -71,6 +73,7 @@
         .back-btn:hover { 
             background: var(--accent-glow); 
             color: white; 
+            box-shadow: 0 0 15px var(--accent-glow);
         }
         .profile-header { 
             display: grid; 
@@ -98,12 +101,12 @@
             justify-content: center; 
         }
         .profile-info h1 { 
-            font-size: 2.8rem; 
+            font-size: 2.5rem; 
             color: #ffffff; 
             margin-bottom: 1.5rem; 
         }
         .profile-lyric { 
-            font-size: 1.3rem; 
+            font-size: 1.2rem; 
             color: var(--accent-silver); 
             font-style: italic; 
             line-height: 1.8; 
@@ -111,11 +114,12 @@
             padding-left: 20px; 
         }
         .gallery-title { 
-            font-size: 2rem; 
+            font-size: 1.8rem; 
             margin-bottom: 2rem; 
             text-transform: uppercase; 
             border-bottom: 1px solid rgba(255,255,255,0.1); 
             padding-bottom: 0.5rem; 
+            letter-spacing: 1px;
         }
         .photo-grid { 
             display: grid; 
@@ -128,10 +132,12 @@
             overflow: hidden; 
             aspect-ratio: 3/4; 
             cursor: pointer; 
-            transition: transform 0.3s; 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            border: 1px solid rgba(255,255,255,0.02);
         }
         .photo-card:hover { 
             transform: scale(1.03); 
+            box-shadow: 0 8px 25px rgba(59,130,246,0.2);
         }
         .photo-card img { 
             width: 100%; 
@@ -155,6 +161,7 @@
             max-width: 90%; 
             max-height: 85vh; 
             border-radius: 8px; 
+            object-fit: contain; 
         }
         .lightbox-close { 
             position: absolute; 
@@ -163,16 +170,21 @@
             color: white; 
             font-size: 2.5rem; 
             cursor: pointer; 
+            user-select: none;
         }
         footer { 
             text-align: center; 
             padding: 2rem; 
             background-color: var(--secondary-bg); 
             margin-top: auto; 
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         @media (max-width: 768px) {
             .profile-header { grid-template-columns: 1fr; }
             .profile-cover-box { height: 350px; }
+            .profile-info { padding: 1.5rem; }
+            .profile-info h1 { font-size: 2rem; }
+            .profile-lyric { font-size: 1rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
         }
     </style>
@@ -193,7 +205,8 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="../Murod/murod (15).JPG" alt="Murodbek">
+                <!-- Asosiy rasm topilmasa kichik .jpg formatini ham tekshiradi -->
+                <img src="../Murod/murod (15).JPG" alt="Murodbek" onerror="this.src='../Murod/murod (15).jpg'">
             </div>
             <div class="profile-info">
                 <h1>Qo'ziyev Murodbek</h1>
@@ -220,27 +233,33 @@
     <script>
         const grid = document.getElementById('photo-grid');
 
-        // murod (1) dan (100) gacha
+        // Murod (1) dan (100) gacha rasmlarni yaratish
         for (let i = 1; i <= 100; i++) {
-            addCard(`../Murod/murod (${i}).JPG`);
+            addCard(`../Murod/murod (${i}).JPG`, i);
         }
 
-        function addCard(src) {
+        function addCard(src, index) {
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openLightbox(src);
-            card.innerHTML = `<img src="${src}" alt="Murodbek" loading="lazy" onerror="this.parentElement.style.display='none'">`;
+            
+            // Agar katta .JPG rasm yuklanishda xato bersa, kichik .jpg variantini sinab ko'radi
+            const altSrc = `../Murod/murod (${index}).jpg`;
+
+            card.innerHTML = `<img src="${src}" alt="Murodbek" loading="lazy" onerror="this.src='${altSrc}'; this.onerror=()=>this.parentElement.parentElement.style.display='none'">`;
             grid.appendChild(card);
         }
 
         function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Orqa fon skrol bo'lmasligi uchun
         }
 
         function closeLightbox(e) {
             if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
                 document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = ''; // Skrolni tiklash
             }
         }
     </script>
