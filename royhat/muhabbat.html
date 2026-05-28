@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baxtiyorova Muxabbat | Shaxsiy Albom</title>
+    <title>Baxtiyorova Muhabbat | Shaxsiy Albom</title>
     <style>
         :root {
             --primary-bg: #0b0f19;
@@ -161,7 +161,7 @@
             max-width: 90%; 
             max-height: 85vh; 
             border-radius: 8px; 
-            object-fit: contain; /* Rasm cho'zilib ketmasligi uchun */
+            object-fit: contain; 
         }
         .lightbox-close { 
             position: absolute; 
@@ -205,11 +205,10 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <!-- Papka nomi katta H harfi bilan tekshirildi -->
-                <img src="../Muhabbat/muhabbat (16).jpg" alt="Muxabbat" onerror="this.src='../Muhabbat/muhabbat (16).JPG'">
+                <img src="../Muhabbat/muhabbat (16).jpg" alt="Muhabbat" onerror="this.src='../Muhabbat/muhabbat (16).JPG'">
             </div>
             <div class="profile-info">
-                <h1>Baxtiyorova Muxabbat</h1>
+                <h1>Baxtiyorova Muhabbat</h1>
                 <div class="profile-lyric">
                     Mehribon yurakda nur sochib turgan,<br>
                     Sinfdoshlar sevgan, aziz do'st u.<br>
@@ -219,7 +218,7 @@
             </div>
         </div>
 
-        <h2 class="gallery-title">Foto lavhalar (Muxabbat)</h2>
+        <h2 class="gallery-title">Foto lavhalar (Muhabbat)</h2>
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
@@ -233,29 +232,32 @@
     <script>
         const grid = document.getElementById('photo-grid');
 
-        // muhabbat (1) dan (65) gacha yuklash
-        for (let i = 1; i <= 65; i++) {
-            const ext = (i <= 14) ? '.JPG' : '.jpg'; 
-            addCard(`../Muhabbat/muhabbat (${i})${ext}`, i);
+        // muhabbat (1).JPG — muhabbat (14).JPG (katta harf)
+        for (let i = 1; i <= 14; i++) {
+            addCard(`../Muhabbat/muhabbat (${i}).JPG`, i, '.jpg');
         }
 
-        function addCard(src, index) {
+        // muhabbat (15).jpg — muhabbat (65).jpg (kichik harf)
+        for (let i = 15; i <= 65; i++) {
+            addCard(`../Muhabbat/muhabbat (${i}).jpg`, i, '.JPG');
+        }
+
+        function addCard(src, index, altExt) {
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.onclick = () => openLightbox(src);
             
-            // Agar rasm (.jpg/.JPG) xato bersa, ikkinchi variantini avtomatik tekshiradi
-            const alternativeExt = (index <= 14) ? '.jpg' : '.JPG';
-            const altSrc = `../Muhabbat/muhabbat (${index})${alternativeExt}`;
+            // Sohiba albomidagi kabi zaxira kengaytma yo'li shakllantirildi
+            const altSrc = `../Muhabbat/muhabbat (${index})${altExt}`;
 
-            card.innerHTML = `<img src="${src}" alt="Muxabbat" loading="lazy" onerror="this.src='${altSrc}'; this.onerror=()=>this.parentElement.parentElement.style.display='none'">`;
+            card.innerHTML = `<img src="${src}" alt="Muhabbat rasm" loading="lazy" onerror="this.src='${altSrc}'; this.onerror=()=>this.parentElement.parentElement.style.display='none'">`;
             grid.appendChild(card);
         }
 
         function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Orqa fon skrol bo'lmasligi uchun
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeLightbox(e) {
