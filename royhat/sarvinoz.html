@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarvinozning Albomi - Bitiruv 2026</title>
+    <style>
+        /* Umumiy fon va dizayn settings */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1a 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Orqaga qaytish tugmasi */
+        .back-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Sarvinoz profili (Muqova qismi) */
+        .profile-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cover-photo {
+            width: 220px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: 0.5s ease;
+        }
+        .cover-photo:hover {
+            transform: scale(1.05);
+            border-color: #00adb5;
+            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.5);
+        }
+
+        .profile-container h1 {
+            margin: 15px 0 5px 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+        }
+
+        .profile-container p {
+            color: #a0a0b8;
+            font-size: 1.1rem;
+        }
+
+        /* Foto galereya setkasi */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        /* Har bitta rasm kartasi */
+        .photo-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s ease;
+        }
+
+        /* Rasm ustiga borganda yaqinlashish va effekt */
+        .photo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Maktab formali rasmlar uchun maxsus ajratuvchi ramka */
+        .special-border {
+            border: 2px solid rgba(255, 215, 0, 0.4) !important; /* Oltin rang fon */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Orqaga vinetka sahifasiga qaytish linki -->
+    <a href="vinetka.html" class="back-btn">← Orqaga qaytish</a>
+
+    <!-- Sarvinoz Muqova qismi -->
+    <div class="profile-container">
+        <!-- Siz so'ragan 6-rasm albom yuzi qilindi -->
+        <img src="Sayt/Sarvinoz/sarvinoz (6).JPG" alt="Sarvinoz" class="cover-photo">
+        <h1>SARVINOZ</h1>
+        <p>11-V Sinf O'quvchisi | Bitiruvchi - 2026</p>
+    </div>
+
+    <!-- Fotoalbom rasmlari -->
+    <div class="gallery-container">
+        
+        <!-- Maktab formali birinchi rasmlar -->
+        <div class="photo-card special-border">
+            <img src="Sayt/Sarvinoz/photo_2026-04-30_19-02-21 (2).jpg" alt="Sarvinoz Maktabda">
+        </div>
+        <div class="photo-card special-border">
+            <img src="Sayt/Sarvinoz/photo_2026-04-30_19-02-21.jpg" alt="Sarvinoz Maktabda">
+        </div>
+
+        <!-- Portret va studiya rasmlari (1 dan 18 gacha) -->
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (1).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (2).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (3).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (4).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (5).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (6).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (7).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (8).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (9).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (10).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (11).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (12).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (13).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (14).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (15).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (16).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (17).JPG" alt="Sarvinoz"></div>
+        <div class="photo-card"><img src="Sayt/Sarvinoz/sarvinoz (18).JPG" alt="Sarvinoz"></div>
+
+    </div>
+
+</body>
+</html>
