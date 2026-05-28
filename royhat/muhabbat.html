@@ -13,172 +13,31 @@
             --accent-glow: #3b82f6;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { 
-            background-color: var(--primary-bg); 
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        header { 
-            background-color: rgba(17, 24, 39, 0.95); 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
-            backdrop-filter: blur(10px);
-        }
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 1rem 5%; 
-            max-width: 1200px; 
-            margin: auto; 
-        }
-        .logo { 
-            font-size: 1.5rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-        .nav-links { 
-            list-style: none; 
-            display: flex; 
-            gap: 2rem; 
-        }
-        .nav-links a { 
-            color: var(--accent-silver); 
-            text-decoration: none; 
-        }
-        .album-container { 
-            padding: 120px 5% 50px; 
-            max-width: 1200px; 
-            margin: auto; 
-            flex: 1; 
-            width: 100%; 
-        }
-        .back-btn { 
-            display: inline-block; 
-            margin-bottom: 2rem; 
-            color: var(--accent-silver); 
-            text-decoration: none; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 0.5rem 1.5rem; 
-            border-radius: 30px; 
-            transition: all 0.3s;
-        }
-        .back-btn:hover { 
-            background: var(--accent-glow); 
-            color: white; 
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .profile-header { 
-            display: grid; 
-            grid-template-columns: 350px 1fr; 
-            background: var(--secondary-bg); 
-            border-radius: 24px; 
-            overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            margin-bottom: 4rem; 
-        }
-        .profile-cover-box { 
-            width: 100%; 
-            height: 450px; 
-            overflow: hidden; 
-        }
-        .profile-cover-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .profile-info { 
-            padding: 3rem; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-        .profile-info h1 { 
-            font-size: 2.5rem; 
-            color: #ffffff; 
-            margin-bottom: 1.5rem; 
-        }
-        .profile-lyric { 
-            font-size: 1.2rem; 
-            color: var(--accent-silver); 
-            font-style: italic; 
-            line-height: 1.8; 
-            border-left: 3px solid var(--accent-glow); 
-            padding-left: 20px; 
-        }
-        .gallery-title { 
-            font-size: 1.8rem; 
-            margin-bottom: 2rem; 
-            text-transform: uppercase; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 0.5rem; 
-            letter-spacing: 1px;
-        }
-        .photo-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 1.5rem; 
-        }
-        .photo-card { 
-            background: var(--secondary-bg); 
-            border-radius: 16px; 
-            overflow: hidden; 
-            aspect-ratio: 3/4; 
-            cursor: pointer; 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            border: 1px solid rgba(255,255,255,0.02);
-        }
-        .photo-card:hover { 
-            transform: scale(1.03); 
-            box-shadow: 0 8px 25px rgba(59,130,246,0.2);
-        }
-        .photo-card img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .lightbox { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(5,8,15,0.95); 
-            z-index: 2000; 
-            justify-content: center; 
-            align-items: center; 
-        }
+        body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--accent-silver); text-decoration: none; }
+        .album-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; flex: 1; width: 100%; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; transition: all 0.3s; }
+        .back-btn:hover { background: var(--accent-glow); color: white; box-shadow: 0 0 15px var(--accent-glow); }
+        .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
+        .profile-cover-box { width: 100%; height: 450px; overflow: hidden; background: #1f2937; }
+        .profile-cover-box img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-info { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .profile-info h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 1.5rem; }
+        .profile-lyric { font-size: 1.2rem; color: var(--accent-silver); font-style: italic; line-height: 1.8; border-left: 3px solid var(--accent-glow); padding-left: 20px; }
+        .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; letter-spacing: 1px; }
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .photo-card { background: var(--secondary-bg); border-radius: 16px; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid rgba(255,255,255,0.02); }
+        .photo-card:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(59,130,246,0.2); }
+        .photo-card img { width: 100%; height: 100%; object-fit: cover; }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,8,15,0.95); z-index: 2000; justify-content: center; align-items: center; }
         .lightbox.active { display: flex; }
-        .lightbox-img { 
-            max-width: 90%; 
-            max-height: 85vh; 
-            border-radius: 8px; 
-            object-fit: contain; 
-        }
-        .lightbox-close { 
-            position: absolute; 
-            top: 30px; 
-            right: 40px; 
-            color: white; 
-            font-size: 2.5rem; 
-            cursor: pointer; 
-            user-select: none;
-        }
-        footer { 
-            text-align: center; 
-            padding: 2rem; 
-            background-color: var(--secondary-bg); 
-            margin-top: auto; 
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        .lightbox-img { max-width: 90%; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; user-select: none; }
+        footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); }
         @media (max-width: 768px) {
             .profile-header { grid-template-columns: 1fr; }
             .profile-cover-box { height: 350px; }
@@ -205,7 +64,11 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="../Muhabbat/muhabbat (16).jpg" alt="Muhabbat" onerror="this.src='../Muhabbat/muhabbat (16).JPG'">
+                <!-- Profil rasmidan bo'shliq olib tashlandi va papka nomi sug'urtalandi -->
+                <img src="../Muhabbat/muhabbat(16).jpg" alt="Muhabbat" 
+                     onerror="this.src='../Muhabbat/muhabbat(16).JPG'; 
+                     this.onerror=()=> { this.src='../muhabbat/muhabbat(16).jpg'; 
+                     this.onerror=()=> { this.src='../muhabbat/muhabbat(16).JPG'; } }">
             </div>
             <div class="profile-info">
                 <h1>Baxtiyorova Muhabbat</h1>
@@ -232,25 +95,30 @@
     <script>
         const grid = document.getElementById('photo-grid');
 
-        // muhabbat (1).JPG — muhabbat (14).JPG (katta harf)
-        for (let i = 1; i <= 14; i++) {
-            addCard(`../Muhabbat/muhabbat (${i}).JPG`, i, '.jpg');
+        // 1 dan 65 gacha rasmlarni yaratish (Fayllardagi bo'shliqlar olib tashlandi)
+        for (let i = 1; i <= 65; i++) {
+            addCard(i);
         }
 
-        // muhabbat (15).jpg — muhabbat (65).jpg (kichik harf)
-        for (let i = 15; i <= 65; i++) {
-            addCard(`../Muhabbat/muhabbat (${i}).jpg`, i, '.JPG');
-        }
-
-        function addCard(src, index, altExt) {
+        function addCard(i) {
             const card = document.createElement('div');
             card.className = 'photo-card';
-            card.onclick = () => openLightbox(src);
             
-            // Sohiba albomidagi kabi zaxira kengaytma yo'li shakllantirildi
-            const altSrc = `../Muhabbat/muhabbat (${index})${altExt}`;
+            // Asosiy va zaxira yo'llar (Bo'shliqsiz: muhabbat(1).jpg ko'rinishida)
+            // Birinchi rasm .JPG ekanini hisobga olib, birlamchi qilib katta harflisi qo'yildi
+            const src1 = i === 1 ? `../Muhabbat/muhabbat(${i}).JPG` : `../Muhabbat/muhabbat(${i}).jpg`;
+            const src2 = i === 1 ? `../Muhabbat/muhabbat(${i}).jpg` : `../Muhabbat/muhabbat(${i}).JPG`;
+            const src3 = `../muhabbat/muhabbat(${i}).jpg`;
+            const src4 = `../muhabbat/muhabbat(${i}).JPG`;
 
-            card.innerHTML = `<img src="${src}" alt="Muhabbat rasm" loading="lazy" onerror="this.src='${altSrc}'; this.onerror=()=>this.parentElement.parentElement.style.display='none'">`;
+            card.onclick = () => openLightbox(card.querySelector('img').src);
+            
+            card.innerHTML = `<img src="${src1}" alt="Muhabbat rasm" loading="lazy" 
+                onerror="this.src='${src2}'; 
+                this.onerror=()=> { this.src='${src3}'; 
+                this.onerror=()=> { this.src='${src4}'; 
+                this.onerror=()=> { this.parentElement.parentElement.style.display='none'; } } }">`;
+                
             grid.appendChild(card);
         }
 
