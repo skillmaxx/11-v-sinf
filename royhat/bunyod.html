@@ -193,7 +193,7 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="../Bunyod/bunyod (3).JPG" alt="Bunyodbek">
+                <img src="bunyod (3).JPG" alt="Bunyodbek">
             </div>
             <div class="profile-info">
                 <h1>Otaboyev Bunyodbek</h1>
@@ -222,7 +222,7 @@
 
         // bunyod (1) dan (5) gacha
         for (let i = 1; i <= 5; i++) {
-            addCard(`../Bunyod/bunyod (${i}).JPG`);
+            addCard(`bunyod (${i}).JPG`);
         }
 
         // Qo'shimcha rasmlar
@@ -234,9 +234,7 @@
             'photo_2026-04-30_19-01-41 (28).jpg'
         ];
 
-        extras.forEach(name => {
-            addCard(`../Bunyod/${name}`);
-        });
+        extras.forEach(name => addCard(name));
 
         function addCard(src) {
             const card = document.createElement('div');
