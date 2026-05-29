@@ -61,8 +61,7 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="photo_2026-04-30_19-00-49 (11).jpg" alt="Murodbek"
-                     onerror="this.src='photo_2026-04-30_19-00-49 (12).jpg'">
+                <img src="../Sayt/Murodbek/photo_2026-04-30_19-00-49 (11).jpg" alt="Murodbek">
             </div>
             <div class="profile-info">
                 <h1>Qo'ziyev Murodbek</h1>
@@ -88,8 +87,9 @@
 
     <script>
         const grid = document.getElementById('photo-grid');
+        const base = '../Sayt/Murodbek/';
 
-        // Hozir papkada mavjud rasmlar (kichik harf .jpg)
+        // photo_2026 rasmlari (hozir mavjud)
         const photos = [
             'photo_2026-04-30_19-00-49 (11).jpg',
             'photo_2026-04-30_19-00-49 (12).jpg',
@@ -109,12 +109,12 @@
             'photo_2026-04-30_19-01-50 (11).jpg'
         ];
 
-        // murod rasmlari yuklanganida ham ko'rinishi uchun (onerror yashiradi)
-        for (let i = 1; i <= 105; i++) {
-            photos.push(`murod (${i}).JPG`);
-        }
+        photos.forEach(name => addCard(base + name));
 
-        photos.forEach(name => addCard(name));
+        // murod rasmlari — yuklanganida o'zi chiqadi, yo'q bo'lsa yashirinadi
+        for (let i = 1; i <= 105; i++) {
+            addCard(`${base}murod (${i}).JPG`);
+        }
 
         function addCard(src) {
             const card = document.createElement('div');
