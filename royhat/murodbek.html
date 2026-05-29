@@ -20,7 +20,7 @@
         .nav-links { list-style: none; display: flex; gap: 2rem; }
         .nav-links a { color: var(--accent-silver); text-decoration: none; }
         .album-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; flex: 1; width: 100%; }
-        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; transition: all 0.3s; }
         .back-btn:hover { background: var(--accent-glow); color: white; }
         .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
         .profile-cover-box { width: 100%; height: 450px; overflow: hidden; }
@@ -61,7 +61,8 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="murod (22).JPG" alt="Murodbek">
+                <img src="photo_2026-04-30_19-00-49 (11).jpg" alt="Murodbek"
+                     onerror="this.src='photo_2026-04-30_19-00-49 (12).jpg'">
             </div>
             <div class="profile-info">
                 <h1>Qo'ziyev Murodbek</h1>
@@ -78,7 +79,7 @@
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <span class="lightbox-close">&times;</span>
         <img class="lightbox-img" id="lightbox-img" src="">
     </div>
@@ -88,13 +89,8 @@
     <script>
         const grid = document.getElementById('photo-grid');
 
-        // murod (1).JPG — murod (105).JPG
-        for (let i = 1; i <= 105; i++) {
-            addCard(`murod (${i}).JPG`);
-        }
-
-        // Qo'shimcha photo_2026-04-30 rasmlari
-        const extraPhotos = [
+        // Hozir papkada mavjud rasmlar (kichik harf .jpg)
+        const photos = [
             'photo_2026-04-30_19-00-49 (11).jpg',
             'photo_2026-04-30_19-00-49 (12).jpg',
             'photo_2026-04-30_19-00-49 (5).jpg',
@@ -113,7 +109,12 @@
             'photo_2026-04-30_19-01-50 (11).jpg'
         ];
 
-        extraPhotos.forEach(name => addCard(name));
+        // murod rasmlari yuklanganida ham ko'rinishi uchun (onerror yashiradi)
+        for (let i = 1; i <= 105; i++) {
+            photos.push(`murod (${i}).JPG`);
+        }
+
+        photos.forEach(name => addCard(name));
 
         function addCard(src) {
             const card = document.createElement('div');
@@ -127,8 +128,11 @@
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
         }
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+            }
         }
     </script>
 </body>
