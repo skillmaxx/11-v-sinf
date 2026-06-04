@@ -11,145 +11,150 @@
             --text-main: #f3f4f6;
             --accent-silver: #c0c5ce;
             --accent-glow: #3b82f6;
-            --accent-red: #ef4444;
+            --accent-red: #f43f5e;
+            --ig-dark: #121212;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
         nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
-        .logo { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        .logo { font-size: 1.6rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
         .nav-links { list-style: none; display: flex; gap: 2rem; }
-        .nav-links a { color: var(--accent-silver); text-decoration: none; }
+        .nav-links a { color: var(--accent-silver); text-decoration: none; font-weight: 500; }
         
         .album-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; flex: 1; width: 100%; }
-        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; }
-        .back-btn:hover { background: var(--accent-glow); color: white; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 500; transition: all 0.3s; }
+        .back-btn:hover { background: var(--accent-glow); color: white; border-color: var(--accent-glow); }
         
         .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
         .profile-cover-box { width: 100%; height: 450px; overflow: hidden; }
         .profile-cover-box img { width: 100%; height: 100%; object-fit: cover; }
         .profile-info { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
-        .profile-info h1 { font-size: 2.8rem; color: #ffffff; margin-bottom: 1.5rem; }
-        .profile-lyric { font-size: 1.3rem; color: var(--accent-silver); font-style: italic; line-height: 1.8; border-left: 3px solid var(--accent-glow); padding-left: 20px; }
+        .profile-info h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 700; }
+        .profile-lyric { font-size: 1.2rem; color: var(--accent-silver); font-style: italic; line-height: 1.8; border-left: 3px solid var(--accent-glow); padding-left: 20px; }
         
-        .gallery-title { font-size: 2rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+        .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; letter-spacing: 1px; }
         
-        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; min-height: 300px; }
+        /* GALEREYA VA BILDIRILGAN GLASS USLUBI (Glassmorphism) */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .photo-card { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px; 
             overflow: hidden; 
             aspect-ratio: 3/4; 
             cursor: pointer; 
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
             position: relative; 
-            contain: layout paint; 
+            contain: layout paint;
         }
         .photo-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
-            border-color: var(--accent-glow);
+            transform: translateY(-6px); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Blur-up silliq yuklanish effekti */
+        /* Rasm ochilishidan oldingi shaffof va o'ta hira Glass holati */
         .photo-card img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
             opacity: 0;
-            filter: blur(20px) scale(1.05);
-            transition: opacity 0.6s ease-out, filter 0.6s ease-out; 
+            filter: blur(25px) scale(1.05);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
         }
+        /* Rasm yuklanishi bilanoq tiniqlashuvchi klass */
         .photo-card img.loaded { opacity: 1; filter: blur(0) scale(1); }
 
-        .load-more-container { text-align: center; margin-top: 3rem; }
-        .load-more-btn { background: transparent; color: var(--text-main); border: 2px solid var(--accent-glow); padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
-        .load-more-btn:hover { background: var(--accent-glow); box-shadow: 0 0 15px var(--accent-glow); }
-
-        /* MULTIFUNKTSIONAL LIGHTBOX */
+        /* INSTAGRAM ANDOZASIDAGI LIGHTBOX MODAL */
         .lightbox { 
             display: none; 
             position: fixed; 
             top: 0; left: 0; 
             width: 100%; height: 100%; 
-            background: rgba(5,8,15,0.98); 
+            background: rgba(0, 0, 0, 0.93); 
             z-index: 2000; 
             justify-content: center; 
             align-items: center; 
             opacity: 0;
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.3s ease;
         }
         .lightbox.active { display: flex; opacity: 1; }
         
         .lightbox-wrapper {
-            background: var(--secondary-bg);
-            border-radius: 20px;
-            max-width: 500px;
+            background: var(--ig-dark);
+            border-radius: 12px;
+            max-width: 480px;
             width: 92%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 92vh;
+            overflow: hidden;
+            border: 1px solid #262626;
             display: flex;
             flex-direction: column;
-            transform: scale(0.95) translateY(15px);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
-        .lightbox.active .lightbox-wrapper { transform: scale(1) translateY(0); }
+        .lightbox.active .lightbox-wrapper { transform: scale(1); }
         
-        .lightbox-img-box { width: 100%; background: #000; position: relative; display: flex; justify-content: center; overflow: hidden; border-radius: 20px 20px 0 0; }
+        /* Rasm joylashuvi */
+        .lightbox-img-box { width: 100%; background: #000; position: relative; display: flex; align-items: center; justify-content: center; min-height: 250px; }
+        .lightbox-img { max-width: 100%; max-height: 48vh; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 12px; right: 15px; color: #fff; font-size: 1.8rem; cursor: pointer; z-index: 10; opacity: 0.7; transition: opacity 0.2s; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .lightbox-close:hover { opacity: 1; }
+
+        /* INSTAGRAM BOTTOM PANEL */
+        .lightbox-panel { padding: 12px 16px; display: flex; flex-direction: column; background: var(--ig-dark); }
         
-        /* YANGI: Rasm uchun maxsus ochilish va yopilish effekti (Zoom In/Out) */
-        .lightbox-img { 
-            max-width: 100%; 
-            max-height: 50vh; 
-            object-fit: contain; 
-            transform: scale(0.8); /* Boshlang'ich holatda kichikroq turadi */
-            opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; /* Pop-up effekti */
+        /* Instagram ikonkalari qatori */
+        .action-bar { display: flex; align-items: center; gap: 16px; padding-bottom: 8px; }
+        .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; }
+        .ig-action-btn:active { transform: scale(1.15); }
+        .ig-action-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
+        
+        /* Like bosilgandagi holat */
+        .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
+        
+        /* Layklar matni */
+        .ig-likes-text { font-size: 0.95rem; font-weight: 600; color: #f5f5f5; margin-bottom: 8px; }
+
+        /* Kommentariyalar ro'yxati (Instagram feed uslubida) */
+        .comments-section { display: flex; flex-direction: column; gap: 8px; }
+        .comments-list { max-height: 130px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; padding-right: 4px; border-bottom: 1px solid #262626; padding-bottom: 10px; }
+        .comment-item { line-height: 1.4; color: #f5f5f6; word-break: break-word; }
+        .comment-user { font-weight: 600; margin-right: 6px; color: #ffffff; }
+        .no-comments { color: #737373; font-size: 0.85rem; font-style: italic; padding: 4px 0; }
+        
+        /* Instagram input qatori */
+        .comment-form { display: flex; align-items: center; gap: 12px; margin-top: 6px; position: relative; }
+        .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; padding-right: 60px; }
+        .comment-input::placeholder { color: #737373; }
+        .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; position: absolute; right: 0; top: 50%; transform: translateY(-50%); transition: color 0.2s; }
+        .comment-submit:hover { color: #ffffff; }
+
+        /* Skrollbar moslashuvi */
+        .comments-list::-webkit-scrollbar { width: 4px; }
+        .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
+
+        footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.02); }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
         }
-        /* Lightbox faollashganda rasm silliq kattalashadi va tiniqlashadi */
-        .lightbox.active .lightbox-img { 
-            transform: scale(1); 
-            opacity: 1; 
-        }
-        
-        .lightbox-close { position: absolute; top: 15px; right: 20px; color: white; font-size: 2rem; cursor: pointer; z-index: 10; text-shadow: 0 2px 4px rgba(0,0,0,0.8); transition: transform 0.2s; }
-        .lightbox-close:hover { transform: scale(1.1); }
 
-        /* INTERAKTIV PANEL (LIKE & COMMENTS) */
-        .lightbox-panel { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-        
-        .action-bar { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
-        .like-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--text-main); font-size: 1.1rem; transition: transform 0.2s; }
-        .like-btn:active { transform: scale(1.2); }
-        .like-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; transition: fill 0.3s, color 0.3s; }
-        .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); }
-        
-        .comments-section { display: flex; flex-direction: column; gap: 10px; }
-        .comments-list { max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 5px; font-size: 0.95rem; }
-        .comment-item { background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 10px; border-left: 2px solid var(--accent-glow); line-height: 1.4; word-break: break-word; }
-        .no-comments { color: rgba(255,255,255,0.3); font-size: 0.9rem; font-style: italic; }
-        
-        .comment-form { display: flex; gap: 8px; margin-top: 5px; }
-        .comment-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 10px 15px; color: white; font-size: 0.9rem; outline: none; }
-        .comment-input:focus { border-color: var(--accent-glow); }
-        .comment-submit { background: var(--accent-glow); border: none; color: white; padding: 0 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-
-        .lightbox-wrapper::-webkit-scrollbar, .comments-list::-webkit-scrollbar { width: 5px; }
-        .lightbox-wrapper::-webkit-scrollbar-thumb, .comments-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-
-        footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; }
-        
         @media (max-width: 768px) {
             .profile-header { grid-template-columns: 1fr; }
-            .profile-cover-box { height: 320px; }
+            .profile-cover-box { height: 300px; }
             .profile-info { padding: 1.5rem; }
             .profile-info h1 { font-size: 2rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
             .lightbox-wrapper { width: 95%; max-height: 85vh; }
+            .lightbox-img { max-height: 42vh; }
         }
     </style>
 </head>
@@ -184,13 +189,8 @@
 
         <h2 class="gallery-title">Foto lavhalar</h2>
         <div class="photo-grid" id="photo-grid"></div>
-
-        <div class="load-more-container" id="load-more-box">
-            <button class="load-more-btn" onclick="loadNextBatch()">Yana yuklash</button>
-        </div>
     </main>
 
-    <!-- INTERAKTIV LIGHTBOX MODAL -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <div class="lightbox-wrapper">
             <div class="lightbox-img-box">
@@ -199,16 +199,21 @@
             </div>
             <div class="lightbox-panel">
                 <div class="action-bar">
-                    <button class="like-btn" id="like-button" onclick="toggleLike()">
+                    <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike()">
                         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                        <span id="like-count">0</span> ta ajoyib
+                    </button>
+                    <button class="ig-action-btn" onclick="document.getElementById('comment-input').focus()">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
                 </div>
+                
+                <div class="ig-likes-text"><span id="like-count">0</span> ta yoqdi</div>
+                
                 <div class="comments-section">
                     <div class="comments-list" id="comments-container"></div>
                     <div class="comment-form">
-                        <input type="text" class="comment-input" id="comment-input" placeholder="Fikr bildirish..." autocomplete="off">
-                        <button class="comment-submit" onclick="addComment()">Yuborish</button>
+                        <input type="text" class="comment-input" id="comment-input" placeholder="Izoh qo'shing..." autocomplete="off">
+                        <button class="comment-submit" onclick="addComment()">Ulashish</button>
                     </div>
                 </div>
             </div>
@@ -222,43 +227,35 @@
         const folderPath = "../Sohiba/sohiba";
         
         const allImages = [];
+        // Sohiba formatidagi barcha 92 ta rasmni massivga yuklaymiz
         for (let i = 1; i <= 22; i++) { allImages.push(`${folderPath} (${i}).jpg`); }
         for (let i = 23; i <= 92; i++) { allImages.push(`${folderPath} (${i}).JPG`); }
 
-        let currentIndex = 0;
-        const batchSize = 12;
         let activeImageSrc = ""; 
 
-        loadNextBatch();
+        // Rasmlarni to'g'ridan-to'g'ri va to'liq yuklash (Tugmasiz cheksiz galereya)
+        allImages.forEach(src => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.onclick = () => openLightbox(src);
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = "Sohiba rasm";
+            img.loading = "lazy"; // Brauzer o'zi skrollga qarab yuklaydi (Lazy load)
+            img.onload = () => img.classList.add('loaded'); // Yuklangach oyna effektidan chiqadi
+            img.onerror = () => card.style.display = 'none';
 
-        function loadNextBatch() {
-            const nextBatch = allImages.slice(currentIndex, currentIndex + batchSize);
-            nextBatch.forEach(src => {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.onclick = () => openLightbox(src);
-                
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = "Sohiba rasm";
-                img.loading = "lazy";
-                img.onload = () => img.classList.add('loaded');
-                img.onerror = () => card.style.display = 'none';
+            card.appendChild(img);
+            grid.appendChild(card);
+        });
 
-                card.appendChild(img);
-                grid.appendChild(card);
-            });
-            currentIndex += batchSize;
-            if (currentIndex >= allImages.length) {
-                document.getElementById('load-more-box').style.display = 'none';
-            }
-        }
-
+        /* LOCALSTORAGE INTEGRATSIYASI */
         function getAppData() {
-            return JSON.parse(localStorage.getItem('11v_family_albom_data')) || {};
+            return JSON.parse(localStorage.getItem('11v_family_sohiba_data')) || {};
         }
         function saveAppData(data) {
-            localStorage.setItem('11v_family_albom_data', JSON.stringify(data));
+            localStorage.setItem('11v_family_sohiba_data', JSON.stringify(data));
         }
 
         function openLightbox(src) {
@@ -269,7 +266,7 @@
             lightbox.style.display = 'flex';
             setTimeout(() => lightbox.classList.add('active'), 10);
             
-            document.body.style.overflow = 'hidden'; 
+            document.body.style.overflow = 'hidden'; // Varaqlashdagi buglarning oldini olish
             renderLikesAndComments();
         }
 
@@ -277,8 +274,8 @@
             const data = getAppData();
             const imgData = data[activeImageSrc] || { likes: 0, liked: false, comments: [] };
             
-            const likeBtn = document.getElementById('like-button');
             document.getElementById('like-count').innerText = imgData.likes;
+            const likeBtn = document.getElementById('like-button');
             if (imgData.liked) {
                 likeBtn.classList.add('liked');
             } else {
@@ -289,12 +286,12 @@
             commentsContainer.innerHTML = '';
             
             if (imgData.comments.length === 0) {
-                commentsContainer.innerHTML = `<span class="no-comments">Birinchi bo'lib fikr qoldiring...</span>`;
+                commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yo'q. Birinchi bo'ling!</span>`;
             } else {
                 imgData.comments.forEach(text => {
                     const div = document.createElement('div');
                     div.className = 'comment-item';
-                    div.innerText = text;
+                    div.innerHTML = `<span class="comment-user">Sinfdosh</span>${text}`;
                     commentsContainer.appendChild(div);
                 });
             }
@@ -346,9 +343,8 @@
         function forceCloseLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
-            document.body.style.overflow = ''; 
-            // 400ms o'tgach rasm silliq kichrayib yopiladi
-            setTimeout(() => lightbox.style.display = 'none', 400);
+            document.body.style.overflow = ''; // Skroll blokini yechish
+            setTimeout(() => lightbox.style.display = 'none', 300);
         }
     </script>
 </body>
