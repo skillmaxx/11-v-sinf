@@ -68,13 +68,13 @@
         }
         .photo-card img.loaded { opacity: 1; filter: blur(0) scale(1); }
 
-        /* INSTAGRAM FULL SCREEN LIGHTBOX MODAL */
+        /* INSTAGRAM POST MODAL DIZAYNI */
         .lightbox { 
             display: none; 
             position: fixed; 
             top: 0; left: 0; 
             width: 100vw; height: 100vh; 
-            background: var(--ig-black); 
+            background: rgba(0, 0, 0, 0.95); 
             z-index: 2000; 
             justify-content: center; 
             align-items: center; 
@@ -83,96 +83,138 @@
         }
         .lightbox.active { display: flex; opacity: 1; }
         
+        /* LINEYA RASM TAGIDAGI BLOK ICHIDA CHEKLANADI */
         .lightbox-wrapper {
-            background: var(--ig-black);
-            width: 100%;
-            height: 100%;
-            position: relative;
+            background: var(--ig-panel);
+            max-width: 460px; /* Rasm kengligidagi ixcham Instagram qutisi */
+            width: 92%;
+            border-radius: 12px;
             overflow: hidden;
-            transform: scale(0.98);
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid #262626;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), max-width 0.3s, width 0.3s, height 0.3s;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
         }
         .lightbox.active .lightbox-wrapper { transform: scale(1); }
         
         .lightbox-img-box { 
             width: 100%; 
-            height: 100%;
             background: var(--ig-black); 
             position: relative; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            overflow: hidden; 
+            overflow: hidden;
         }
         
         .lightbox-img { 
-            max-width: 100%; 
-            max-height: 100vh; 
+            width: 100%;
+            max-height: 65vh; 
             object-fit: contain; 
             cursor: zoom-in;
             user-select: none;
             -webkit-user-drag: none;
             transform-origin: center center;
-            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
         }
-        .lightbox-img.dragging {
-            transition: none !important;
-        }
+        .lightbox-img.dragging { transition: none !important; }
         
         .lightbox-close { 
             position: absolute; 
-            top: 25px; right: 25px; 
+            top: 15px; right: 15px; 
             color: #fff; 
-            font-size: 2.2rem; 
+            font-size: 1.8rem; 
             cursor: pointer; 
-            z-index: 10; 
+            z-index: 25; 
             opacity: 0.6; 
-            visibility: visible;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6); 
+            transition: opacity 0.2s; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
         }
-        .lightbox-close:hover { opacity: 1; transform: scale(1.1); }
+        .lightbox-close:hover { opacity: 1; }
 
-        /* INSTAGRAM BOTTOM FLOATING PANEL (OVERLAY) */
+        /* FAQAT RASM TAGIDA TURUVCHI SHAFFOF PANEL */
         .lightbox-panel { 
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%;
-            padding: 20px 25px; 
+            padding: 14px 18px; 
             display: flex; 
             flex-direction: column; 
-            background: rgba(18, 18, 18, 0.65); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--ig-panel); 
+            border-top: 1px solid #262626;
+            width: 100%; 
             z-index: 5;
-            opacity: 1;
-            visibility: visible;
-            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0.3s;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
+            transition: transform 0.3s ease, opacity 0.3s;
         }
-        .action-bar { display: flex; align-items: center; gap: 24px; justify-content: flex-start; }
+        .action-bar { display: flex; align-items: center; gap: 20px; justify-content: flex-start; }
         
         .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; }
         .ig-action-btn:active { transform: scale(1.2); }
-        .ig-action-btn svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .ig-action-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
         
         .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
 
-        /* INTERFEYS SILLIQ YASHIRILGAN ZOOM HOLATI */
-        .lightbox.zoom-active .lightbox-panel { 
-            transform: translateY(100%); 
-            opacity: 0;
-            visibility: hidden;
+        /* INSTAGRAM DOUBLE TAP BIG HEART ANIMATION */
+        .big-heart {
+            position: absolute;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: #ffffff;
+            font-size: 5rem;
             pointer-events: none;
-        }
-        .lightbox.zoom-active .lightbox-close { 
+            z-index: 15;
             opacity: 0;
-            transform: scale(0.8); 
-            visibility: hidden;
-            pointer-events: none;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
         }
-        .lightbox.zoom-active .lightbox-img { cursor: zoom-out; }
+        @keyframes heartPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            15% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
+            80% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        }
+
+        /* SLIDE UP COMMENT DRAWER (INSTAGRAM MENYUSI) */
+        .comment-drawer {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 70%;
+            background: #0f141c;
+            border-top: 1px solid #262626;
+            border-radius: 16px 16px 0 0;
+            z-index: 30;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 14px 16px;
+        }
+        .comment-drawer.active { transform: translateY(0); }
+        
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #262626; margin-bottom: 10px; }
+        .drawer-title { font-size: 1rem; font-weight: 600; color: #fff; }
+        .drawer-close { color: #737373; font-size: 1.4rem; cursor: pointer; }
+        
+        .comments-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; font-size: 0.9rem; }
+        .comment-item { line-height: 1.4; color: #e5e7eb; word-break: break-word; }
+        .comment-user { font-weight: 600; margin-right: 6px; color: #fff; }
+        .no-comments { color: #737373; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 20px; }
+        
+        .comment-form { display: flex; align-items: center; border-top: 1px solid #262626; padding-top: 10px; margin-top: auto; }
+        .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; }
+        .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+
+        /* FULL REJIM (ZOOM HOLATI) */
+        .lightbox.zoom-active { background: #000; }
+        .lightbox.zoom-active .lightbox-wrapper { max-width: 100vw; width: 100%; max-height: 100vh; height: 100vh; border: none; border-radius: 0; background: #000; }
+        .lightbox.zoom-active .lightbox-img-box { height: 100vh; }
+        .lightbox.zoom-active .lightbox-img { max-height: 100vh; height: 100vh; width: 100vw; cursor: zoom-out; }
+        .lightbox.zoom-active .lightbox-panel,
+        .lightbox.zoom-active .lightbox-close,
+        .lightbox.zoom-active .comment-drawer { display: none !important; }
+
+        .comments-list::-webkit-scrollbar { width: 4px; }
+        .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
 
         footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.02); }
         
@@ -185,10 +227,9 @@
         @media (max-width: 768px) {
             .profile-header { grid-template-columns: 1fr; }
             .profile-cover-box { height: 300px; }
-            .profile-info { padding: 1.5rem; }
-            .profile-info h1 { font-size: 2rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
-            .lightbox-close { top: 15px; right: 20px; font-size: 2rem; }
+            .lightbox-wrapper { width: 95%; }
+            .lightbox-img { max-height: 60vh; }
         }
     </style>
 </head>
@@ -230,18 +271,38 @@
         <div class="lightbox-wrapper">
             <div class="lightbox-img-box" id="img-box">
                 <span class="lightbox-close" onclick="forceCloseLightbox()">&times;</span>
+                
+                <!-- Rasm tegi -->
                 <img class="lightbox-img" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
+                
+                <!-- Double Tap katta oq yurakchasi -->
+                <div class="big-heart" id="pop-heart">&#10084;</div>
             </div>
+            
+            <!-- MAHSUS CHIZIQLI PANEL: FAQAT RASM TAGIDA TURADI -->
             <div class="lightbox-panel">
                 <div class="action-bar">
                     <!-- Like tugmasi -->
                     <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike(event)">
                         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     </button>
-                    <!-- Izoh (Comment) tugmasi - Zoom rejimiga o'tish uchun xizmat qiladi -->
-                    <button class="ig-action-btn" onclick="toggleZoomViaComment(event)">
+                    <!-- Izoh menyusini ochish tugmasi -->
+                    <button class="ig-action-btn" onclick="openCommentDrawer(event)">
                         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
+                </div>
+            </div>
+
+            <!-- INSTAGRAM SLIDE UP COMMENT MENU -->
+            <div class="comment-drawer" id="comment-drawer" onclick="event.stopPropagation()">
+                <div class="drawer-header">
+                    <span class="drawer-title">Izohlar</span>
+                    <span class="drawer-close" onclick="closeCommentDrawer()">&times;</span>
+                </div>
+                <div class="comments-list" id="comments-container"></div>
+                <div class="comment-form">
+                    <input type="text" class="comment-input" id="comment-input" placeholder="Izoh qo'shing..." autocomplete="off">
+                    <button class="comment-submit" onclick="addComment()">Yuborish</button>
                 </div>
             </div>
         </div>
@@ -273,14 +334,14 @@
             grid.appendChild(card);
         });
 
-        /* LOCALSTORAGE DATA */
+        /* LOCALSTORAGE BASE DATA */
         function getAppData() { return JSON.parse(localStorage.getItem('11v_family_sohiba_data')) || {}; }
         function saveAppData(data) { localStorage.setItem('11v_family_sohiba_data', JSON.stringify(data)); }
 
         let activeImageSrc = ""; 
         let isZoomMode = false;
 
-        /* ZOOM PARAMETRLARI */
+        /* ZOOM SENSORI SOZLAMALARI */
         let scale = 1, lastScale = 1;
         let startX = 0, startY = 0;
         let translateX = 0, translateY = 0;
@@ -289,6 +350,7 @@
 
         const lightbox = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
+        const popHeart = document.getElementById('pop-heart');
 
         function openLightbox(src) {
             activeImageSrc = src;
@@ -296,35 +358,110 @@
             lightbox.style.display = 'flex';
             setTimeout(() => lightbox.classList.add('active'), 10);
             document.body.style.overflow = 'hidden'; 
+            closeCommentDrawer();
             resetZoom();
-            renderLikes();
+            renderLikesAndComments();
         }
 
-        function renderLikes() {
+        function renderLikesAndComments() {
             const data = getAppData();
-            const imgData = data[activeImageSrc] || { liked: false };
+            const imgData = data[activeImageSrc] || { liked: false, comments: [] };
+            
+            // Like holati
             const likeBtn = document.getElementById('like-button');
             if (imgData.liked) likeBtn.classList.add('liked');
             else likeBtn.classList.remove('liked');
+
+            // Izohlarni chiqarish
+            const commentsContainer = document.getElementById('comments-container');
+            commentsContainer.innerHTML = '';
+            
+            if (!imgData.comments || imgData.comments.length === 0) {
+                commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yo'q. Birinchi bo'lib yozing!</span>`;
+            } else {
+                imgData.comments.forEach(text => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = `<span class="comment-user">Sinfdosh</span>${text}`;
+                    commentsContainer.appendChild(div);
+                });
+            }
+            commentsContainer.scrollTop = commentsContainer.scrollHeight;
         }
 
         function toggleLike(event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false };
+            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
             data[activeImageSrc].liked = !data[activeImageSrc].liked;
             saveAppData(data);
-            renderLikes();
+            renderLikesAndComments();
         }
 
-        function toggleZoomViaComment(e) {
+        /* INSTAGRAM DOUBLE TAP TO LIKE DETEKTORI */
+        let lastTap = 0;
+        img.addEventListener('click', (e) => {
+            const now = Date.now();
+            if (now - lastTap < 300) {
+                // Double tap tasdiqlandi
+                handleDoubleTapLike();
+            } else {
+                // Single click (Faqat rasm rejimiga o'tish/qaytish)
+                setTimeout(() => {
+                    if (Date.now() - lastTap >= 300 && window.innerWidth > 768) {
+                        toggleZoom();
+                    }
+                }, 300);
+            }
+            lastTap = now;
+        });
+
+        function handleDoubleTapLike() {
+            const data = getAppData();
+            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
+            
+            // Agar hali liked bo'lmasa true qiladi
+            if (!data[activeImageSrc].liked) {
+                data[activeImageSrc].liked = true;
+                saveAppData(data);
+                renderLikesAndComments();
+            }
+
+            // Instagram oq yurakcha pop-up animatsiyasi
+            popHeart.style.animation = 'none';
+            popHeart.offsetHeight; // Reflow yechimi
+            popHeart.style.animation = 'heartPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+        }
+
+        /* COMMENT DRAWER INSTAGRAM SILLIQ FUNKSIYALARI */
+        function openCommentDrawer(e) {
             e.stopPropagation();
-            toggleZoom();
+            document.getElementById('comment-drawer').classList.add('active');
         }
+        function closeCommentDrawer() {
+            document.getElementById('comment-drawer').classList.remove('active');
+        }
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text) return;
 
-        /* SMART TOUCH LOGIKASI */
+            const data = getAppData();
+            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
+            if (!data[activeImageSrc].comments) data[activeImageSrc].comments = [];
+            
+            data[activeImageSrc].comments.push(text);
+            saveAppData(data);
+            
+            input.value = '';
+            renderLikesAndComments();
+        }
+        document.getElementById('comment-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addComment();
+        });
+
+        /* TELEFONDA EKRAV URILGANDA (TOUCH SENSORLAR BILAN SILLIQ ISHLASH) */
         let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
-
         img.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
                 touchStartTime = Date.now();
@@ -367,13 +504,24 @@
                 const diffTime = Date.now() - touchStartTime;
                 const diffX = Math.abs(e.changedTouches[0].clientX - touchStartX);
                 const diffY = Math.abs(e.changedTouches[0].clientY - touchStartY);
-                if (diffTime < 220 && diffX < 8 && diffY < 8) {
-                    toggleZoom();
+                
+                if (diffTime < 250 && diffX < 8 && diffY < 8) {
+                    const now = Date.now();
+                    if (now - lastTap < 300) {
+                        handleDoubleTapLike();
+                    } else {
+                        setTimeout(() => {
+                            if (Date.now() - lastTap >= 300) {
+                                toggleZoom();
+                            }
+                        }, 300);
+                    }
+                    lastTap = now;
                 }
             }
         });
 
-        /* DESKTOP UCHUN SICHQONCHA */
+        /* KOMPYUTER SICHQONCHASI REJIMLARI */
         let isMouseDown = false;
         img.addEventListener('mousedown', (e) => {
             if (!isZoomMode || scale <= 1) return;
@@ -383,31 +531,20 @@
             startX = e.clientX - translateX;
             startY = e.clientY - translateY;
         });
-
         window.addEventListener('mousemove', (e) => {
             if (!isZoomMode || !isMouseDown || scale <= 1) return;
             translateX = e.clientX - startX;
             translateY = e.clientY - startY;
             updateTransform();
         });
-
-        window.addEventListener('mouseup', () => { 
-            isMouseDown = false; 
-            img.classList.remove('dragging');
-        });
-
+        window.addEventListener('mouseup', () => { isMouseDown = false; img.classList.remove('dragging'); });
         img.addEventListener('wheel', (e) => {
             if (!isZoomMode) return;
             e.preventDefault();
-            img.classList.add('dragging');
             if (e.deltaY < 0) scale = Math.min(scale + 0.15, 4);
             else scale = Math.max(1, scale - 0.15);
             if (scale === 1) { translateX = 0; translateY = 0; }
             updateTransform();
-        });
-
-        img.addEventListener('click', (e) => {
-            if (window.innerWidth > 768) toggleZoom();
         });
 
         function toggleZoom() {
@@ -420,14 +557,8 @@
             }
         }
 
-        function resetZoom() {
-            scale = 1; translateX = 0; translateY = 0;
-            updateTransform();
-        }
-
-        function updateTransform() {
-            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-        }
+        function resetZoom() { scale = 1; translateX = 0; translateY = 0; updateTransform(); }
+        function updateTransform() { img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`; }
 
         function closeLightbox(event) {
             if (event.target.id === 'lightbox' || event.target.id === 'img-box') {
