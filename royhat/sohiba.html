@@ -13,6 +13,7 @@
             --accent-glow: #3b82f6;
             --accent-red: #f43f5e;
             --ig-black: #000000;
+            --ig-panel: #121212;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
@@ -104,7 +105,6 @@
             overflow: hidden; 
         }
         
-        /* YANGI: Silliq transformatsiyaga ega rasm tegi */
         .lightbox-img { 
             max-width: 100%; 
             max-height: 100vh; 
@@ -113,10 +113,8 @@
             user-select: none;
             -webkit-user-drag: none;
             transform-origin: center center;
-            /* Interfeys o'zgarganda rasm mayin siljiydi va kattalashadi */
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
         }
-        /* Sudrash yoki chimchilash vaqtida animatsiyani o'chiramiz (kechikmaslik uchun) */
         .lightbox-img.dragging {
             transition: none !important;
         }
@@ -143,14 +141,13 @@
             padding: 20px 25px; 
             display: flex; 
             flex-direction: column; 
-            background: rgba(18, 18, 18, 0.65); /* Instagram premium shaffoflik */
+            background: rgba(18, 18, 18, 0.65); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             z-index: 5;
             opacity: 1;
             visibility: visible;
-            /* Pastga silliq sirg'alib tushish animatsiyasi */
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0.3s;
             padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
         }
@@ -162,16 +159,16 @@
         
         .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
 
-        /* YANGI: YUMSHOQ EFFEKTLI TO'LIQ EKRAV ZOOM HOLATI */
+        /* INTERFEYS SILLIQ YASHIRILGAN ZOOM HOLATI */
         .lightbox.zoom-active .lightbox-panel { 
-            transform: translateY(100%); /* Panel pastga sirg'alib tushadi */
+            transform: translateY(100%); 
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
         .lightbox.zoom-active .lightbox-close { 
             opacity: 0;
-            transform: scale(0.8); /* Tugma mayin kichrayib yo'qoladi */
+            transform: scale(0.8); 
             visibility: hidden;
             pointer-events: none;
         }
@@ -237,11 +234,13 @@
             </div>
             <div class="lightbox-panel">
                 <div class="action-bar">
+                    <!-- Like tugmasi -->
                     <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike(event)">
                         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     </button>
-                    <button class="ig-action-btn" onclick="toggleZoomViaIcon(event)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4h4M20 4h-4v4M4 16v4h4M20 20h-4v-4"/></svg>
+                    <!-- Izoh (Comment) tugmasi - Zoom rejimiga o'tish uchun xizmat qiladi -->
+                    <button class="ig-action-btn" onclick="toggleZoomViaComment(event)">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
                 </div>
             </div>
@@ -318,12 +317,12 @@
             renderLikes();
         }
 
-        function toggleZoomViaIcon(e) {
+        function toggleZoomViaComment(e) {
             e.stopPropagation();
             toggleZoom();
         }
 
-        /* SMART SMART SENSOR LOGIKASI */
+        /* SMART TOUCH LOGIKASI */
         let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
 
         img.addEventListener('touchstart', (e) => {
@@ -333,7 +332,7 @@
                 touchStartY = e.touches[0].clientY;
                 if (isZoomMode && scale > 1) {
                     isDragging = true;
-                    img.classList.add('dragging'); // Animatsiyani vaqtincha o'chirish
+                    img.classList.add('dragging');
                     startX = e.touches[0].clientX - translateX;
                     startY = e.touches[0].clientY - translateY;
                 }
@@ -363,7 +362,7 @@
 
         img.addEventListener('touchend', (e) => {
             isDragging = false;
-            img.classList.remove('dragging'); // Animatsiyani qaytarish
+            img.classList.remove('dragging');
             if (e.changedTouches.length === 1) {
                 const diffTime = Date.now() - touchStartTime;
                 const diffX = Math.abs(e.changedTouches[0].clientX - touchStartX);
@@ -374,7 +373,7 @@
             }
         });
 
-        /* KOMPYUTER SICHQONCHASI */
+        /* DESKTOP UCHUN SICHQONCHA */
         let isMouseDown = false;
         img.addEventListener('mousedown', (e) => {
             if (!isZoomMode || scale <= 1) return;
