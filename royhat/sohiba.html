@@ -12,9 +12,9 @@
             --accent-silver: #c0c5ce;
             --accent-glow: #3b82f6;
             --accent-red: #f43f5e;
-            --ig-dark: #121212;
+            --ig-black: #000000;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
         header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
@@ -36,7 +36,7 @@
         
         .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; letter-spacing: 1px; }
         
-        /* GALEREYA VA BILDIRILGAN GLASS USLUBI (Glassmorphism) */
+        /* CHEKSIZ GALEREYA VA GLASS USLUBI */
         .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .photo-card { 
             background: rgba(255, 255, 255, 0.03); 
@@ -57,7 +57,6 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Rasm ochilishidan oldingi shaffof va o'ta hira Glass holati */
         .photo-card img { 
             width: 100%; 
             height: 100%; 
@@ -66,16 +65,15 @@
             filter: blur(25px) scale(1.05);
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
         }
-        /* Rasm yuklanishi bilanoq tiniqlashuvchi klass */
         .photo-card img.loaded { opacity: 1; filter: blur(0) scale(1); }
 
-        /* INSTAGRAM ANDOZASIDAGI LIGHTBOX MODAL */
+        /* INSTAGRAM FULL SCREEN LIGHTBOX MODAL */
         .lightbox { 
             display: none; 
             position: fixed; 
             top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.93); 
+            width: 100vw; height: 100vh; 
+            background: var(--ig-black); 
             z-index: 2000; 
             justify-content: center; 
             align-items: center; 
@@ -85,59 +83,99 @@
         .lightbox.active { display: flex; opacity: 1; }
         
         .lightbox-wrapper {
-            background: var(--ig-dark);
-            border-radius: 12px;
-            max-width: 480px;
-            width: 92%;
-            max-height: 92vh;
+            background: var(--ig-black);
+            width: 100%;
+            height: 100%;
+            position: relative;
             overflow: hidden;
-            border: 1px solid #262626;
-            display: flex;
-            flex-direction: column;
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transform: scale(0.98);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .lightbox.active .lightbox-wrapper { transform: scale(1); }
         
-        /* Rasm joylashuvi */
-        .lightbox-img-box { width: 100%; background: #000; position: relative; display: flex; align-items: center; justify-content: center; min-height: 250px; }
-        .lightbox-img { max-width: 100%; max-height: 48vh; object-fit: contain; }
-        .lightbox-close { position: absolute; top: 12px; right: 15px; color: #fff; font-size: 1.8rem; cursor: pointer; z-index: 10; opacity: 0.7; transition: opacity 0.2s; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
-        .lightbox-close:hover { opacity: 1; }
-
-        /* INSTAGRAM BOTTOM PANEL */
-        .lightbox-panel { padding: 12px 16px; display: flex; flex-direction: column; background: var(--ig-dark); }
+        .lightbox-img-box { 
+            width: 100%; 
+            height: 100%;
+            background: var(--ig-black); 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+        }
         
-        /* Instagram ikonkalari qatori */
-        .action-bar { display: flex; align-items: center; gap: 16px; padding-bottom: 8px; }
+        /* YANGI: Silliq transformatsiyaga ega rasm tegi */
+        .lightbox-img { 
+            max-width: 100%; 
+            max-height: 100vh; 
+            object-fit: contain; 
+            cursor: zoom-in;
+            user-select: none;
+            -webkit-user-drag: none;
+            transform-origin: center center;
+            /* Interfeys o'zgarganda rasm mayin siljiydi va kattalashadi */
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+        /* Sudrash yoki chimchilash vaqtida animatsiyani o'chiramiz (kechikmaslik uchun) */
+        .lightbox-img.dragging {
+            transition: none !important;
+        }
+        
+        .lightbox-close { 
+            position: absolute; 
+            top: 25px; right: 25px; 
+            color: #fff; 
+            font-size: 2.2rem; 
+            cursor: pointer; 
+            z-index: 10; 
+            opacity: 0.6; 
+            visibility: visible;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6); 
+        }
+        .lightbox-close:hover { opacity: 1; transform: scale(1.1); }
+
+        /* INSTAGRAM BOTTOM FLOATING PANEL (OVERLAY) */
+        .lightbox-panel { 
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            padding: 20px 25px; 
+            display: flex; 
+            flex-direction: column; 
+            background: rgba(18, 18, 18, 0.65); /* Instagram premium shaffoflik */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 5;
+            opacity: 1;
+            visibility: visible;
+            /* Pastga silliq sirg'alib tushish animatsiyasi */
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0.3s;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
+        }
+        .action-bar { display: flex; align-items: center; gap: 24px; justify-content: flex-start; }
+        
         .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; }
-        .ig-action-btn:active { transform: scale(1.15); }
-        .ig-action-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .ig-action-btn:active { transform: scale(1.2); }
+        .ig-action-btn svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; }
         
-        /* Like bosilgandagi holat */
         .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
-        
-        /* Layklar matni */
-        .ig-likes-text { font-size: 0.95rem; font-weight: 600; color: #f5f5f5; margin-bottom: 8px; }
 
-        /* Kommentariyalar ro'yxati (Instagram feed uslubida) */
-        .comments-section { display: flex; flex-direction: column; gap: 8px; }
-        .comments-list { max-height: 130px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; padding-right: 4px; border-bottom: 1px solid #262626; padding-bottom: 10px; }
-        .comment-item { line-height: 1.4; color: #f5f5f6; word-break: break-word; }
-        .comment-user { font-weight: 600; margin-right: 6px; color: #ffffff; }
-        .no-comments { color: #737373; font-size: 0.85rem; font-style: italic; padding: 4px 0; }
-        
-        /* Instagram input qatori */
-        .comment-form { display: flex; align-items: center; gap: 12px; margin-top: 6px; position: relative; }
-        .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; padding-right: 60px; }
-        .comment-input::placeholder { color: #737373; }
-        .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; position: absolute; right: 0; top: 50%; transform: translateY(-50%); transition: color 0.2s; }
-        .comment-submit:hover { color: #ffffff; }
-
-        /* Skrollbar moslashuvi */
-        .comments-list::-webkit-scrollbar { width: 4px; }
-        .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
+        /* YANGI: YUMSHOQ EFFEKTLI TO'LIQ EKRAV ZOOM HOLATI */
+        .lightbox.zoom-active .lightbox-panel { 
+            transform: translateY(100%); /* Panel pastga sirg'alib tushadi */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .lightbox.zoom-active .lightbox-close { 
+            opacity: 0;
+            transform: scale(0.8); /* Tugma mayin kichrayib yo'qoladi */
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .lightbox.zoom-active .lightbox-img { cursor: zoom-out; }
 
         footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.02); }
         
@@ -153,8 +191,7 @@
             .profile-info { padding: 1.5rem; }
             .profile-info h1 { font-size: 2rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
-            .lightbox-wrapper { width: 95%; max-height: 85vh; }
-            .lightbox-img { max-height: 42vh; }
+            .lightbox-close { top: 15px; right: 20px; font-size: 2rem; }
         }
     </style>
 </head>
@@ -191,30 +228,21 @@
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
+    <!-- INSTAGRAM FULL SCREEN LIGHTBOX MODAL -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <div class="lightbox-wrapper">
-            <div class="lightbox-img-box">
+            <div class="lightbox-img-box" id="img-box">
                 <span class="lightbox-close" onclick="forceCloseLightbox()">&times;</span>
                 <img class="lightbox-img" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
             </div>
             <div class="lightbox-panel">
                 <div class="action-bar">
-                    <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike()">
+                    <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike(event)">
                         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     </button>
-                    <button class="ig-action-btn" onclick="document.getElementById('comment-input').focus()">
-                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <button class="ig-action-btn" onclick="toggleZoomViaIcon(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4h4M20 4h-4v4M4 16v4h4M20 20h-4v-4"/></svg>
                     </button>
-                </div>
-                
-                <div class="ig-likes-text"><span id="like-count">0</span> ta yoqdi</div>
-                
-                <div class="comments-section">
-                    <div class="comments-list" id="comments-container"></div>
-                    <div class="comment-form">
-                        <input type="text" class="comment-input" id="comment-input" placeholder="Izoh qo'shing..." autocomplete="off">
-                        <button class="comment-submit" onclick="addComment()">Ulashish</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -225,15 +253,11 @@
     <script>
         const grid = document.getElementById('photo-grid');
         const folderPath = "../Sohiba/sohiba";
-        
         const allImages = [];
-        // Sohiba formatidagi barcha 92 ta rasmni massivga yuklaymiz
+        
         for (let i = 1; i <= 22; i++) { allImages.push(`${folderPath} (${i}).jpg`); }
         for (let i = 23; i <= 92; i++) { allImages.push(`${folderPath} (${i}).JPG`); }
 
-        let activeImageSrc = ""; 
-
-        // Rasmlarni to'g'ridan-to'g'ri va to'liq yuklash (Tugmasiz cheksiz galereya)
         allImages.forEach(src => {
             const card = document.createElement('div');
             card.className = 'photo-card';
@@ -242,109 +266,182 @@
             const img = document.createElement('img');
             img.src = src;
             img.alt = "Sohiba rasm";
-            img.loading = "lazy"; // Brauzer o'zi skrollga qarab yuklaydi (Lazy load)
-            img.onload = () => img.classList.add('loaded'); // Yuklangach oyna effektidan chiqadi
+            img.loading = "lazy"; 
+            img.onload = () => img.classList.add('loaded');
             img.onerror = () => card.style.display = 'none';
 
             card.appendChild(img);
             grid.appendChild(card);
         });
 
-        /* LOCALSTORAGE INTEGRATSIYASI */
-        function getAppData() {
-            return JSON.parse(localStorage.getItem('11v_family_sohiba_data')) || {};
-        }
-        function saveAppData(data) {
-            localStorage.setItem('11v_family_sohiba_data', JSON.stringify(data));
-        }
+        /* LOCALSTORAGE DATA */
+        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_sohiba_data')) || {}; }
+        function saveAppData(data) { localStorage.setItem('11v_family_sohiba_data', JSON.stringify(data)); }
+
+        let activeImageSrc = ""; 
+        let isZoomMode = false;
+
+        /* ZOOM PARAMETRLARI */
+        let scale = 1, lastScale = 1;
+        let startX = 0, startY = 0;
+        let translateX = 0, translateY = 0;
+        let isDragging = false;
+        let startDist = 0;
+
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
 
         function openLightbox(src) {
             activeImageSrc = src;
-            document.getElementById('lightbox-img').src = src;
-            
-            const lightbox = document.getElementById('lightbox');
+            img.src = src;
             lightbox.style.display = 'flex';
             setTimeout(() => lightbox.classList.add('active'), 10);
-            
-            document.body.style.overflow = 'hidden'; // Varaqlashdagi buglarning oldini olish
-            renderLikesAndComments();
+            document.body.style.overflow = 'hidden'; 
+            resetZoom();
+            renderLikes();
         }
 
-        function renderLikesAndComments() {
+        function renderLikes() {
             const data = getAppData();
-            const imgData = data[activeImageSrc] || { likes: 0, liked: false, comments: [] };
-            
-            document.getElementById('like-count').innerText = imgData.likes;
+            const imgData = data[activeImageSrc] || { liked: false };
             const likeBtn = document.getElementById('like-button');
-            if (imgData.liked) {
-                likeBtn.classList.add('liked');
-            } else {
-                likeBtn.classList.remove('liked');
-            }
-
-            const commentsContainer = document.getElementById('comments-container');
-            commentsContainer.innerHTML = '';
-            
-            if (imgData.comments.length === 0) {
-                commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yo'q. Birinchi bo'ling!</span>`;
-            } else {
-                imgData.comments.forEach(text => {
-                    const div = document.createElement('div');
-                    div.className = 'comment-item';
-                    div.innerHTML = `<span class="comment-user">Sinfdosh</span>${text}`;
-                    commentsContainer.appendChild(div);
-                });
-            }
-            commentsContainer.scrollTop = commentsContainer.scrollHeight;
+            if (imgData.liked) likeBtn.classList.add('liked');
+            else likeBtn.classList.remove('liked');
         }
 
-        function toggleLike() {
+        function toggleLike(event) {
+            event.stopPropagation();
             const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { likes: 0, liked: false, comments: [] };
-            
-            const imgData = data[activeImageSrc];
-            if (imgData.liked) {
-                imgData.likes = Math.max(0, imgData.likes - 1);
-                imgData.liked = false;
-            } else {
-                imgData.likes += 1;
-                imgData.liked = true;
+            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false };
+            data[activeImageSrc].liked = !data[activeImageSrc].liked;
+            saveAppData(data);
+            renderLikes();
+        }
+
+        function toggleZoomViaIcon(e) {
+            e.stopPropagation();
+            toggleZoom();
+        }
+
+        /* SMART SMART SENSOR LOGIKASI */
+        let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
+
+        img.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartTime = Date.now();
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                if (isZoomMode && scale > 1) {
+                    isDragging = true;
+                    img.classList.add('dragging'); // Animatsiyani vaqtincha o'chirish
+                    startX = e.touches[0].clientX - translateX;
+                    startY = e.touches[0].clientY - translateY;
+                }
+            } else if (e.touches.length === 2 && isZoomMode) {
+                isDragging = false;
+                img.classList.add('dragging');
+                startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                lastScale = scale;
             }
-            
-            saveAppData(data);
-            renderLikesAndComments();
-        }
-
-        function addComment() {
-            const input = document.getElementById('comment-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { likes: 0, liked: false, comments: [] };
-            
-            data[activeImageSrc].comments.push(text);
-            saveAppData(data);
-            
-            input.value = '';
-            renderLikesAndComments();
-        }
-
-        document.getElementById('comment-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') addComment();
         });
 
+        img.addEventListener('touchmove', (e) => {
+            if (!isZoomMode) return;
+            if (e.touches.length === 1 && isDragging && scale > 1) {
+                e.preventDefault();
+                translateX = e.touches[0].clientX - startX;
+                translateY = e.touches[0].clientY - startY;
+                updateTransform();
+            } else if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                scale = Math.max(1, Math.min(lastScale * (dist / startDist), 4));
+                if (scale === 1) { translateX = 0; translateY = 0; }
+                updateTransform();
+            }
+        });
+
+        img.addEventListener('touchend', (e) => {
+            isDragging = false;
+            img.classList.remove('dragging'); // Animatsiyani qaytarish
+            if (e.changedTouches.length === 1) {
+                const diffTime = Date.now() - touchStartTime;
+                const diffX = Math.abs(e.changedTouches[0].clientX - touchStartX);
+                const diffY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+                if (diffTime < 220 && diffX < 8 && diffY < 8) {
+                    toggleZoom();
+                }
+            }
+        });
+
+        /* KOMPYUTER SICHQONCHASI */
+        let isMouseDown = false;
+        img.addEventListener('mousedown', (e) => {
+            if (!isZoomMode || scale <= 1) return;
+            e.preventDefault();
+            isMouseDown = true;
+            img.classList.add('dragging');
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isZoomMode || !isMouseDown || scale <= 1) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => { 
+            isMouseDown = false; 
+            img.classList.remove('dragging');
+        });
+
+        img.addEventListener('wheel', (e) => {
+            if (!isZoomMode) return;
+            e.preventDefault();
+            img.classList.add('dragging');
+            if (e.deltaY < 0) scale = Math.min(scale + 0.15, 4);
+            else scale = Math.max(1, scale - 0.15);
+            if (scale === 1) { translateX = 0; translateY = 0; }
+            updateTransform();
+        });
+
+        img.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) toggleZoom();
+        });
+
+        function toggleZoom() {
+            isZoomMode = !isZoomMode;
+            if (isZoomMode) {
+                lightbox.classList.add('zoom-active');
+            } else {
+                lightbox.classList.remove('zoom-active');
+                resetZoom();
+            }
+        }
+
+        function resetZoom() {
+            scale = 1; translateX = 0; translateY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
+
         function closeLightbox(event) {
-            if (event.target.classList.contains('lightbox')) {
+            if (event.target.id === 'lightbox' || event.target.id === 'img-box') {
                 forceCloseLightbox();
             }
         }
 
         function forceCloseLightbox() {
-            const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
-            document.body.style.overflow = ''; // Skroll blokini yechish
-            setTimeout(() => lightbox.style.display = 'none', 300);
+            lightbox.classList.remove('zoom-active');
+            isZoomMode = false;
+            document.body.style.overflow = ''; 
+            setTimeout(() => lightbox.style.display = 'none', 350);
         }
     </script>
 </body>
