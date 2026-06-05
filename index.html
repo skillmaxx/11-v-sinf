@@ -73,7 +73,7 @@
             transition: all 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: #ffffff;
             text-shadow: 0 0 10px var(--accent-glow);
         }
@@ -100,7 +100,6 @@
             transform-origin: center;
         }
 
-        /* X shaklga o'tish animatsiyasi */
         .hamburger.active span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
@@ -146,7 +145,7 @@
             transition: all 0.3s ease;
         }
 
-        .mobile-menu a:hover {
+        .mobile-menu a:hover, .mobile-menu a.active {
             color: #ffffff;
             text-shadow: 0 0 15px var(--accent-glow);
         }
@@ -192,7 +191,7 @@
             font-weight: 400;
         }
 
-        section {
+        #albomlar {
             padding: 120px 5% 80px;
             max-width: 1200px;
             margin: auto;
@@ -235,16 +234,13 @@
             overflow: hidden;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
-            min-height: 450px;
+            min-height: 480px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        .album-link:hover .photo-card,
-        .photo-card:hover {
+        .album-link:hover .photo-card {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--glass-border-hover);
             box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.25);
@@ -253,18 +249,19 @@
 
         .photo-card img {
             width: 100%;
-            height: 350px;
+            height: 360px;
             object-fit: cover;
             border-bottom: 1px solid var(--glass-border);
         }
 
         .photo-info {
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
+            margin: auto 0;
         }
 
         .photo-info h3 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 0.5px;
@@ -272,7 +269,7 @@
 
         .photo-info p {
             color: #94a3b8;
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin-top: 0.4rem;
             font-weight: 500;
         }
@@ -290,14 +287,13 @@
         /* ===== MOBIL ===== */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-
             .hamburger { display: flex; }
-
             .hero-title { font-size: 2.8rem; }
             .hero-subtitle { font-size: 1.1rem; }
             #bosh-sahifa { background-attachment: scroll; }
             .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .photo-card { min-height: 250px; border-radius: 20px; }
+            .photo-card { min-height: 400px; border-radius: 20px; }
+            .photo-card img { height: 280px; }
         }
     </style>
 </head>
@@ -307,11 +303,11 @@
         <nav>
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
-                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="index.html" class="active">Bosh sahifa</a></li>
                 <li><a href="vinetka.html">Vinetka rasmlari</a></li>
-                <li><a href="#esdalik-rasmlar">Esdalik rasmlar</a></li>
+                <!-- TUZATILDI: Yo'naltirish esdalik.html ga o'rnatildi -->
+                <li><a href="esdalik.html">Esdalik rasmlar</a></li>
             </ul>
-            <!-- Hamburger tugmasi -->
             <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
                 <span></span>
                 <span></span>
@@ -322,9 +318,10 @@
 
     <!-- Mobil menyu overlay -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html"     onclick="closeMenu()">Bosh sahifa</a>
-        <a href="vinetka.html"   onclick="closeMenu()">Vinetka rasmlari</a>
-        <a href="#esdalik-rasmlar" onclick="closeMenu()">Esdalik rasmlar</a>
+        <a href="index.html" class="active" onclick="closeMenu()">Bosh sahifa</a>
+        <a href="vinetka.html" onclick="closeMenu()">Vinetka rasmlari</a>
+        <!-- TUZATILDI: Mobil menyuda ham esdalik.html o'rnatildi -->
+        <a href="esdalik.html" onclick="closeMenu()">Esdalik rasmlar</a>
     </div>
 
     <section id="bosh-sahifa">
@@ -334,27 +331,44 @@
         </div>
     </section>
 
-    <section id="esdalik-rasmlar">
+    <section id="albomlar">
         <div class="title-wrapper">
-            <h2 class="section-title">Esdalik Rasmlar</h2>
+            <h2 class="section-title">Foto Albomlar</h2>
         </div>
         
         <div class="gallery-grid">
+            <!-- 1. VINETKA ALBOMI -->
             <a href="vinetka.html" class="album-link">
                 <div class="photo-card">
+                    <img src="DSC08744.JPG" alt="Vinetka Albomi">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka rasmlari</h3>
+                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sinfdoshlar Albomlari</h3>
+                        <p>Shaxsiy vinetka va she'rlar</p>
                     </div>
                 </div>
             </a>
 
-            <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500" alt="Esdalik 2">
-                <div class="photo-info">
-                    <h3>Sinfdoshlar bilan</h3>
-                    <p>Maktab hovlisida</p>
+            <!-- 2. ICHAN QALA SAYOHATI -->
+            <a href="royhat/ichanqala.html" class="album-link">
+                <div class="photo-card">
+                    <img src="Ichanqala/ichanqala (145).JPG" alt="Ichan Qala Sayohati">
+                    <div class="photo-info">
+                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ichan Qala Sayohati</h3>
+                        <p>Xiva sayohati xotiralari</p>
+                    </div>
                 </div>
-            </div>
+            </a>
+
+            <!-- 3. ESDALIK RASMLARI -->
+            <a href="esdalik.html" class="album-link">
+                <div class="photo-card">
+                    <img src="Esdalik/esdalik (1).JPG" onerror="this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500'" alt="Esdalik Rasmlar">
+                    <div class="photo-info">
+                        <h3 style="background: linear-gradient(to right, #ec4899, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Esdalik Rasmlar</h3>
+                        <p>Maktab hayotidan lavhalar</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -369,7 +383,6 @@
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
-            // Fon scroll'ini bloklash
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
 
