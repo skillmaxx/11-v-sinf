@@ -181,7 +181,6 @@
         <!-- PROFIL QISMI (XURSHIDA REJIMI) -->
         <div class="profile-header">
             <div class="profile-cover-box">
-                <!-- Albom yuzi sifatida xurshida_ab (1).JPG o'rnatildi -->
                 <img src="../Sayt/Xurshida_ab/xurshida_ab (1).JPG" alt="Xurshida Albom Yuzi" onload="this.style.opacity=1" style="opacity:0; transition: opacity 0.5s;">
             </div>
             <div class="profile-info">
@@ -241,7 +240,6 @@
         const folderPath = "../Sayt/Xurshida_ab/xurshida_ab";
         const allImages = [];
         
-        // Papkadagi barcha rasmlarni avtomat yuklash uchun sikl (maksimal 40 tagacha tekshiradi)
         for (let i = 1; i <= 40; i++) { 
             allImages.push(`${folderPath} (${i}).JPG`); 
         }
@@ -261,7 +259,7 @@
                 if(img.src.endsWith('.JPG')) {
                     img.src = src.replace('.JPG', '.jpg');
                 } else {
-                    card.style.display = 'none'; // Fayl tugagach ortiqcha kartalarni o'chiradi
+                    card.style.display = 'none';
                 }
             };
 
@@ -269,9 +267,9 @@
             grid.appendChild(card);
         });
 
-        /* DATA STORAGE (LOCALSTORAGE KEY) */
-        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_xurshida_data')) || {}; }
-        function saveAppData(data) { localStorage.setItem('11v_family_xurshida_data', JSON.stringify(data)); }
+        /* TUZATILDI: YANGI LOCALSTORAGE KALITI */
+        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_xurshida_ab_data')) || {}; }
+        function saveAppData(data) { localStorage.setItem('11v_family_xurshida_ab_data', JSON.stringify(data)); }
 
         let activeImageSrc = ""; let isZoomMode = false;
         let scale = 1, lastScale = 1, startX = 0, startY = 0, translateX = 0, translateY = 0, isDragging = false, startDist = 0;
@@ -344,7 +342,7 @@
         }
         document.getElementById('comment-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addComment(); });
 
-        /* MOBILE AND TOUCH GESTURES */
+        /* MOBILE GESTURES */
         let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
         img.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
