@@ -3,177 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ichan Qala | Umumiy Albom</title>
+    <title>11-V Family | Esdalik Albomlar</title>
     <style>
         :root {
-            --primary-bg: #0b0f19;
-            --secondary-bg: #111827;
+            --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(59, 130, 246, 0.4);
             --text-main: #f3f4f6;
-            --accent-silver: #c0c5ce;
             --accent-glow: #3b82f6;
+            --card-panel-bg: #161b2c; /* image_d1e84d.jpg dagi kabi maxsus to'q ko'k-binafsha fon */
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { 
-            background-color: var(--primary-bg); 
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            scroll-behavior: smooth;
         }
-        header { 
-            background-color: rgba(17, 24, 39, 0.95); 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 1rem 5%; 
-            max-width: 1200px; 
-            margin: auto; 
+
+        header {
+            background-color: rgba(6, 9, 19, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
         }
-        .logo { 
-            font-size: 1.8rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1200px;
+            margin: auto;
         }
-        .nav-links { 
-            list-style: none; 
-            display: flex; 
-            gap: 2rem; 
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
-        .nav-links a { 
-            color: var(--accent-silver); 
-            text-decoration: none; 
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
         }
-        .album-container { 
-            padding: 120px 5% 50px; 
-            max-width: 1200px; 
-            margin: auto; 
-            flex: 1; 
-            width: 100%; 
+
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        .back-btn { 
-            display: inline-block; 
-            margin-bottom: 2rem; 
-            color: var(--accent-silver); 
-            text-decoration: none; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 0.5rem 1.5rem; 
-            border-radius: 30px; 
-            transition: all 0.3s;
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-glow);
         }
-        .back-btn:hover { 
-            background: var(--accent-glow); 
-            color: white; 
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            border: none;
+            background: transparent;
+            z-index: 1100;
         }
-        .profile-header { 
-            display: grid; 
-            grid-template-columns: 350px 1fr; 
-            background: var(--secondary-bg); 
-            border-radius: 24px; 
-            overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            margin-bottom: 4rem; 
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 2px;
+            transition: all 0.35s ease;
         }
-        .profile-cover-box { 
-            width: 100%; 
-            height: 450px; 
-            overflow: hidden; 
+
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 9, 19, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .profile-cover-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
+
+        .mobile-menu.active { display: flex; opacity: 1; }
+        .mobile-menu a { color: #9ca3af; text-decoration: none; font-size: 1.6rem; font-weight: 600; transition: all 0.3s ease; }
+        .mobile-menu a:hover, .mobile-menu a.active { color: #ffffff; text-shadow: 0 0 15px var(--accent-glow); }
+
+        .album-container {
+            padding: 140px 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
         }
-        .profile-info { 
-            padding: 3rem; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #ffffff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .profile-info h1 { 
-            font-size: 2.8rem; 
-            color: #ffffff; 
-            margin-bottom: 1.5rem; 
+
+        .title-wrapper { text-align: center; }
+
+        /* BUTUN EKRAA KENGYADIGAN GORIZONTAL DOIRA */
+        .album-list-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            width: 100%;
         }
-        .profile-lyric { 
-            font-size: 1.3rem; 
-            color: var(--accent-silver); 
-            font-style: italic; 
-            line-height: 1.8; 
-            border-left: 3px solid var(--accent-glow); 
-            padding-left: 20px; 
+
+        .album-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
         }
-        .gallery-title { 
-            font-size: 2rem; 
-            margin-bottom: 2rem; 
-            text-transform: uppercase; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 0.5rem; 
+
+        .photo-card {
+            background: var(--card-panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 32px; /* image_d1e84d.jpg dagi kabi silliq katta burchaklar */
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Rasm va matn bloki yonma-yon */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+            width: 100%;
         }
-        .photo-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 1.5rem; 
+
+        .album-link:hover .photo-card {
+            transform: translateY(-6px) scale(1.005);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
         }
-        .photo-card { 
-            background: var(--secondary-bg); 
-            border-radius: 16px; 
-            overflow: hidden; 
-            aspect-ratio: 3/4; 
-            cursor: pointer; 
-            transition: transform 0.3s; 
+
+        .img-wrapper {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
         }
-        .photo-card:hover { 
-            transform: scale(1.03); 
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .photo-card img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
+
+        .album-link:hover .photo-card img {
+            transform: scale(1.03);
         }
-        .lightbox { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(5,8,15,0.95); 
-            z-index: 2000; 
-            justify-content: center; 
-            align-items: center; 
+
+        .photo-info {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        .lightbox.active { display: flex; }
-        .lightbox-img { 
-            max-width: 90%; 
-            max-height: 85vh; 
-            border-radius: 8px; 
+
+        .photo-info h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
         }
-        .lightbox-close { 
-            position: absolute; 
-            top: 30px; 
-            right: 40px; 
-            color: white; 
-            font-size: 2.5rem; 
-            cursor: pointer; 
+
+        .photo-info p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            font-weight: 400;
         }
-        footer { 
-            text-align: center; 
-            padding: 2rem; 
-            background-color: var(--secondary-bg); 
-            margin-top: auto; 
+
+        .view-album-btn {
+            margin-top: 2rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
+
+        .album-link:hover .view-album-btn {
+            background: var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
+            border-color: var(--accent-glow);
+        }
+
+        footer {
+            background: rgba(6, 9, 19, 0.7);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--glass-border);
+            color: #64748b;
+            font-weight: 500;
+            margin-top: auto;
+        }
+
+        /* MOBIL MOSLASHUVCHANLIK (RESPONSIVE) */
+        @media (max-width: 992px) {
+            .photo-card {
+                grid-template-columns: 1fr; /* Ekran kichrayganda vertikal rejimga o'tadi */
+            }
+            .img-wrapper {
+                height: 300px;
+            }
+            .photo-info {
+                padding: 2rem;
+            }
+            .photo-info h3 {
+                font-size: 1.8rem;
+            }
+            .photo-info p {
+                font-size: 1.1rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .profile-header { grid-template-columns: 1fr; }
-            .profile-cover-box { height: 350px; }
-            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .section-title { font-size: 2rem; }
+            .album-container { padding-top: 100px; }
         }
     </style>
 </head>
@@ -183,66 +288,83 @@
         <nav>
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
-                <li><a href="../index.html">Bosh sahifa</a></li>
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li><a href="vinetka.html">Vinetka rasmlari</a></li>
+                <li><a href="esdalik.html" class="active">Esdalik rasmlar</a></li>
             </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
-    <main class="album-container">
-        <a href="../vinetka.html" class="back-btn">&larr; Orqaga qaytish</a>
-
-        <div class="profile-header">
-            <div class="profile-cover-box">
-                <img src="../ichanqala/ichanqala (144).JPG" alt="Ichan Qala">
-            </div>
-            <div class="profile-info">
-                <h1>Ichan Qala</h1>
-                <div class="profile-lyric">
-                    Tarixiy Ichan Qala devorlari bag'rida,<br>
-                    Sinfimizning eng go'zal xotiralari.<br>
-                    Har bir qadam — yangi lahza,<br>
-                    Har bir surat — abadiy xotira...
-                </div>
-            </div>
-        </div>
-
-        <h2 class="gallery-title">Ichan Qala Foto Lavhalari (1-221)</h2>
-        <div class="photo-grid" id="photo-grid"></div>
-    </main>
-
-    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-img" id="lightbox-img" src="">
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMenu()">Bosh sahifa</a>
+        <a href="vinetka.html" onclick="closeMenu()">Vinetka rasmlari</a>
+        <a href="esdalik.html" class="active" onclick="closeMenu()">Esdalik rasmlar</a>
     </div>
 
-    <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p></footer>
+    <main class="album-container">
+        <div class="title-wrapper">
+            <h2 class="section-title">Esdalik Albomlar</h2>
+        </div>
+        
+        <!-- VERTIKAL VA TO'LIQ ENLI ALBOMLAR RO'YXATI -->
+        <div class="album-list-vertical">
+            
+            <!-- 1. SINFDOSHLAR BILAN (image_d1e84d.jpg USLUBIDAGI ALBOM) -->
+            <a href="sinfdoshlar.html" class="album-link">
+                <div class="photo-card">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1200" alt="Sinfdoshlar bilan">
+                    </div>
+                    <div class="photo-info">
+                        <h3>Sinfdoshlar bilan</h3>
+                        <p>Maktab hovlisida</p>
+                        <button class="view-album-btn">Albomni ko'rish</button>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2. ICHAN QAL'A SAYOHATI ALBOMI (YANGI QO'SHILDI) -->
+            <a href="royhat/ichanqala.html" class="album-link">
+                <div class="photo-card">
+                    <div class="img-wrapper">
+                        <img src="Ichanqala/ichanqala (145).JPG" alt="Ichan Qal'a Sayohati">
+                    </div>
+                    <div class="photo-info">
+                        <h3>Ichan Qal'a Sayohati</h3>
+                        <p>Xiva sayohati xotiralari</p>
+                        <button class="view-album-btn">Albomni ko'rish</button>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
+    </footer>
 
     <script>
-        const grid = document.getElementById('photo-grid');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-        // ichanqala (1) dan (221) gacha
-        for (let i = 1; i <= 221; i++) {
-            addCard(`../ichanqala/ichanqala (${i}).JPG`);
-        }
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
 
-        function addCard(src) {
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.onclick = () => openLightbox(src);
-            card.innerHTML = `<img src="${src}" alt="Ichan Qala" loading="lazy" onerror="this.parentElement.style.display='none'">`;
-            grid.appendChild(card);
-        }
-
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').classList.add('active');
-        }
-
-        function closeLightbox(e) {
-            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
-                document.getElementById('lightbox').classList.remove('active');
-            }
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
         }
     </script>
+
 </body>
 </html>
