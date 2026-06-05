@@ -3,146 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xiyobon Xotiralari - Bitiruv 2026</title>
+    <title>11-V Sinfi | Xiva Parki Sayohati</title>
     <style>
-        /* Umumiy fon va premium to'q dizayn */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle, #1a1a2e 0%, #0f0f1a 100%);
-            color: #fff;
-            min-height: 100vh;
+        :root {
+            --primary-bg: #0b0f19;
+            --secondary-bg: #111827;
+            --text-main: #f3f4f6;
+            --accent-silver: #c0c5ce;
+            --accent-glow: #3b82f6;
+            --accent-red: #f43f5e;
+            --ig-black: #000000;
+            --ig-panel: #121212;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--primary-bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        header { background-color: rgba(17, 24, 39, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.6rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--accent-silver); text-decoration: none; font-weight: 500; }
+        
+        .album-container { padding: 120px 5% 50px; max-width: 1200px; margin: auto; flex: 1; width: 100%; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 500; transition: all 0.3s; }
+        .back-btn:hover { background: var(--accent-glow); color: white; border-color: var(--accent-glow); }
+        
+        /* PREMIUM GLASSMORPHISM HEADER */
+        .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
+        .profile-cover-box { width: 100%; height: 450px; overflow: hidden; }
+        .profile-cover-box img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-info { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .profile-info h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 700; }
+        .profile-lyric { font-size: 1.2rem; color: var(--accent-silver); font-style: italic; line-height: 1.8; border-left: 3px solid var(--accent-glow); padding-left: 20px; }
+        
+        .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; letter-spacing: 1px; }
+        
+        /* INFINITE GRID AND BLURRY LOAD STYLE */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .photo-card { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px; 
+            overflow: hidden; 
+            aspect-ratio: 3/4; 
+            cursor: pointer; 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
+            position: relative; 
+            contain: layout paint;
+        }
+        .photo-card:hover { 
+            transform: translateY(-6px); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Orqaga bosh sahifaga qaytish tugmasi */
-        .back-btn {
-            display: inline-block;
-            margin: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+        .photo-card img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0;
+            filter: blur(25px) scale(1.05);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
         }
-        .back-btn:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+        .photo-card img.loaded { opacity: 1; filter: blur(0) scale(1); }
 
-        /* Albom sarlavhasi va Muqovasi */
-        .album-header {
-            text-align: center;
-            padding: 40px 20px;
+        /* INSTAGRAM LIGHTBOX MODAL DESIGN */
+        .lightbox { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            background: rgba(0, 0, 0, 0.95); 
+            z-index: 2000; 
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
-        .cover-photo {
-            width: 320px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            transition: 0.5s ease;
-        }
-        .cover-photo:hover {
-            transform: scale(1.03);
-            border-color: #00adb5;
-            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.4);
-        }
-
-        .album-header h1 {
-            margin: 20px 0 5px 0;
-            font-size: 2.8rem;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.1);
-        }
-
-        .album-header p {
-            color: #a0a0b8;
-            font-size: 1.2rem;
-        }
-
-        /* Foto galereya setkasi */
-        .gallery-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 15px;
-        }
-
-        /* Har bitta rasm kartasi */
-        .photo-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+        .lightbox.active { display: flex; opacity: 1; }
+        
+        .lightbox-wrapper {
+            background: var(--ig-panel);
+            max-width: 460px; 
+            width: 92%;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: 0.3s ease;
+            border: 1px solid #262626;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+        .lightbox.active .lightbox-wrapper { transform: scale(1); }
+        
+        .lightbox-img-box { width: 100%; background: var(--ig-black); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .lightbox-img { width: 100%; max-height: 65vh; object-fit: contain; cursor: zoom-in; user-select: none; -webkit-user-drag: none; transform-origin: center center; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+        .lightbox-img.dragging { transition: none !important; }
+        
+        .lightbox-close { position: absolute; top: 15px; right: 15px; color: #fff; font-size: 1.8rem; cursor: pointer; z-index: 25; opacity: 0.6; transition: opacity 0.2s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .lightbox-close:hover { opacity: 1; }
+
+        .lightbox-panel { padding: 14px 18px; display: flex; flex-direction: column; background: var(--ig-panel); border-top: 1px solid #262626; width: 100%; z-index: 5; }
+        .action-bar { display: flex; align-items: center; gap: 20px; justify-content: flex-start; }
+        
+        .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; }
+        .ig-action-btn:active { transform: scale(1.2); }
+        .ig-action-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
+        
+        .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
+
+        /* INSTAGRAM DOUBLE TAP BIG HEART ANIMATION */
+        .big-heart { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); color: #ffffff; font-size: 5rem; pointer-events: none; z-index: 15; opacity: 0; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4)); }
+        @keyframes heartPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            15% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
+            80% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
         }
 
-        .photo-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-            transition: 0.4s ease;
-        }
+        /* SLIDE UP COMMENT DRAWER */
+        .comment-drawer { position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: #0f141c; border-top: 1px solid #262626; border-radius: 16px 16px 0 0; z-index: 30; transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; padding: 14px 16px; }
+        .comment-drawer.active { transform: translateY(0); }
+        
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #262626; margin-bottom: 10px; }
+        .drawer-title { font-size: 1rem; font-weight: 600; color: #fff; }
+        .drawer-close { color: #737373; font-size: 1.4rem; cursor: pointer; }
+        
+        .comments-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; font-size: 0.9rem; }
+        .comment-item { line-height: 1.4; color: #e5e7eb; word-break: break-word; }
+        .comment-user { font-weight: 600; margin-right: 6px; color: #fff; }
+        .no-comments { color: #737373; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 20px; }
+        
+        .comment-form { display: flex; align-items: center; border-top: 1px solid #262626; padding-top: 10px; margin-top: auto; }
+        .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; }
+        .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
 
-        .photo-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 173, 181, 0.3);
-            border-color: rgba(0, 173, 181, 0.4);
-        }
+        /* FULL REJIM (ZOOM HOLATI) */
+        .lightbox.zoom-active { background: #000; }
+        .lightbox.zoom-active .lightbox-wrapper { max-width: 100vw; width: 100%; max-height: 100vh; height: 100vh; border: none; border-radius: 0; background: #000; }
+        .lightbox.zoom-active .lightbox-img-box { height: 100vh; }
+        .lightbox.zoom-active .lightbox-img { max-height: 100vh; height: 100vh; width: 100vw; cursor: zoom-out; }
+        .lightbox.zoom-active .lightbox-panel, .lightbox.zoom-active .lightbox-close, .lightbox.zoom-active .comment-drawer { display: none !important; }
 
-        .photo-card:hover img {
-            transform: scale(1.04);
+        .comments-list::-webkit-scrollbar { width: 4px; }
+        .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
+
+        footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.02); }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
+
+        @media (max-width: 768px) {
+            .profile-header { grid-template-columns: 1fr; }
+            .profile-cover-box { height: 300px; }
+            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; }
+            .lightbox-wrapper { width: 95%; }
+            .lightbox-img { max-height: 60vh; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Orqaga qaytish -->
-    <a href="index.html" class="back-btn">← Bosh sahifaga qaytish</a>
+    <header>
+        <nav>
+            <div class="logo">11-V Family</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Bosh sahifa</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Albom sarlavhasi va Muqovasi -->
-    <div class="album-header">
-        <!-- Siz so'ragan park (225).JPG rasm albom yuzi (muqovasi) qilindi -->
-        <img src="Sayt/Park/park (225).JPG" alt="Parkda guruhbop rasm" class="cover-photo">
-        <h1>XIYOBON XOTIRALARI</h1>
-        <p>11-V Sinfining Parkdagi Unutilmas va Quvnoq Kunlari</p>
+    <main class="album-container">
+        <a href="../esdalik.html" class="back-btn">&larr; Orqaga qaytish</a>
+
+        <!-- PROFIL JAMOASI (FOTOZONA REJIMI) -->
+        <div class="profile-header">
+            <div class="profile-cover-box">
+                <!-- Albom yuzi sifatida park (225).JPG o'rnatildi -->
+                <img src="../Xiva parki/park (225).JPG" alt="Xiva Parki Albom Yuzi" onload="this.style.opacity=1" style="opacity:0; transition: opacity 0.5s;">
+            </div>
+            <div class="profile-info">
+                <h1>Xiva Parki Sayohati</h1>
+                <div class="profile-lyric">
+                    Yashil daraxtlar, quvnoq kulgular,<br>
+                    Park ichra o'tgan go'zal tuyg'ular.<br>
+                    Har bir qadamda unutilmas onlar,<br>
+                    Bizning xotiramizda muhrlangan damlar...
+                </div>
+            </div>
+        </div>
+
+        <h2 class="gallery-title">Foto lavhalar</h2>
+        <div class="photo-grid" id="photo-grid"></div>
+    </main>
+
+    <!-- INSTAGRAM LIGHTBOX MODAL -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-wrapper">
+            <div class="lightbox-img-box" id="img-box">
+                <span class="lightbox-close" onclick="forceCloseLightbox()">&times;</span>
+                <img class="lightbox-img" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
+                <!-- Double Tap katta oq yurakchasi -->
+                <div class="big-heart" id="pop-heart">&#10084;</div>
+            </div>
+            
+            <!-- SHAFFOF AKSYA PANEL: FAQAT RASM TAGIDA CHEKLANADI -->
+            <div class="lightbox-panel">
+                <div class="action-bar">
+                    <button class="ig-action-btn like-btn" id="like-button" onclick="toggleLike(event)">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </button>
+                    <button class="ig-action-btn" onclick="openCommentDrawer(event)">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- INSTAGRAM SLIDE UP Sharhlar Drawer -->
+            <div class="comment-drawer" id="comment-drawer" onclick="event.stopPropagation()">
+                <div class="drawer-header">
+                    <span class="drawer-title">Izohlar</span>
+                    <span class="drawer-close" onclick="closeCommentDrawer()">&times;</span>
+                </div>
+                <div class="comments-list" id="comments-container"></div>
+                <div class="comment-form">
+                    <input type="text" class="comment-input" id="comment-input" placeholder="Izoh qo'shing..." autocomplete="off">
+                    <button class="comment-submit" onclick="addComment()">Yuborish</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 226 ta rasmni avtomatik joylashtiradigan galereya paneli -->
-    <div class="gallery-container">
+    <footer><p>&copy; 2026 11-V Family.</p></footer>
+
+    <script>
+        const grid = document.getElementById('photo-grid');
+        const folderPath = "../Xiva parki/park";
+        const allImages = [];
         
-        <script>
-            const gallery = document.querySelector('.gallery-container');
-            const totalPhotos = 226;
+        // 1 dan 226 gacha bo'lgan barcha .JPG formatdagi rasmlar sikli (barcha katta harflar bilan)
+        for (let i = 1; i <= 226; i++) { 
+            allImages.push(`${folderPath} (${i}).JPG`); 
+        }
 
-            // 1 dan 226 gacha bo'lgan barcha rasmlarni siklda chiqarish
-            for (let i = 1; i <= totalPhotos; i++) {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                
-                const img = document.createElement('img');
-                // Skrinshotdagi barcha rasmlar katta harfli .JPG formatida ekanligini hisobga oldik
-                img.src = `Sayt/Park/park (${i}).JPG`;
-                img.alt = `11-V Sinf Xiyobonda - Rasm ${i}`;
-                img.loading = 'lazy'; // Brauzer qotmasligi uchun dynamic yuklash
-                
-                card.appendChild(img);
-                gallery.appendChild(card);
+        allImages.forEach(src => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.onclick = () => openLightbox(src);
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = "Xiva Parki Foto";
+            img.loading = "lazy"; 
+            img.onload = () => img.classList.add('loaded');
+            
+            // Katta va kichik kengaytma xatolarining oldini olish uchun fallback
+            img.onerror = () => {
+                if(img.src.endsWith('.JPG')) {
+                    img.src = src.replace('.JPG', '.jpg');
+                } else {
+                    card.style.display = 'none'; // Rasm umuman bo'lmasa kartani o'chiradi
+                }
+            };
+
+            card.appendChild(img);
+            grid.appendChild(card);
+        });
+
+        /* DATA MANAGEMENT (LOCALSTORAGE) */
+        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_xivaparki_data')) || {}; }
+        function saveAppData(data) { localStorage.setItem('11v_family_xivaparki_data', JSON.stringify(data)); }
+
+        let activeImageSrc = ""; 
+        let isZoomMode = false;
+
+        /* ZOOM HOLATI O'ZGARUVCHILARI */
+        let scale = 1, lastScale = 1;
+        let startX = 0, startY = 0;
+        let translateX = 0, translateY = 0;
+        let isDragging = false;
+        let startDist = 0;
+
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        const popHeart = document.getElementById('pop-heart');
+
+        function openLightbox(src) {
+            activeImageSrc = src;
+            img.src = src;
+            lightbox.style.display = 'flex';
+            setTimeout(() => lightbox.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden'; 
+            closeCommentDrawer();
+            resetZoom();
+            renderLikesAndComments();
+        }
+
+        function renderLikesAndComments() {
+            const data = getAppData();
+            const imgData = data[activeImageSrc] || { liked: false, comments: [] };
+            
+            const likeBtn = document.getElementById('like-button');
+            if (imgData.liked) likeBtn.classList.add('liked');
+            else likeBtn.classList.remove('liked');
+
+            const commentsContainer = document.getElementById('comments-container');
+            commentsContainer.innerHTML = '';
+            
+            if (!imgData.comments || imgData.comments.length === 0) {
+                commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yo'q. Birinchi bo'lib yozing!</span>`;
+            } else {
+                imgData.comments.forEach(text => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = `<span class="comment-user">Sinfdosh</span>${text}`;
+                    commentsContainer.appendChild(div);
+                });
             }
-        </script>
+            commentsContainer.scrollTop = commentsContainer.scrollHeight;
+        }
 
-    </div>
-
-</body>
-</html>
+        function toggleLike(event) {
+            if (event) event.stopPropagation();
+            const data = getAppData();
+            if (!data[activeImageSrc]) data[activeImageSrc] =
