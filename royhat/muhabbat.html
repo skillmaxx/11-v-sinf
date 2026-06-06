@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Sinfi | Baxtiyorova Muxabbat | Shaxsiy Albom</title>
+    <title>11-V Sinfi | Realtime Albom</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
     <style>
         :root {
             --primary-bg: #0b0f19;
@@ -28,7 +31,6 @@
         .back-btn { display: inline-block; margin-bottom: 2rem; color: var(--accent-silver); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 500; transition: all 0.3s; }
         .back-btn:hover { background: var(--accent-glow); color: white; border-color: var(--accent-glow); }
         
-        /* PREMIUM GLASSMORPHISM PROFILE HEADER */
         .profile-header { display: grid; grid-template-columns: 350px 1fr; background: var(--secondary-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; }
         .profile-cover-box { width: 100%; height: 450px; overflow: hidden; }
         .profile-cover-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -38,7 +40,6 @@
         
         .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; letter-spacing: 1px; }
         
-        /* GRID AND BLURRY LOAD STYLE */
         .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .photo-card { 
             background: rgba(255, 255, 255, 0.03); 
@@ -101,12 +102,13 @@
         .lightbox.active .lightbox-wrapper { transform: scale(1); }
         
         .lightbox-img-box { width: 100%; background: var(--ig-black); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .lightbox-img { width: 100%; max-height: 65vh; object-fit: contain; cursor: zoom-in; user-select: none; -webkit-user-drag: none; transform-origin: center center; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+        .lightbox-img { width: 100%; max-height: 65vh; object-fit: contain; cursor: zoom-in; user-select: none; transform-origin: center center; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
         .lightbox-img.dragging { transition: none !important; }
         
         .lightbox-close { position: absolute; top: 15px; right: 15px; color: #fff; font-size: 1.8rem; cursor: pointer; z-index: 25; opacity: 0.6; transition: opacity 0.2s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .lightbox-close:hover { opacity: 1; }
 
+        /* JAMOAVIY LAYKLAR VA MULOQOT PANELI */
         .lightbox-panel { padding: 14px 18px; display: flex; flex-direction: column; background: var(--ig-panel); border-top: 1px solid #262626; width: 100%; z-index: 5; }
         .action-bar { display: flex; align-items: center; gap: 20px; justify-content: flex-start; }
         
@@ -116,7 +118,15 @@
         
         .like-btn.liked svg { fill: var(--accent-red); stroke: var(--accent-red); animation: pulse 0.3s ease-in-out; }
 
-        /* DOUBLE TAP POP HEART ANIMATION */
+        /* LAYKLAR SONI DIZAYNI */
+        .likes-count-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
         .big-heart { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); color: #ffffff; font-size: 5rem; pointer-events: none; z-index: 15; opacity: 0; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4)); }
         @keyframes heartPop {
             0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
@@ -142,7 +152,6 @@
         .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; }
         .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
 
-        /* FULL IMMERSIVE ZOOM MODE */
         .lightbox.zoom-active { background: #000; }
         .lightbox.zoom-active .lightbox-wrapper { max-width: 100vw; width: 100%; max-height: 100vh; height: 100vh; border: none; border-radius: 0; background: #000; }
         .lightbox.zoom-active .lightbox-img-box { height: 100vh; }
@@ -151,7 +160,6 @@
 
         .comments-list::-webkit-scrollbar { width: 4px; }
         .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
-
         footer { text-align: center; padding: 2rem; background-color: var(--secondary-bg); margin-top: auto; border-top: 1px solid rgba(255,255,255,0.02); }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
 
@@ -180,12 +188,12 @@
 
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img id="profile-cover" src="../Sayt/Muhabbat/muhabbat (1).JPG" alt="Muhabbat">
+                <img id="profile-cover" src="../Sayt/Muhabbat/muhabbat (1).JPG" alt="Albom">
             </div>
             <div class="profile-info">
                 <h1>Baxtiyorova Muxabbat</h1>
                 <div class="profile-lyric">
-                    "Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan, aziz do'u. Kelajak yo'lida baxt topib turgan, maktab xotiralari — eng go'zal tuyg'u..."
+                    "Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan, aziz do'st u..."
                 </div>
             </div>
         </div>
@@ -198,7 +206,7 @@
         <div class="lightbox-wrapper">
             <div class="lightbox-img-box" id="img-box">
                 <span class="lightbox-close" onclick="forceCloseLightbox()">&times;</span>
-                <img class="lightbox-img" id="lightbox-img" src="" alt="Kattalashtirilgan rasm">
+                <img class="lightbox-img" id="lightbox-img" src="" alt="Rasm">
                 <div class="big-heart" id="pop-heart">&#10084;</div>
             </div>
             
@@ -211,6 +219,7 @@
                         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
                 </div>
+                <div class="likes-count-text" id="like-count">0 ta like</div>
             </div>
 
             <div class="comment-drawer" id="comment-drawer" onclick="event.stopPropagation()">
@@ -227,172 +236,169 @@
         </div>
     </div>
 
-    <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p></footer>
+    <footer><p>&copy; 2026 11-V Family.</p></footer>
 
     <script>
+        // -------------------------------------------------------------
+        // 2-QADAMDA BERILADIGAN FIREBASE KALITLARINI SHU YERGA QO'YASIZ:
+        // -------------------------------------------------------------
+        const firebaseConfig = {
+            apiKey: "AIzaSyA...",
+            authDomain: "11v-family.firebaseapp.com",
+            databaseURL: "https://11v-family-default-rtdb.firebaseio.com",
+            projectId: "11v-family",
+            storageBucket: "11v-family.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:12345:web:abcde"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Har bitta qurilma uchun unikal ID (kim layk bosganini ajratish uchun)
+        function getOrCreateUserId() {
+            let uid = localStorage.getItem('v11_user_uuid');
+            if(!uid) { uid = 'user_' + Math.random().toString(36).substr(2, 9); localStorage.setItem('v11_user_uuid', uid); }
+            return uid;
+        }
+        const myUid = getOrCreateUserId();
+
+        // Rasmlar va formatlar algoritmi (Auto-Fallback)
         const grid = document.getElementById('photo-grid');
         const folderPath = "../Sayt/Muhabbat/muhabbat";
-        
-        // Qidiriladigan barcha rasm formatlari (Katta-kichik harf farqlari inobatga olingan)
         const extensions = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG'];
 
-        // Jami 65 ta rasmni faqat nomsiz (kengaytmasiz) ro'yxatga olamiz
         for (let i = 1; i <= 65; i++) {
             const basePath = `${folderPath} (${i})`;
-            
             const card = document.createElement('div');
             card.className = 'photo-card';
-            
             const img = document.createElement('img');
-            img.alt = "Muhabbat Foto";
+            img.alt = "Foto";
             img.loading = "lazy";
             
             let extIndex = 0;
-            
-            // Formatlarni birma-bir tekshirib yuklash funksiyasi
             function tryLoadImage() {
                 if (extIndex < extensions.length) {
                     const fullSrc = basePath + extensions[extIndex];
                     img.src = fullSrc;
-                    card.onclick = () => openLightbox(fullSrc); // To'g'ri topilgan formatni Lightboxga uzatadi
+                    card.onclick = () => openLightbox(fullSrc);
                 } else {
-                    card.style.display = 'none'; // Agar hech qaysi formatda rasm topilmasa kartani butkul yashiradi
+                    card.style.display = 'none';
                 }
             }
-            
             img.onload = () => img.classList.add('loaded');
-            
-            img.onerror = () => {
-                extIndex++; // Agar yuklanishda xato bo'lsa keyingi formatga o'tadi
-                tryLoadImage();
-            };
-            
-            tryLoadImage(); // Tsiklni boshlash
-            
+            img.onerror = () => { extIndex++; tryLoadImage(); };
+            tryLoadImage();
             card.appendChild(img);
             grid.appendChild(card);
         }
 
-        // Muqova rasm xatoligini oldini olish
-        const coverImg = document.getElementById('profile-cover');
-        let coverIndex = 0;
-        coverImg.onerror = () => {
-            coverIndex++;
-            if(coverIndex < extensions.length) {
-                coverImg.src = `${folderPath} (1)${extensions[coverIndex]}`;
-            }
-        };
-        coverImg.onload = () => coverImg.style.opacity = 1;
-
-        /* DATA STORAGE INTEGRATION */
-        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_muhabbat_updated_data')) || {}; }
-        function saveAppData(data) { localStorage.setItem('11v_family_muhabbat_updated_data', JSON.stringify(data)); }
-
-        let activeImageSrc = ""; let isZoomMode = false;
-        let scale = 1, lastScale = 1, startX = 0, startY = 0, translateX = 0, translateY = 0, isDragging = false, startDist = 0;
+        let activeImageSrc = ""; 
+        let isZoomMode = false;
+        let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX = 0, startY = 0;
 
         const lightbox = document.getElementById('lightbox');
-        const img = document.getElementById('lightbox-img');
+        const imgRef = document.getElementById('lightbox-img');
         const popHeart = document.getElementById('pop-heart');
+        let dbRefLikes = null; let dbRefComments = null;
 
+        // LIGHTBOX OCHILGANDA ONLINE BAZAGA ULANISH
         function openLightbox(src) {
-            activeImageSrc = src; img.src = src;
+            activeImageSrc = src; 
+            imgRef.src = src;
             lightbox.style.display = 'flex';
             setTimeout(() => lightbox.classList.add('active'), 10);
             document.body.style.overflow = 'hidden'; 
-            closeCommentDrawer(); resetZoom(); renderLikesAndComments();
+            closeCommentDrawer(); resetZoom();
+
+            // Rasm linkini Firebase kalitiga moslab shifrlash (taqiqlangan belgilardan qochish)
+            const safeKey = btoa(src).replace(/[^a-zA-Z0-9]/g, "");
+
+            // Eski listenerlarni o'chirish
+            if(dbRefLikes) dbRefLikes.off();
+            if(dbRefComments) dbRefComments.off();
+
+            dbRefLikes = database.ref('likes/' + safeKey);
+            dbRefComments = database.ref('comments/' + safeKey);
+
+            // REAL VAQTDA LAYKLARNI ESHITISH
+            dbRefLikes.on('value', (snapshot) => {
+                const data = snapshot.val() || {};
+                const totalLikes = Object.keys(data).length;
+                document.getElementById('like-count').innerText = `${totalLikes} ta like`;
+                
+                if (data[myUid]) document.getElementById('like-button').classList.add('liked');
+                else document.getElementById('like-button').classList.remove('liked');
+            });
+
+            // REAL VAQTDA IZOHLARNI ESHITISH
+            dbRefComments.on('value', (snapshot) => {
+                const commentsContainer = document.getElementById('comments-container');
+                commentsContainer.innerHTML = '';
+                const data = snapshot.val();
+                
+                if (!data) {
+                    commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yozilmagan. Birinchi bo'ling!</span>`;
+                } else {
+                    Object.values(data).forEach(c => {
+                        const div = document.createElement('div'); 
+                        div.className = 'comment-item';
+                        div.innerHTML = `<span class="comment-user">Sinfdosh</span>${c.text}`;
+                        commentsContainer.appendChild(div);
+                    });
+                }
+                commentsContainer.scrollTop = commentsContainer.scrollHeight;
+            });
         }
 
-        function renderLikesAndComments() {
-            const data = getAppData();
-            const imgData = data[activeImageSrc] || { liked: false, comments: [] };
-            const likeBtn = document.getElementById('like-button');
-            if (imgData.liked) likeBtn.classList.add('liked'); else likeBtn.classList.remove('liked');
-
-            const commentsContainer = document.getElementById('comments-container');
-            commentsContainer.innerHTML = '';
-            if (!imgData.comments || imgData.comments.length === 0) {
-                commentsContainer.innerHTML = `<span class="no-comments">Hali izohlar yozilmagan. Birinchi bo'ling!</span>`;
-            } else {
-                imgData.comments.forEach(text => {
-                    const div = document.createElement('div'); div.className = 'comment-item';
-                    div.innerHTML = `<span class="comment-user">Sinfdosh</span>${text}`;
-                    commentsContainer.appendChild(div);
-                });
-            }
-            commentsContainer.scrollTop = commentsContainer.scrollHeight;
-        }
-
+        // ONLINE LAYK BOSISH FUNKSIYASI
         function toggleLike(event) {
             if (event) event.stopPropagation();
-            const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
-            data[activeImageSrc].liked = !data[activeImageSrc].liked;
-            saveAppData(data); renderLikesAndComments();
+            if(!dbRefLikes) return;
+
+            dbRefLikes.transaction((currentData) => {
+                if (currentData === null) currentData = {};
+                if (currentData[myUid]) {
+                    delete currentData[myUid]; // Agar bosilgan bo'lsa qaytarib oladi
+                } else {
+                    currentData[myUid] = true; // Yangi layk qo'shadi
+                }
+                return currentData;
+            });
+        }
+
+        // ONLINE IZOH QO'SHISH FUNKSIYASI
+        function addComment() {
+            const input = document.getElementById('comment-input'); 
+            const text = input.value.trim(); 
+            if (!text || !dbRefComments) return;
+            
+            dbRefComments.push({
+                uid: myUid,
+                text: text,
+                timestamp: Date.now()
+            });
+            input.value = '';
         }
 
         let lastTap = 0;
-        img.addEventListener('click', (e) => {
+        imgRef.addEventListener('click', (e) => {
             const now = Date.now();
-            if (now - lastTap < 300) handleDoubleTapLike();
-            else { setTimeout(() => { if (Date.now() - lastTap >= 300 && window.innerWidth > 768) toggleZoom(); }, 300); }
+            if (now - lastTap < 300) {
+                toggleLike();
+                popHeart.style.animation = 'none'; popHeart.offsetHeight; 
+                popHeart.style.animation = 'heartPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            } else {
+                setTimeout(() => { if (Date.now() - lastTap >= 300 && window.innerWidth > 768) toggleZoom(); }, 300);
+            }
             lastTap = now;
         });
 
-        function handleDoubleTapLike() {
-            const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
-            if (!data[activeImageSrc].liked) { data[activeImageSrc].liked = true; saveAppData(data); renderLikesAndComments(); }
-            popHeart.style.animation = 'none'; popHeart.offsetHeight; 
-            popHeart.style.animation = 'heartPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-        }
-
         function openCommentDrawer(e) { e.stopPropagation(); document.getElementById('comment-drawer').classList.add('active'); }
-        function closeCommentDrawer() { document.getElementById('comment-drawer').classList.remove('active'); }
-        function addComment() {
-            const input = document.getElementById('comment-input'); const text = input.value.trim(); if (!text) return;
-            const data = getAppData();
-            if (!data[activeImageSrc]) data[activeImageSrc] = { liked: false, comments: [] };
-            if (!data[activeImageSrc].comments) data[activeImageSrc].comments = [];
-            data[activeImageSrc].comments.push(text); saveAppData(data);
-            input.value = ''; renderLikesAndComments();
-        }
+        function closeCommentDrawer() { document.getElementById('comment-drawer').classList.remove('remove'); document.getElementById('comment-drawer').classList.remove('active'); }
         document.getElementById('comment-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addComment(); });
-
-        /* TOUCH EVENT SENSORS */
-        let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
-        img.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                touchStartTime = Date.now(); touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
-                if (isZoomMode && scale > 1) { isDragging = true; img.classList.add('dragging'); startX = e.touches[0].clientX - translateX; startY = e.touches[0].clientY - translateY; }
-            } else if (e.touches.length === 2 && isZoomMode) { isDragging = false; img.classList.add('dragging'); startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); lastScale = scale; }
-        });
-        img.addEventListener('touchmove', (e) => {
-            if (!isZoomMode) return;
-            if (e.touches.length === 1 && isDragging && scale > 1) { e.preventDefault(); translateX = e.touches[0].clientX - startX; translateY = e.touches[0].clientY - startY; updateTransform(); }
-            else if (e.touches.length === 2) { e.preventDefault(); const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); scale = Math.max(1, Math.min(lastScale * (dist / startDist), 4)); if (scale === 1) { translateX = 0; translateY = 0; } updateTransform(); }
-        });
-        img.addEventListener('touchend', (e) => {
-            isDragging = false; img.classList.remove('dragging');
-            if (e.changedTouches.length === 1) {
-                const diffTime = Date.now() - touchStartTime, diffX = Math.abs(e.changedTouches[0].clientX - touchStartX), diffY = Math.abs(e.changedTouches[0].clientY - touchStartY);
-                if (diffTime < 250 && diffX < 8 && diffY < 8) {
-                    const now = Date.now(); if (now - lastTap < 300) handleDoubleTapLike();
-                    else { setTimeout(() => { if (Date.now() - lastTap >= 300) toggleZoom(); }, 300); }
-                    lastTap = now;
-                }
-            }
-        });
-
-        let isMouseDown = false;
-        img.addEventListener('mousedown', (e) => { if (!isZoomMode || scale <= 1) return; e.preventDefault(); isMouseDown = true; img.classList.add('dragging'); startX = e.clientX - translateX; startY = e.clientY - translateY; });
-        window.addEventListener('mousemove', (e) => { if (!isZoomMode || !isMouseDown || scale <= 1) return; translateX = e.clientX - startX; translateY = e.clientY - startY; updateTransform(); });
-        window.addEventListener('mouseup', () => { isMouseDown = false; img.classList.remove('dragging'); });
-        img.addEventListener('wheel', (e) => { if (!isZoomMode) return; e.preventDefault(); if (e.deltaY < 0) scale = Math.min(scale + 0.15, 4); else scale = Math.max(1, scale - 0.15); if (scale === 1) { translateX = 0; translateY = 0; } updateTransform(); });
-
         function toggleZoom() { isZoomMode = !isZoomMode; if (isZoomMode) lightbox.classList.add('zoom-active'); else { lightbox.classList.remove('zoom-active'); resetZoom(); } }
         function resetZoom() { scale = 1; translateX = 0; translateY = 0; updateTransform(); }
-        function updateTransform() { img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`; }
+        function updateTransform() { imgRef.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`; }
         function closeLightbox(event) { if (event.target.id === 'lightbox' || event.target.id === 'img-box') forceCloseLightbox(); }
         function forceCloseLightbox() { lightbox.classList.remove('active'); lightbox.classList.remove('zoom-active'); isZoomMode = false; document.body.style.overflow = ''; setTimeout(() => lightbox.style.display = 'none', 350); }
     </script>
