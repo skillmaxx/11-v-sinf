@@ -78,7 +78,6 @@
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        /* ===== HAMBURGER TUGMASI ===== */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -100,18 +99,10 @@
             transform-origin: center;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* ===== MOBIL MENYU OVERLAY ===== */
         .mobile-menu {
             display: none;
             position: fixed;
@@ -131,10 +122,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .mobile-menu.active {
-            display: flex;
-            opacity: 1;
-        }
+        .mobile-menu.active { display: flex; opacity: 1; }
 
         .mobile-menu a {
             color: #9ca3af;
@@ -150,7 +138,6 @@
             text-shadow: 0 0 15px var(--accent-glow);
         }
 
-        /* Hero */
         #bosh-sahifa {
             position: relative;
             height: 100vh;
@@ -210,9 +197,7 @@
             letter-spacing: 2px;
         }
 
-        .title-wrapper {
-            text-align: center;
-        }
+        .title-wrapper { text-align: center; }
 
         .gallery-grid {
             display: grid;
@@ -220,11 +205,7 @@
             gap: 2.5rem;
         }
 
-        .album-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
+        .album-link { text-decoration: none; color: inherit; display: block; }
 
         .photo-card {
             background: var(--glass-bg);
@@ -247,11 +228,20 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        /* ===== XIRADAN TINIQLASHISH (BLUR LOAD) EFEKTI ===== */
         .photo-card img {
             width: 100%;
             height: 360px;
             object-fit: cover;
             border-bottom: 1px solid var(--glass-border);
+            opacity: 0;
+            filter: blur(25px) scale(1.05);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .photo-card img.loaded {
+            opacity: 1;
+            filter: blur(0) scale(1);
         }
 
         .photo-info {
@@ -284,7 +274,6 @@
             font-weight: 500;
         }
 
-        /* ===== MOBIL ===== */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
@@ -304,9 +293,6 @@
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                <li><a href="vinetka.html">Vinetka rasmlari</a></li>
-                <!-- TUZATILDI: Yo'naltirish esdalik.html ga o'rnatildi -->
-                <li><a href="esdalik.html">Esdalik rasmlar</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
                 <span></span>
@@ -316,82 +302,11 @@
         </nav>
     </header>
 
-    <!-- Mobil menyu overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active" onclick="closeMenu()">Bosh sahifa</a>
-        <a href="vinetka.html" onclick="closeMenu()">Vinetka rasmlari</a>
-        <!-- TUZATILDI: Mobil menyuda ham esdalik.html o'rnatildi -->
-        <a href="esdalik.html" onclick="closeMenu()">Esdalik rasmlar</a>
     </div>
 
     <section id="bosh-sahifa">
         <div class="hero-content-wrapper">
             <h1 class="hero-title">Bitiruv - 2026</h1>
-            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
-        </div>
-    </section>
-
-    <section id="albomlar">
-        <div class="title-wrapper">
-            <h2 class="section-title">Foto Albomlar</h2>
-        </div>
-        
-        <div class="gallery-grid">
-            <!-- 1. VINETKA ALBOMI -->
-            <a href="vinetka.html" class="album-link">
-                <div class="photo-card">
-                    <img src="DSC08744.JPG" alt="Vinetka Albomi">
-                    <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sinfdoshlar Albomlari</h3>
-                        <p>Shaxsiy vinetka va she'rlar</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- 2. ICHAN QALA SAYOHATI -->
-            <a href="royhat/ichanqala.html" class="album-link">
-                <div class="photo-card">
-                    <img src="Ichanqala/ichanqala (145).JPG" alt="Ichan Qala Sayohati">
-                    <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ichan Qala Sayohati</h3>
-                        <p>Xiva sayohati xotiralari</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- 3. ESDALIK RASMLARI -->
-            <a href="esdalik.html" class="album-link">
-                <div class="photo-card">
-                    <img src="Esdalik/esdalik (1).JPG" onerror="this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=500'" alt="Esdalik Rasmlar">
-                    <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #ec4899, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Esdalik Rasmlar</h3>
-                        <p>Maktab hayotidan lavhalar</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan.</p>
-    </footer>
-
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
-
-        function closeMenu() {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    </script>
-
-</body>
-</html>
+            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta
