@@ -142,7 +142,7 @@
         .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; }
         .comment-submit { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
 
-        /* FULL REJIM (ZOOM OVERLAY) */
+        /* FULL IMMERSIVE ZOOM MODE */
         .lightbox.zoom-active { background: #000; }
         .lightbox.zoom-active .lightbox-wrapper { max-width: 100vw; width: 100%; max-height: 100vh; height: 100vh; border: none; border-radius: 0; background: #000; }
         .lightbox.zoom-active .lightbox-img-box { height: 100vh; }
@@ -178,15 +178,14 @@
     <main class="album-container">
         <a href="../vinetka.html" class="back-btn">&larr; Orqaga qaytish</a>
 
-        <!-- PROFIL SECTION -->
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img src="../Sayt/Muhabbat/muhabbat (1).JPG" alt="Muhabbat" onload="this.style.opacity=1" style="opacity:0; transition: opacity 0.5s;">
+                <img id="profile-cover" src="../Sayt/Muhabbat/muhabbat (1).JPG" alt="Muhabbat">
             </div>
             <div class="profile-info">
                 <h1>Baxtiyorova Muxabbat</h1>
                 <div class="profile-lyric">
-                    "Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan, aziz do'st u. Kelajak yo'lida baxt topib turgan, maktab xotiralari — eng go'zal tuyg'u..."
+                    "Mehribon yurakda nur sochib turgan, sinfdoshlar sevgan, aziz do'u. Kelajak yo'lida baxt topib turgan, maktab xotiralari — eng go'zal tuyg'u..."
                 </div>
             </div>
         </div>
@@ -195,7 +194,6 @@
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
-    <!-- INSTAGRAM LIGHTBOX MODAL -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <div class="lightbox-wrapper">
             <div class="lightbox-img-box" id="img-box">
@@ -215,7 +213,6 @@
                 </div>
             </div>
 
-            <!-- COMMENTS DRAWER -->
             <div class="comment-drawer" id="comment-drawer" onclick="event.stopPropagation()">
                 <div class="drawer-header">
                     <span class="drawer-title">Izohlar</span>
@@ -235,39 +232,61 @@
     <script>
         const grid = document.getElementById('photo-grid');
         const folderPath = "../Sayt/Muhabbat/muhabbat";
-        const allImages = [];
         
-        // 1-2 rasmlar .JPG formatida
-        for (let i = 1; i <= 2; i++) { 
-            allImages.push(`${folderPath} (${i}).JPG`); 
-        }
-        // 3-36 rasmlar .jpg formatida
-        for (let i = 3; i <= 36; i++) { 
-            allImages.push(`${folderPath} (${i}).jpg`); 
-        }
+        // Qidiriladigan barcha rasm formatlari (Katta-kichik harf farqlari inobatga olingan)
+        const extensions = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG'];
 
-        allImages.forEach(src => {
+        // Jami 65 ta rasmni faqat nomsiz (kengaytmasiz) ro'yxatga olamiz
+        for (let i = 1; i <= 65; i++) {
+            const basePath = `${folderPath} (${i})`;
+            
             const card = document.createElement('div');
             card.className = 'photo-card';
-            card.onclick = () => openLightbox(src);
             
             const img = document.createElement('img');
-            img.src = src;
             img.alt = "Muhabbat Foto";
-            img.loading = "lazy"; 
+            img.loading = "lazy";
+            
+            let extIndex = 0;
+            
+            // Formatlarni birma-bir tekshirib yuklash funksiyasi
+            function tryLoadImage() {
+                if (extIndex < extensions.length) {
+                    const fullSrc = basePath + extensions[extIndex];
+                    img.src = fullSrc;
+                    card.onclick = () => openLightbox(fullSrc); // To'g'ri topilgan formatni Lightboxga uzatadi
+                } else {
+                    card.style.display = 'none'; // Agar hech qaysi formatda rasm topilmasa kartani butkul yashiradi
+                }
+            }
+            
             img.onload = () => img.classList.add('loaded');
             
             img.onerror = () => {
-                card.style.display = 'none'; // Agar rasm yuklanishda xato bersa, kartani yashiradi
+                extIndex++; // Agar yuklanishda xato bo'lsa keyingi formatga o'tadi
+                tryLoadImage();
             };
-
+            
+            tryLoadImage(); // Tsiklni boshlash
+            
             card.appendChild(img);
             grid.appendChild(card);
-        });
+        }
 
-        /* DATA STORAGE OPTION (LOCALSTORAGE) */
-        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_muhabbat_data')) || {}; }
-        function saveAppData(data) { localStorage.setItem('11v_family_muhabbat_data', JSON.stringify(data)); }
+        // Muqova rasm xatoligini oldini olish
+        const coverImg = document.getElementById('profile-cover');
+        let coverIndex = 0;
+        coverImg.onerror = () => {
+            coverIndex++;
+            if(coverIndex < extensions.length) {
+                coverImg.src = `${folderPath} (1)${extensions[coverIndex]}`;
+            }
+        };
+        coverImg.onload = () => coverImg.style.opacity = 1;
+
+        /* DATA STORAGE INTEGRATION */
+        function getAppData() { return JSON.parse(localStorage.getItem('11v_family_muhabbat_updated_data')) || {}; }
+        function saveAppData(data) { localStorage.setItem('11v_family_muhabbat_updated_data', JSON.stringify(data)); }
 
         let activeImageSrc = ""; let isZoomMode = false;
         let scale = 1, lastScale = 1, startX = 0, startY = 0, translateX = 0, translateY = 0, isDragging = false, startDist = 0;
@@ -340,7 +359,7 @@
         }
         document.getElementById('comment-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addComment(); });
 
-        /* SMARTPHONE TOUCH GESTURES (ZOOM & PAN) */
+        /* TOUCH EVENT SENSORS */
         let touchStartTime = 0, touchStartX = 0, touchStartY = 0;
         img.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
