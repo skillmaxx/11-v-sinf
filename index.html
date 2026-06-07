@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11-V Family | Glassmorphism Edition</title>
+    <title>11-V Family | Bitiruv - 2026</title>
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
@@ -293,7 +293,6 @@
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                <li><a href="royhat/vinetka.html">Vinetka rasmlari</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
                 <span></span>
@@ -305,7 +304,6 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active" onclick="closeMenu()">Bosh sahifa</a>
-        <a href="royhat/vinetka.html" onclick="closeMenu()">Vinetka rasmlari</a>
     </div>
 
     <section id="bosh-sahifa">
@@ -323,9 +321,8 @@
         <div class="gallery-grid">
             
             <!-- 1. VINETKA SINF (82) -->
-            <a href="royhat/vinetka.html" class="album-link">
+            <a href="royhat/vinsinf.html" class="album-link">
                 <div class="photo-card">
-                    <!-- GITHUB PAPKA NOMIGA MOSLASHTIRILDI -->
                     <img src="Vinetka sinf/vinsinf (82).jpg" alt="Vinetka Sinf" loading="lazy" onerror="this.onerror=null; this.src='Vinetka sinf/vinsinf (82).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka Sinf</h3>
@@ -337,7 +334,6 @@
             <!-- 2. MAKTAB HOVLISI (18) -->
             <a href="royhat/maktabhovlisi.html" class="album-link">
                 <div class="photo-card">
-                    <!-- GITHUB PAPKA NOMIGA MOSLASHTIRILDI -->
                     <img src="Maktabhovlisi/maktab (18).jpg" alt="Maktab Hovlisi" loading="lazy" onerror="this.onerror=null; this.src='Maktabhovlisi/maktab (18).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maktab Hovlisi</h3>
@@ -360,7 +356,6 @@
             <!-- 4. ARDA XIVA (48) -->
             <a href="royhat/ardaxiva.html" class="album-link">
                 <div class="photo-card">
-                    <!-- GITHUB PAPKA NOMIGA MOSLASHTIRILDI -->
                     <img src="ArdaXiva/arda (48).jpg" alt="Arda Xiva" loading="lazy" onerror="this.onerror=null; this.src='ArdaXiva/arda (48).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Arda Xiva</h3>
@@ -370,9 +365,8 @@
             </a>
 
             <!-- 5. XIVA PARKI (225) -->
-            <a href="royhat/xivapark.html" class="album-link">
+            <a href="royhat/xiva_park.html" class="album-link">
                 <div class="photo-card">
-                    <!-- GITHUB PAPKA NOMIGA MOSLASHTIRILDI -->
                     <img src="Xivapark/park (225).jpg" alt="Xiva Parki" loading="lazy" onerror="this.onerror=null; this.src='Xivapark/park (225).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Xiva Parki</h3>
@@ -392,7 +386,7 @@
                 </div>
             </a>
 
-            <!-- 7. YANGI QO'SHILGAN: 25-MAY ALBOMI -->
+            <!-- 7. 25-MAY ALBOMI -->
             <a href="royhat/25may.html" class="album-link">
                 <div class="photo-card">
                     <img src="25may/25may (1).jpg" alt="25-May Xotiralari" loading="lazy" onerror="this.onerror=null; this.src='25may/25may (1).JPG';">
@@ -422,7 +416,6 @@
     </footer>
 
     <script>
-        // Mobil menyu logikasi
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -438,21 +431,14 @@
             document.body.style.overflow = '';
         }
 
-        // ===== RASMLARNI XIRADAN TINIQLASHTIRISH LOGIKASI =====
         document.addEventListener("DOMContentLoaded", function() {
             const lazyImages = document.querySelectorAll('.photo-card img');
-            
             lazyImages.forEach(img => {
                 if (img.complete) {
                     img.classList.add('loaded');
                 } else {
-                    img.addEventListener('load', () => {
-                        img.classList.add('loaded');
-                    });
-                    img.addEventListener('error', () => {
-                        // Agar rasm topilmasa ham xiralikni ochib yuboradi
-                        img.classList.add('loaded');
-                    });
+                    img.addEventListener('load', () => img.classList.add('loaded'));
+                    img.addEventListener('error', () => img.classList.add('loaded'));
                 }
             });
         });
