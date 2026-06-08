@@ -15,7 +15,6 @@
             --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-border-hover: rgba(59, 130, 246, 0.4);
             --text-main: #f3f4f6;
             --accent-glow: #3b82f6;
         }
@@ -144,7 +143,6 @@
             text-shadow: 0 0 12px var(--accent-glow);
         }
 
-        /* --- BOSH SAHIFA FON QISMI YANGILANDI --- */
         #bosh-sahifa {
             position: relative;
             height: 100vh;
@@ -153,11 +151,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #060913; /* Rasm yuklanguncha qora fon */
+            background-color: #060913;
             overflow: hidden;
         }
 
-        /* Fon rasmi alohida qatlamda (Blur qilish uchun) */
         #bosh-sahifa::before {
             content: '';
             position: absolute;
@@ -171,43 +168,25 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             z-index: 1;
-            /* BLUR ANIMATSIYASI */
             animation: heroBgBlur 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes heroBgBlur {
-            0% {
-                filter: blur(25px);
-                opacity: 0;
-                transform: scale(1.1); /* Sal yaqinlashib chiqadi */
-            }
-            100% {
-                filter: blur(0);
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { filter: blur(25px); opacity: 0; transform: scale(1.1); }
+            100% { filter: blur(0); opacity: 1; transform: scale(1); }
         }
 
         .hero-content-wrapper {
-            position: relative; /* Z-index ishlashi uchun qo'shildi */
+            position: relative;
             max-width: 800px;
             padding: 0 20px;
-            z-index: 2; /* FONDAN TEPADA TURISHI UCHUN */
-            /* Yozuvlar ham xiradan tiniqlashib kelishi uchun */
+            z-index: 2;
             animation: textBlurIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s backwards;
         }
 
         @keyframes textBlurIn {
-            0% { 
-                opacity: 0; 
-                filter: blur(12px); 
-                transform: translateY(20px); 
-            }
-            100% { 
-                opacity: 1; 
-                filter: blur(0); 
-                transform: translateY(0); 
-            }
+            0% { opacity: 0; filter: blur(12px); transform: translateY(20px); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
 
         .hero-title {
@@ -269,16 +248,16 @@
             min-height: 480px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s, background 0.3s;
             will-change: transform;
             transform: translateZ(0);
         }
 
         .album-link:hover .photo-card {
             transform: translateY(-6px);
-            border-color: var(--glass-border-hover);
-            box-shadow: 0 10px 32px rgba(59, 130, 246, 0.15);
-            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(var(--theme-rgb, 59, 130, 246), 0.5); 
+            box-shadow: 0 10px 32px rgba(var(--theme-rgb, 59, 130, 246), 0.25);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .photo-card img {
@@ -338,7 +317,7 @@
             .section-title { font-size: 2rem; }
             
             .photo-card { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
-            .album-link:hover .photo-card { box-shadow: 0 6px 16px rgba(59, 130, 246, 0.1); }
+            .album-link:hover .photo-card { box-shadow: 0 6px 16px rgba(var(--theme-rgb, 59, 130, 246), 0.15); transform: translateY(-3px); }
             
             @media (prefers-reduced-motion: reduce) {
                 * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -360,7 +339,6 @@
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                <!-- VINETKA.HTML GA ULANDI -->
                 <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
@@ -373,7 +351,6 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active" onclick="closeMenu()">Bosh sahifa</a>
-        <!-- VINETKA.HTML GA ULANDI -->
         <a href="vinetka.html" onclick="closeMenu()">Vinetka Rasmlar</a>
     </div>
 
@@ -391,9 +368,9 @@
         
         <div class="gallery-grid">
             
-            <!-- 1. VINETKA SINF -->
+            <!-- 1. VINETKA SINF (Ko'k: 59, 130, 246) -->
             <a href="royhat/vinsinf.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 59, 130, 246;">
                     <img src="Vinetka sinf/vinsinf (82).jpg" alt="Vinetka Sinf" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Vinetka sinf/vinsinf (82).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka Sinf</h3>
@@ -402,9 +379,9 @@
                 </div>
             </a>
 
-            <!-- 2. MAKTAB HOVLISI -->
+            <!-- 2. MAKTAB HOVLISI (Yashil: 16, 185, 129) -->
             <a href="royhat/maktabhovlisi.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 16, 185, 129;">
                     <img src="Maktabhovlisi/maktabhovlisi (18).JPG" alt="Maktab Hovlisi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Maktabhovlisi/maktabhovlisi (18).jpg';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maktab Hovlisi</h3>
@@ -413,9 +390,9 @@
                 </div>
             </a>
 
-            <!-- 3. FOTOZONA -->
+            <!-- 3. FOTOZONA (Siyohrang/Binafsha: 139, 92, 246) -->
             <a href="royhat/fotozona.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 139, 92, 246;">
                     <img src="Fotozona/fotozona (52).jpg" alt="Fotozona" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Fotozona/fotozona (52).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Fotozona</h3>
@@ -424,9 +401,9 @@
                 </div>
             </a>
 
-            <!-- 4. ARDA XIVA -->
+            <!-- 4. ARDA XIVA (Pushti/Qizil: 244, 63, 94) -->
             <a href="royhat/ardaxiva.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 244, 63, 94;">
                     <img src="ArdaXiva/ardaxiva (48).JPG" alt="Arda Xiva" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='ArdaXiva/ardaxiva (48).jpg';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Arda Xiva</h3>
@@ -435,9 +412,9 @@
                 </div>
             </a>
 
-            <!-- 5. XIVA PARKI -->
+            <!-- 5. XIVA PARKI (Havorang/Cyan: 6, 182, 212) -->
             <a href="royhat/xiva_park.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 6, 182, 212;">
                     <img src="Xivapark/park (225).jpg" alt="Xiva Parki" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Xivapark/park (225).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Xiva Parki</h3>
@@ -446,9 +423,9 @@
                 </div>
             </a>
 
-            <!-- 6. ICHAN QAL'A -->
+            <!-- 6. ICHAN QAL'A (Oltin/Sariq: 245, 158, 11) -->
             <a href="royhat/ichanqala.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 245, 158, 11;">
                     <img src="Ichanqala/ichanqala (119).jpg" alt="Ichan Qal'a" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Ichanqala/ichanqala (119).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ichan Qal'a</h3>
@@ -457,9 +434,9 @@
                 </div>
             </a>
 
-            <!-- 7. 25-MAY ALBOMI -->
+            <!-- 7. 25-MAY ALBOMI (Yorqin Sariq: 234, 179, 8) -->
             <a href="royhat/25may.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 234, 179, 8;">
                     <img src="25may/25may (1).jpg" alt="25-May Xotiralari" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='25may/25may (1).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #eab308, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">25-May (So'nggi Qo'ng'iroq)</h3>
@@ -468,13 +445,24 @@
                 </div>
             </a>
 
-            <!-- 8. QOR -->
+            <!-- 8. QOR (Kumush/Oqish: 203, 213, 225) -->
             <a href="royhat/qor.html" class="album-link">
-                <div class="photo-card">
+                <div class="photo-card" style="--theme-rgb: 203, 213, 225;">
                     <img src="Qor/qor (18).jpg" alt="Qor Albomi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Qor/qor (18).JPG';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #e2e8f0, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Qor</h3>
                         <p>Qishki qorbo'ron va quvnoq damlar</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 9. DIANA & DUSHAMBOY (To'q Sariq: 249, 115, 22) -->
+            <a href="royhat/dd.html" class="album-link">
+                <div class="photo-card" style="--theme-rgb: 249, 115, 22;">
+                    <img src="Diana&Dushamboy/dd (1).JPG" alt="Diana & Dushamboy" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Diana&Dushamboy/dd (1).jpg';">
+                    <div class="photo-info">
+                        <h3 style="background: linear-gradient(to right, #f97316, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Diana & Dushamboy</h3>
+                        <p>Ajoyib xotiralar jamlanmasi</p>
                     </div>
                 </div>
             </a>
