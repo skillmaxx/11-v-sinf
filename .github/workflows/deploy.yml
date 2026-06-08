@@ -16,25 +16,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Build project
+      - name: Prepare files for deployment
         run: |
-          npm install
-          npm run build
+          mkdir -p dist
+          # Faqat HTML, CSS, JS, media fayllarini copy qiling
+          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" \) -not -path "./.git/*" -exec cp {} dist/ \;
+          # Agar papkalar bo'lsa (assets, images, etc)
+          cp -r assets dist/ 2>/dev/null || true
+          cp -r images dist/ 2>/dev/null || true
+          cp -r static dist/ 2>/dev/null || true
       
       - name: Optimize HTML files
         run: |
-          # HTML minify - bo'shiq va comment o'chiring
-          find dist -name "*.html" -type f -exec sed -i 's/  */ /g; s/> </></g; s/<!--.*-->//g' {} \;
-          
-          # CSS minify
-          find dist -name "*.css" -type f -exec sed -i 's/  */ /g; s/\/\*.*\*\///g' {} \;
+          find dist -name "*.html" -type f 2>/dev/null | while read file; do
+            sed -i 's/  */ /g; s/> </></g; s/<!--.*-->//g' "$file" 2>/dev/null || true
+          done
       
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
           retention-days: 1
-          compression: 'gzip'
 
   deploy:
     environment:
