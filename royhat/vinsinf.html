@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>11-V Sinfi | Vinetka Sinf | Shaxsiy Albom</title>
-    <!-- FIREBASE REALTIME KUTUBXONALARI -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
@@ -198,12 +197,11 @@
     </header>
 
     <main class="album-container">
-        <a href="../vinetka.html" class="back-btn">&larr; Orqaga qaytish</a>
+        <a href="../index.html" class="back-btn">&larr; Bosh sahifaga qaytish</a>
 
-        <!-- PROFIL SHAXSIY MA'LUMOTLARI PANEL -->
         <div class="profile-header">
             <div class="profile-cover-box">
-                <img id="profile-cover" src="../Sayt/Vinetka/vinetf (1).JPG" alt="Vinetka">
+                <img id="profile-cover" src="../Vinetka sinf/vinsinf (1).JPG" alt="Vinetka">
             </div>
             <div class="profile-info">
                 <div class="class-info">11-V SINFI</div>
@@ -222,7 +220,6 @@
         <div class="photo-grid" id="photo-grid"></div>
     </main>
 
-    <!-- INSTAGRAM LIGHTBOX MODAL INTERFEYSI -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <div class="lightbox-wrapper">
             <div class="lightbox-img-box" id="img-box">
@@ -243,7 +240,6 @@
                 <div class="likes-count-text" id="like-count">0 ta like</div>
             </div>
 
-            <!-- COMMENTS DRAWER (SHARHLAR) -->
             <div class="comment-drawer" id="comment-drawer" onclick="event.stopPropagation()">
                 <div class="drawer-header">
                     <span class="drawer-title">Izohlar</span>
@@ -278,7 +274,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Foydalanuvchi unikal ID tizimi (Layklar chalkashmasligi uchun)
+        // Foydalanuvchi unikal ID tizimi
         function getOrCreateUserId() {
             let uid = localStorage.getItem('v11_user_uuid');
             if(!uid) { uid = 'user_' + Math.random().toString(36).substr(2, 9); localStorage.setItem('v11_user_uuid', uid); }
@@ -286,13 +282,15 @@
         }
         const myUid = getOrCreateUserId();
 
-        // Rasmlarni yuklash va avtomat format qidirish (Smart Fallback) - MOBILE OPTIMIZED
+        // Rasmlarni yuklash
         const grid = document.getElementById('photo-grid');
-        const folderPath = "../Sayt/Vinetka/vinetf";
+        
+        const folderPath = "../Vinetka sinf/vinsinf";
         const extensions = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG'];
         let loadedCount = 0;
 
-        for (let i = 1; i <= 100; i++) {
+        // TSIKL 262:
+        for (let i = 1; i <= 262; i++) {
             const basePath = `${folderPath} (${i})`;
             const card = document.createElement('div');
             card.className = 'photo-card';
@@ -340,7 +338,7 @@
         const popHeart = document.getElementById('pop-heart');
         let dbRefLikes = null; let dbRefComments = null;
 
-        // REALTIME BAZA BILAN BOG'LANISH (LAYK VA KOMMENTLAR)
+        // REALTIME BAZA BILAN BOG'LANISH
         function openLightbox(src) {
             activeImageSrc = src; imgRef.src = src;
             lightbox.style.display = 'flex';
@@ -356,7 +354,6 @@
             dbRefLikes = database.ref('likes_vinetka/' + safeKey);
             dbRefComments = database.ref('comments_vinetka/' + safeKey);
 
-            // Jonli layklarni eshitish
             dbRefLikes.on('value', (snapshot) => {
                 requestAnimationFrame(() => {
                     const data = snapshot.val() || {};
@@ -367,7 +364,6 @@
                 });
             });
 
-            // Jonli izohlarni eshitish
             dbRefComments.on('value', (snapshot) => {
                 requestAnimationFrame(() => {
                     const commentsContainer = document.getElementById('comments-container');
@@ -410,7 +406,6 @@
             if (now - lastTap < 300) {
                 toggleLike();
                 popHeart.style.animation = 'none'; 
-                // Force reflow
                 void popHeart.offsetHeight; 
                 popHeart.style.animation = 'heartPop 0.6s ease-out forwards';
             } else {
