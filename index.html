@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>11-V Family | Bitiruv - 2026</title>
+    
+    <!-- Meta taglar (Telegram/Instagram da ulashish uchun) -->
+    <meta property="og:title" content="11-V Family | Bitiruv - 2026">
+    <meta property="og:description" content="11-V sinf o'quvchilarining eng go'zal maktab xotiralari va vinetkalari bitta joyda jamlandi.">
+    <meta property="og:image" content="Vinetka sinf/vinsinf (82).jpg">
+
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
@@ -39,6 +45,7 @@
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         nav {
@@ -137,6 +144,7 @@
             text-shadow: 0 0 12px var(--accent-glow);
         }
 
+        /* --- BOSH SAHIFA FON QISMI YANGILANDI --- */
         #bosh-sahifa {
             position: relative;
             height: 100vh;
@@ -145,28 +153,61 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            background-color: #060913; /* Rasm yuklanguncha qora fon */
+            overflow: hidden;
+        }
+
+        /* Fon rasmi alohida qatlamda (Blur qilish uchun) */
+        #bosh-sahifa::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: linear-gradient(rgba(6, 9, 19, 0.55), rgba(6, 9, 19, 0.88)), url('DSC08744.JPG');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            overflow: hidden;
+            z-index: 1;
+            /* BLUR ANIMATSIYASI */
+            animation: heroBgBlur 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        @media (max-width: 768px) {
-            #bosh-sahifa { background-attachment: scroll; }
+        @keyframes heroBgBlur {
+            0% {
+                filter: blur(25px);
+                opacity: 0;
+                transform: scale(1.1); /* Sal yaqinlashib chiqadi */
+            }
+            100% {
+                filter: blur(0);
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .hero-content-wrapper {
+            position: relative; /* Z-index ishlashi uchun qo'shildi */
             max-width: 800px;
             padding: 0 20px;
-            z-index: 2;
-            animation: fadeInUp 0.8s ease-out;
+            z-index: 2; /* FONDAN TEPADA TURISHI UCHUN */
+            /* Yozuvlar ham xiradan tiniqlashib kelishi uchun */
+            animation: textBlurIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s backwards;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes textBlurIn {
+            0% { 
+                opacity: 0; 
+                filter: blur(12px); 
+                transform: translateY(20px); 
+            }
+            100% { 
+                opacity: 1; 
+                filter: blur(0); 
+                transform: translateY(0); 
+            }
         }
 
         .hero-title {
@@ -240,7 +281,6 @@
             background: rgba(255, 255, 255, 0.04);
         }
 
-        /* XIRADAN TINIQLASHISH OPTIMIZED */
         .photo-card img {
             width: 100%;
             height: 360px;
@@ -287,6 +327,7 @@
         }
 
         @media (max-width: 768px) {
+            #bosh-sahifa::before { background-attachment: scroll; }
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .hero-title { font-size: 2.8rem; }
@@ -296,11 +337,9 @@
             .photo-card img { height: 280px; }
             .section-title { font-size: 2rem; }
             
-            /* Mobile performance optimizations */
             .photo-card { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
             .album-link:hover .photo-card { box-shadow: 0 6px 16px rgba(59, 130, 246, 0.1); }
             
-            /* Accessibility - reduce motion */
             @media (prefers-reduced-motion: reduce) {
                 * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
             }
@@ -321,7 +360,8 @@
             <div class="logo">11-V Family</div>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                <li><a href="vinetka_albom.html">Vinetka Rasmlar</a></li>
+                <!-- VINETKA.HTML GA ULANDI -->
+                <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
                 <span></span>
@@ -333,7 +373,8 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active" onclick="closeMenu()">Bosh sahifa</a>
-        <a href="vinetka_albom.html" onclick="closeMenu()">Vinetka Rasmlar</a>
+        <!-- VINETKA.HTML GA ULANDI -->
+        <a href="vinetka.html" onclick="closeMenu()">Vinetka Rasmlar</a>
     </div>
 
     <section id="bosh-sahifa">
@@ -350,7 +391,7 @@
         
         <div class="gallery-grid">
             
-            <!-- 1. VINETKA SINF (82) -->
+            <!-- 1. VINETKA SINF -->
             <a href="royhat/vinsinf.html" class="album-link">
                 <div class="photo-card">
                     <img src="Vinetka sinf/vinsinf (82).jpg" alt="Vinetka Sinf" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Vinetka sinf/vinsinf (82).JPG';">
@@ -361,10 +402,10 @@
                 </div>
             </a>
 
-            <!-- 2. MAKTAB HOVLISI (18) - FIXED -->
+            <!-- 2. MAKTAB HOVLISI -->
             <a href="royhat/maktabhovlisi.html" class="album-link">
                 <div class="photo-card">
-                    <img src="Maktabhovlisi/maktabhovli (18).JPG" alt="Maktab Hovlisi" loading="lazy" decoding="async">
+                    <img src="Maktabhovlisi/maktabhovlisi (18).JPG" alt="Maktab Hovlisi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Maktabhovlisi/maktabhovlisi (18).jpg';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maktab Hovlisi</h3>
                         <p>Qadrdon maktab bag'ridagi damlar</p>
@@ -372,7 +413,7 @@
                 </div>
             </a>
 
-            <!-- 3. FOTOZONA (52) -->
+            <!-- 3. FOTOZONA -->
             <a href="royhat/fotozona.html" class="album-link">
                 <div class="photo-card">
                     <img src="Fotozona/fotozona (52).jpg" alt="Fotozona" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Fotozona/fotozona (52).JPG';">
@@ -383,10 +424,10 @@
                 </div>
             </a>
 
-            <!-- 4. ARDA XIVA (48) - FIXED -->
+            <!-- 4. ARDA XIVA -->
             <a href="royhat/ardaxiva.html" class="album-link">
                 <div class="photo-card">
-                    <img src="ArdaXiva/ardaxiva (1150).JPG" alt="Arda Xiva" loading="lazy" decoding="async">
+                    <img src="ArdaXiva/ardaxiva (48).JPG" alt="Arda Xiva" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='ArdaXiva/ardaxiva (48).jpg';">
                     <div class="photo-info">
                         <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Arda Xiva</h3>
                         <p>Arda restorani va Xiva xotiralari</p>
@@ -394,7 +435,7 @@
                 </div>
             </a>
 
-            <!-- 5. XIVA PARKI (225) -->
+            <!-- 5. XIVA PARKI -->
             <a href="royhat/xiva_park.html" class="album-link">
                 <div class="photo-card">
                     <img src="Xivapark/park (225).jpg" alt="Xiva Parki" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Xivapark/park (225).JPG';">
@@ -405,7 +446,7 @@
                 </div>
             </a>
 
-            <!-- 6. ICHAN QAL'A (119) -->
+            <!-- 6. ICHAN QAL'A -->
             <a href="royhat/ichanqala.html" class="album-link">
                 <div class="photo-card">
                     <img src="Ichanqala/ichanqala (119).jpg" alt="Ichan Qal'a" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Ichanqala/ichanqala (119).JPG';">
@@ -427,7 +468,7 @@
                 </div>
             </a>
 
-            <!-- 8. QOR (18) -->
+            <!-- 8. QOR -->
             <a href="royhat/qor.html" class="album-link">
                 <div class="photo-card">
                     <img src="Qor/qor (18).jpg" alt="Qor Albomi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Qor/qor (18).JPG';">
