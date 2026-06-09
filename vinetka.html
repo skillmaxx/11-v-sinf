@@ -47,7 +47,6 @@
             contain-intrinsic-size: auto 450px;
         }
         
-        /* PREMIUM NOYOB MULTI-COLOR KLASS */
         .student-row-card { 
             display: grid; 
             grid-template-columns: 350px 1fr; 
@@ -57,37 +56,39 @@
             border-radius: 20px; 
             overflow: hidden; 
             border: 1px solid rgba(var(--accent-glow-rgb, 59, 130, 246), 0.15); 
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease; 
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease; 
             contain: layout paint;
             will-change: transform;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
         }
         .student-row-card:hover { 
-            transform: translateY(-5px); 
+            transform: translateY(-5px) translate3d(0, -5px, 0); 
             border-color: var(--accent-glow); 
             box-shadow: 0 15px 35px rgba(var(--accent-glow-rgb, 59, 130, 246), 0.25);
         }
         
-        .img-box { width: 100%; height: 450px; overflow: hidden; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; position: relative; }
+        .img-box { width: 100%; height: 450px; overflow: hidden; background: #0c101d; display: flex; align-items: center; justify-content: center; position: relative; }
         
-        /* SMOOTH CINEMATIC FADE-IN */
         .img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top center;
             opacity: 0;
-            filter: blur(25px) saturate(0.4) scale(1.04);
-            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), 
-                        filter 1.3s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(12px) saturate(0.5) scale(1.03);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             image-orientation: from-image;
             will-change: transform, opacity, filter;
+            transform: translate3d(0, 0, 0);
         }
         .img-box img.loaded { 
             opacity: 1; 
             filter: blur(0) saturate(1) scale(1); 
         }
-        .student-row-card:hover .img-box img.loaded { transform: scale(1.03); }
+        .student-row-card:hover .img-box img.loaded { transform: scale(1.025) translate3d(0, 0, 0); }
         
         .student-lyrics-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
         .student-lyrics-info h3 { font-size: 2rem; color: #ffffff; margin-bottom: 1.2rem; letter-spacing: 1px; transition: color 0.3s; }
@@ -97,7 +98,7 @@
         .click-hint { margin-top: auto; font-size: 0.85rem; color: rgba(192,197,206,0.4); letter-spacing: 1px; text-transform: uppercase; padding-top: 1.5rem; transition: color 0.3s; }
         .student-row-card:hover .click-hint { color: var(--accent-glow); }
         
-        .no-photo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2); font-size: 0.9rem; }
+        .no-photo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.15); font-size: 0.95rem; background: #0c101d; }
         footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; background-color: var(--secondary-bg); }
         
         @media (max-width: 768px) {
@@ -138,11 +139,10 @@
     <p class="page-subtitle">Rasm ustiga bosib, shaxsiy albom ichidagi barcha foto lavhalarni ko'rishingiz mumkin</p>
     <div class="students-wrapper">
 
-
         <!-- 1. Qodirberganova Sohiba (Royal Indigo) -->
         <a href="royhat/sohiba.html" class="student-album-link" style="--accent-glow: #6366f1; --accent-glow-rgb: 99, 102, 241;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sohiba/sohiba (30).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sohiba/sohiba (30).jpg','Sohiba/sohiba (30).jpeg','Sohiba/sohiba (30).PNG','Sohiba/sohiba (30).png'])" alt="Sohiba" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sohiba/sohiba (30)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sohiba"></div>
                 <div class="student-lyrics-info"><h3>Qodirberganova Sohiba</h3>
                 <div class="poetic-lines">Yillar o'tib ortga boqqanda bir kun,<br>Yodga tushar shirin, begubor damlar.<br>Ushbu sahifalarda yashaydi butun —<br>Maktab davridagi eng go'zal onlar...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -152,7 +152,7 @@
         <!-- 2. Baxtiyorova Muhabbat (Elegant Teal) -->
         <a href="royhat/muhabbat.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Muhabbat/muhabbat (43).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Muhabbat/muhabbat (43).jpg','Sayt/Muhabbat/muhabbat (43).jpeg','Sayt/Muhabbat/muhabbat (43).PNG','Sayt/Muhabbat/muhabbat (43).png'])" alt="Muhabbat" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Muhabbat/muhabbat (43)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Muhabbat"></div>
                 <div class="student-lyrics-info"><h3>Baxtiyorova Muhabbat</h3>
                 <div class="poetic-lines">Mehribon yurakda nur sochib turgan,<br>Sinfdoshlar sevgan, aziz do'st u.<br>Kelajak yo'lida baxt topib turgan,<br>Maktab xotiralari — eng go'zal tuyg'u...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -162,7 +162,7 @@
         <!-- 3. Dushamova Diana (Sapphire Blue) -->
         <a href="royhat/diana.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Diana/diana (44).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Diana/diana (44).jpg','Diana/diana (44).jpeg','Diana/diana (44).PNG','Diana/diana (44).png'])" alt="Diana" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Diana/diana (44)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Diana"></div>
                 <div class="student-lyrics-info"><h3>Dushamova Diana</h3>
                 <div class="poetic-lines">Nigohi sehrli, begubor chehra,<br>Sinfimiz malikasi bo'lib yuradi.<br>G'amlarni unutib qilganda xira,<br>Atrofga tabassum ulashib turadi.</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -172,7 +172,7 @@
         <!-- 4. Qo'ziyev Murodbek (Platinum Slate) -->
         <a href="royhat/murodbek.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Murodbek/murod (22).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Murodbek/murod (22).jpg','Sayt/Murodbek/murod (22).jpeg','Sayt/Murodbek/murod (22).PNG','Sayt/Murodbek/murod (22).png'])" alt="Murodbek" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Murodbek/murod (22)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Murodbek"></div>
                 <div class="student-lyrics-info"><h3>Qo'ziyev Murodbek</h3>
                 <div class="poetic-lines">Mardlik va jasurlik — uning belgisi,<br>Sinfdoshlar ichida o'ziga xos.<br>Kelajak osmoni — orzu dengizi,<br>Har bir qadamida g'alaba — xos.</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -182,7 +182,7 @@
         <!-- 5. Abdullayev Alibek (Emerald Green) -->
         <a href="royhat/alibek.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Alibek/alibek (13).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Alibek/alibek (13).jpg','Alibek/alibek (13).PNG','Alibek/alibek (13).png'])" alt="Alibek" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Alibek/alibek (13)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Alibek"></div>
                 <div class="student-lyrics-info"><h3>Abdullayev Alibek</h3>
                 <div class="poetic-lines">Samimiy kulgu-yu begubor niyat,<br>Sinfimiz ko'rki u, mardlik timsoli.<br>Har bir amallarda yuksak ma'naviyat,<br>Kelajak yo'lining porloq yulduzi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -192,7 +192,7 @@
         <!-- 6. Abdullayeva Dildora (Shoxona Oltin) -->
         <a href="royhat/dildora.html" class="student-album-link" style="--accent-glow: #eab308; --accent-glow-rgb: 234, 179, 8;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Dildora/dildora (4).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Dildora/dildora (4).jpg','Dildora/dildora (4).PNG','Dildora/dildora (4).png'])" alt="Dildora" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Dildora/dildora (4)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Dildora"></div>
                 <div class="student-lyrics-info"><h3>Abdullayeva Dildora</h3>
                 <div class="poetic-lines">Ilm sahifalarida porlab yurgan,<br>Mehribon yurakda mehr-oqibat.<br>Kelajak yo'lida baxt topib turgan,<br>Maktab xotiralari — umr davomi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -202,7 +202,7 @@
         <!-- 7. Abdullayeva Xurshida (Royal Indigo) -->
         <a href="royhat/xurshida_ab.html" class="student-album-link" style="--accent-glow: #6366f1; --accent-glow-rgb: 99, 102, 241;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Xurshida_ab/xurshida_ab (4).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Xurshida_ab/xurshida_ab (4).jpg','Sayt/Xurshida_ab/xurshida_ab (4).PNG','Sayt/Xurshida_ab/xurshida_ab (4).png'])" alt="Xurshida Ab" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Xurshida_ab/xurshida_ab (4)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Xurshida Ab"></div>
                 <div class="student-lyrics-info"><h3>Abdullayeva Xurshida</h3>
                 <div class="poetic-lines">Zukko zehnli, ochiq ko'ngil sohibi,<br>Sinfdoshlar ichida yorqin siymo.<br>Ilm yo'lida intilgan talabi,<br>Kelajakda porlasin baxt doimo...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -212,7 +212,7 @@
         <!-- 8. Allaberganova Xurshida (Elegant Teal) -->
         <a href="royhat/xurshida_al.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Xurshida Al/xurshida (5).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Xurshida Al/xurshida (5).jpg','Xurshida Al/xurshida (5).PNG','Xurshida Al/xurshida (5).png'])" alt="Xurshida Al" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Xurshida Al/xurshida (5)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Xurshida Al"></div>
                 <div class="student-lyrics-info"><h3>Allaberganova Xurshida</h3>
                 <div class="poetic-lines">Zukko zehnli, ochiq ko'ngil sohibi,<br>Sinfdoshlar ichida yorqin siymo.<br>Ilm yo'lida intilgan talabi,<br>Kelajakda porlasin baxt doimo...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -222,7 +222,7 @@
         <!-- 9. Bozorboyeva Sevinchoy (Emerald Green) -->
         <a href="royhat/sevinchoy.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Sevinchoy/saevinch (5).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Sevinchoy/saevinch (5).jpg','Sayt/Sevinchoy/sevinch (5).JPG','Sayt/Sevinchoy/sevinch (5).jpg','Sayt/Sevinchoy/saevinch (5).png'])" alt="Sevinchoy" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Sevinchoy/saevinch (5)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sevinchoy"></div>
                 <div class="student-lyrics-info"><h3>Bozorboyeva Sevinchoy</h3>
                 <div class="poetic-lines">Sevinch to'la qalbi, nur to'la ko'zi,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida — yonsin yulduzi,<br>Maktab yillari — umrga guvoh...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -232,7 +232,7 @@
         <!-- 10. Dushamov Dushamboy (Platinum Slate) -->
         <a href="royhat/dushamboy.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Dushamboy/dushamboy (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Dushamboy/dushamboy (1).jpg','Sayt/Dushamboy/dushamboy (1).PNG','Sayt/Dushamboy/dushamboy (1).png'])" alt="Dushamboy" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Dushamboy/dushamboy (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Dushamboy"></div>
                 <div class="student-lyrics-info"><h3>Dushamov Dushamboy</h3>
                 <div class="poetic-lines">Jasur va dadil, irodali yigit,<br>Sinfdoshlar ichida o'ziga xos.<br>Kelajak osmoni — unga keng qanot,<br>Har bir qadamda g'alaba — xos...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -242,7 +242,7 @@
         <!-- 11. Ganjayev Sanjar (Sapphire Blue) -->
         <a href="royhat/sanjar.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Sanjar/sanjar (3).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Sanjar/sanjar (3).jpg','Sayt/Sanjar/sanjar (3).PNG','Sayt/Sanjar/sanjar (3).png'])" alt="Sanjar" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Sanjar/sanjar (3)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sanjar"></div>
                 <div class="student-lyrics-info"><h3>Ganjayev Sanjar</h3>
                 <div class="poetic-lines">Jasur va dadil, sinfdosh yigit,<br>Bilim yo'lida intilgan har kun.<br>Kelajak osmonida porlar yulduz,<br>Maktab davri — eng go'zal bir un...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -252,7 +252,7 @@
         <!-- 12. Gulmatov Nodirbek (Shoxona Oltin) -->
         <a href="royhat/nodirbek.html" class="student-album-link" style="--accent-glow: #eab308; --accent-glow-rgb: 234, 179, 8;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Nodirbek/photo_2026-04-30_19-01-09 (32).jpg" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Nodirbek/photo_2026-04-30_19-01-09 (32).JPG','Sayt/Nodirbek/photo_2026-04-30_19-01-09 (32).png'])" alt="Nodirbek" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Nodirbek/photo_2026-04-30_19-01-09 (32)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Nodirbek"></div>
                 <div class="student-lyrics-info"><h3>Gulmatov Nodirbek</h3>
                 <div class="poetic-lines">Irodali va maqsadli yigit,<br>Bilim yo'lida intilgan har kun.<br>Kelajak osmonida porlar yulduz,<br>Maktab davri — eng go'zal bir un...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -262,7 +262,7 @@
         <!-- 13. Jumaxanov Bexruzbek (Emerald Green) -->
         <a href="royhat/behruz.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Behruz/behruz (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Behruz/behruz (1).jpg','Sayt/Behruz/behruz (1).PNG','Sayt/Behruz/behruz (1).png'])" alt="Behruz" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Behruz/behruz (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Behruz"></div>
                 <div class="student-lyrics-info"><h3>Jumaxanov Bexruzbek</h3>
                 <div class="poetic-lines">Zehnli va chaqqon, sinfdosh do'stim,<br>Har masalani hal qilur zudlik.<br>Kelajak yo'lida parvoz etganda,<br>Eslanar maktabda o'tgan yoshlik...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -272,7 +272,7 @@
         <!-- 14. Karimboyev Abror (Elegant Teal) -->
         <a href="royhat/abror.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Abror/abror (2).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Abror/abror (2).jpg','Abror/abror (2).PNG','Abror/abror (2).png'])" alt="Abror" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Abror/abror (2)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Abror"></div>
                 <div class="student-lyrics-info"><h3>Karimboyev Abror</h3>
                 <div class="poetic-lines">Bilim yo'lida intilgan yigit,<br>Mehr-oqibat bilan porlar har kuni.<br>Kelajak osmonida yuksak qadam,<br>Maktab xotiralari — eng go'zal uni...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -282,7 +282,7 @@
         <!-- 15. Kerimboyev Bobur (Platinum Slate) -->
         <a href="royhat/bobur.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Bobur/bobur (3).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Bobur/bobur (3).jpg','Sayt/Bobur/bobur (3).PNG','Sayt/Bobur/bobur (3).png'])" alt="Bobur" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Bobur/bobur (3)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Bobur"></div>
                 <div class="student-lyrics-info"><h3>Kerimboyev Bobur</h3>
                 <div class="poetic-lines">Mard va jasur, sinfdosh hamrohim,<br>Hayot yo'lida dadil qadam bosadi.<br>Kelajak yo'llari bo'lib charog'on,<br>Maktab yillari yodda yashaydi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -292,7 +292,7 @@
         <!-- 16. Matqurbanova Sanobar (Royal Indigo) -->
         <a href="royhat/sanobar.html" class="student-album-link" style="--accent-glow: #6366f1; --accent-glow-rgb: 99, 102, 241;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Sanobar/sanobar (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Sanobar/sanobar (1).jpg','Sayt/Sanobar/sanobar (1).PNG','Sayt/Sanobar/sanobar (1).png'])" alt="Sanobar" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Sanobar/sanobar (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sanobar"></div>
                 <div class="student-lyrics-info"><h3>Matqurbanova Sanobar</h3>
                 <div class="poetic-lines">Nafis va muloyim, mehr-oqibat,<br>Sinfdoshlar sevgan aziz qizimiz.<br>Kelajak yo'lida yulduz — saodat,<br>Maktab xotiralari — oltin so'zimiz...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -302,7 +302,7 @@
         <!-- 17. Nuraddinova Ro'za (Sapphire Blue) -->
         <a href="royhat/roza.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Ro'za/roza (11).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,[&quot;Sayt/Ro'za/roza (11).jpg&quot;,&quot;Sayt/Ro'za/roza (4).JPG&quot;,&quot;Sayt/Ro'za/roza (4).jpg&quot;])" alt="Ro'za" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Ro'za/roza (11)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Ro'za"></div>
                 <div class="student-lyrics-info"><h3>Nuraddinova Ro'za</h3>
                 <div class="poetic-lines">Ro'za misol ochilgan gulday,<br>Sinfdoshlar qalbida bahor keltirar.<br>Mehr to'la ko'ngli — tiniq bir ko'lday,<br>Kelajakka yorug' qadam yetishar...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -312,7 +312,7 @@
         <!-- 18. Nurmetov Mansur (Platinum Slate) -->
         <a href="royhat/mansur.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Mansur/mansur (6).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Mansur/mansur (6).jpg','Sayt/Mansur/mansur (6).PNG','Sayt/Mansur/mansur (6).png'])" alt="Mansur" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Mansur/mansur (6)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Mansur"></div>
                 <div class="student-lyrics-info"><h3>Nurmetov Mansur</h3>
                 <div class="poetic-lines">Kuchli va irodali, sinfdosh yigit,<br>Har qiyinchilikdan o'tadi dadil.<br>Kelajak yo'lida — yorqin bir zinat,<br>Maktab xotiralari qoladi adil...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -322,7 +322,7 @@
         <!-- 19. Otaboyev Bunyodbek (Elegant Teal) -->
         <a href="royhat/bunyod.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Bunyod/bunyod (2).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Bunyod/bunyod (2).jpg','Sayt/Bunyod/bunyod (2).PNG','Sayt/Bunyod/bunyod (2).png'])" alt="Bunyod" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Bunyod/bunyod (2)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Bunyod"></div>
                 <div class="student-lyrics-info"><h3>Otaboyev Bunyodbek</h3>
                 <div class="poetic-lines">Bunyod etuvchi, ijodkor yigit,<br>Sinfdoshlar ichida o'ziga xos.<br>Kelajak yo'lida — yuksak zinat,<br>Maktab davri — umrning eng xos...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -332,7 +332,7 @@
         <!-- 20. Otajonova Intizor (Shoxona Oltin) -->
         <a href="royhat/intizor.html" class="student-album-link" style="--accent-glow: #eab308; --accent-glow-rgb: 234, 179, 8;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Intizor/intizor (3).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Intizor/intizor (3).jpg','Sayt/Intizor/intizor (3).PNG','Sayt/Intizor/intizor (3).png'])" alt="Intizor" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Intizor/intizor (3)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Intizor"></div>
                 <div class="student-lyrics-info"><h3>Otajonova Intizor</h3>
                 <div class="poetic-lines">Intizor — kutish, umid va orzu,<br>Sinfdoshlar qalbida bahor sochadi.<br>Kelajak yo'lida yorqin bir tuyg'u,<br>Mehr bilan hayotni bezab boradi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -342,7 +342,7 @@
         <!-- 21. Otoboyeva Ziyoda (Emerald Green) -->
         <a href="royhat/ziyoda.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Ziyoda/ziyoda (6).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Ziyoda/ziyoda (6).jpg','Sayt/Ziyoda/ziyoda (6).PNG','Sayt/Ziyoda/ziyoda (6).png'])" alt="Ziyoda" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Ziyoda/ziyoda (6)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Ziyoda"></div>
                 <div class="student-lyrics-info"><h3>Otoboyeva Ziyoda</h3>
                 <div class="poetic-lines">Ziyoda — nur, yorug'lik timsoli,<br>Sinfdoshlar ichida porlab yuradi.<br>Ilm va mehr — uning yo'ldoshi,<br>Kelajakda baxtli bo'lib turadi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -352,7 +352,7 @@
         <!-- 22. Ozodboyeva Sevrozxon (Sapphire Blue) -->
         <a href="royhat/sevrozxon.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Sevrozxon/sevrozxon (3).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Sevrozxon/sevrozxon (3).jpg','Sayt/Sevrozxon/sevrozxon (3).PNG','Sayt/Sevrozxon/sevrozxon (3).png'])" alt="Sevrozxon" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Sevrozxon/sevrozxon (3)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sevrozxon"></div>
                 <div class="student-lyrics-info"><h3>Ozodboyeva Sevrozxon</h3>
                 <div class="poetic-lines">Ozod ruhli, erkin fikrli qiz,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida — yulduzday egiz,<br>Maktab xotiralari — umrga guvoh...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -362,7 +362,7 @@
         <!-- 23. Qadamboyev Elbek (Platinum Slate) -->
         <a href="royhat/elbek.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Elbek/elbek (4).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Elbek/elbek (4).jpg','Sayt/Elbek/elbek (4).PNG','Sayt/Elbek/elbek (4).png'])" alt="Elbek" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Elbek/elbek (4)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Elbek"></div>
                 <div class="student-lyrics-info"><h3>Qadamboyev Elbek</h3>
                 <div class="poetic-lines">Har qadamda oldinga intilgan,<br>Sinfdoshlar ichida jasur yigit.<br>Maktab yo'llarida baxti topilgan,<br>Kelajakda porlasin uning yorqin yo'li...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -372,7 +372,7 @@
         <!-- 24. Qodirberganov Mahmudjon (Royal Indigo) -->
         <a href="royhat/mahmudjon.html" class="student-album-link" style="--accent-glow: #6366f1; --accent-glow-rgb: 99, 102, 241;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Mahmudjon/mahmudjon (5).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Mahmudjon/mahmudjon (5).jpg','Sayt/Mahmudjon/mahmudjon (5).PNG','Sayt/Mahmudjon/mahmudjon (5).png'])" alt="Mahmudjon" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Mahmudjon/mahmudjon (5)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Mahmudjon"></div>
                 <div class="student-lyrics-info"><h3>Qodirberganov Mahmudjon</h3>
                 <div class="poetic-lines">Mahmud — ulug' ismdek ulug' yigit,<br>Bilim va aql — uning quroli.<br>Kelajak yo'lida — yuksak zinat,<br>Maktab davri — umrning kamoli...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -382,7 +382,7 @@
         <!-- 25. Qurbonboyeva Gulsevar (Elegant Teal) -->
         <a href="royhat/gulsevar.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Gulsevar/gulsevar (4).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Gulsevar/gulsevar (4).jpg','Sayt/Gulsevar/gulsevar (4).PNG','Sayt/Gulsevar/gulsevar (4).png'])" alt="Gulsevar" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Gulsevar/gulsevar (4)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Gulsevar"></div>
                 <div class="student-lyrics-info"><h3>Qurbonboyeva Gulsevar</h3>
                 <div class="poetic-lines">Gul misol ochilgan, xushbo'y nafas,<br>Sinfdoshlar qalbida bahor sochadi.<br>Mehr to'la ko'ngil — tiniq bir sado,<br>Kelajakka ishonch bilan yetishar...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -392,7 +392,7 @@
         <!-- 26. Raximboyeva Barchinoy (Shoxona Oltin) -->
         <a href="royhat/barchinoy.html" class="student-album-link" style="--accent-glow: #eab308; --accent-glow-rgb: 234, 179, 8;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Barchinoy/barchinoy (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Barchinoy/barchinoy (1).jpg','Sayt/Barchinoy/barchinoy (1).PNG','Sayt/Barchinoy/barchinoy (1).png'])" alt="Barchinoy" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Barchinoy/barchinoy (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Barchinoy"></div>
                 <div class="student-lyrics-info"><h3>Raximboyeva Barchinoy</h3>
                 <div class="poetic-lines">Barchinoy — ipak misol nozik qiz,<br>Sinfdoshlar ichida yorqin siymo.<br>Kelajak yo'lida — yulduzday egiz,<br>Maktab xotiralari — umr sayli...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -402,7 +402,7 @@
         <!-- 27. Ro'zmatova Kamuna (Emerald Green) -->
         <a href="royhat/kamuna.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Kamuna/photo_2026-04-30_19-02-46 (2).jpg" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Kamuna/photo_2026-04-30_19-02-46 (2).JPG','Sayt/Kamuna/photo_2026-04-30_19-02-46 (2).png'])" alt="Kamuna" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Kamuna/photo_2026-04-30_19-02-46 (2)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Kamuna"></div>
                 <div class="student-lyrics-info"><h3>Ro'zmatova Kamuna</h3>
                 <div class="poetic-lines">Samimiy va ochiq ko'ngil sohibi,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida omad tilab,<br>Maktab yillari — umrga guvoh...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -412,7 +412,7 @@
         <!-- 28. Sobirov Azizbek (Sapphire Blue) -->
         <a href="royhat/aziz.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Aziz/aziz (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Aziz/aziz (1).jpg','Sayt/Aziz/aziz (1).PNG','Sayt/Aziz/aziz (1).png'])" alt="Aziz" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Aziz/aziz (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Aziz"></div>
                 <div class="student-lyrics-info"><h3>Sobirov Azizbek</h3>
                 <div class="poetic-lines">Aziz ismdek aziz sinfdosh yigit,<br>Hayot yo'lida dadil qadam bosadi.<br>Kelajak osmoni — uning zinati,<br>Maktab xotiralari yodda yashaydi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -422,7 +422,7 @@
         <!-- 29. Raximov Temur (Platinum Slate) -->
         <a href="royhat/temur.html" class="student-album-link" style="--accent-glow: #94a3b8; --accent-glow-rgb: 148, 163, 184;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Temur/temur (2).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Temur/temur (2).jpg','Sayt/Temur/temur (2).PNG','Sayt/Temur/temur (2).png'])" alt="Temur" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Temur/temur (2)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Temur"></div>
                 <div class="student-lyrics-info"><h3>Raximov Temur</h3>
                 <div class="poetic-lines">Bilim cho'qqilarin ko'zlagan mard og'lon,<br>Har doim do'stlarga suyanch va qalqon.<br>Yorug' kelajakka intilur har dam,<br>Sinfdoshlar ichra eng oliy qadam...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -432,7 +432,7 @@
         <!-- 30. To'raboyeva Sevinch (Shoxona Oltin) -->
         <a href="royhat/t_sevinch.html" class="student-album-link" style="--accent-glow: #eab308; --accent-glow-rgb: 234, 179, 8;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/T_sevinch/t_sevinch (1).png" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/T_sevinch/t_sevinch (1).JPG','Sayt/T_sevinch/t_sevinch (1).jpg','Sayt/T_sevinch/t_sevinch (1).PNG'])" alt="Sevinch" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/T_sevinch/t_sevinch (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sevinch"></div>
                 <div class="student-lyrics-info"><h3>To'raboyeva Sevinch</h3>
                 <div class="poetic-lines">Sevinch to'la qalbi, nur to'la ko'zi,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida — yonsin yulduzi,<br>Maktab yillari — umrga guvoh...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -442,7 +442,7 @@
         <!-- 31. Xusinova Gulyor (Royal Indigo) -->
         <a href="royhat/gulyor.html" class="student-album-link" style="--accent-glow: #6366f1; --accent-glow-rgb: 99, 102, 241;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Gulyor/gulyor (3).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Gulyor/gulyor (3).jpg','Sayt/Gulyor/gulyor (3).PNG','Sayt/Gulyor/gulyor (3).png'])" alt="Gulyor" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Gulyor/gulyor (3)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Gulyor"></div>
                 <div class="student-lyrics-info"><h3>Xusinova Gulyor</h3>
                 <div class="poetic-lines">Gulyor — ismi kabi go'zal tabassum,<br>Sinfimizga doim bag'ishlar quvonch.<br>Kelajak yo'llari bo'lsin nurafshon,<br>Qalbida porlasin yuksak bir ishonch...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -452,7 +452,7 @@
         <!-- 32. Xusinova Shaydo (Emerald Green) -->
         <a href="royhat/shaydo.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Shaydo/shaydo (4).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Shaydo/shaydo (4).jpg','Sayt/Shaydo/shaydo (4).PNG','Sayt/Shaydo/shaydo (4).png'])" alt="Shaydo" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Shaydo/shaydo (4)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Shaydo"></div>
                 <div class="student-lyrics-info"><h3>Xusinova Shaydo</h3>
                 <div class="poetic-lines">Shaydo ko'ngil — ishq va mehr bilan,<br>Sinfdoshlar ichida porlab yuradi.<br>Kelajak yo'lida — katta baxt bilan,<br>Maktab xotiralari yodda qoladi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -462,7 +462,7 @@
         <!-- 33. Yo'ldashova Go'zalxon (Elegant Teal) -->
         <a href="royhat/gozal.html" class="student-album-link" style="--accent-glow: #14b8a6; --accent-glow-rgb: 20, 184, 166;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Go'zal/go'zal (1).JPG" onload="this.style.opacity=1; this.classList.add('loaded')" onerror="tryNext(this,[&quot;Sayt/Go'zal/go'zal (1).jpg&quot;,&quot;Sayt/Go'zal/go'zal (1).PNG&quot;,&quot;Sayt/Go'zal/go'zal (1).png&quot;])" alt="Go'zalxon" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Go'zal/go'zal (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Go'zalxon"></div>
                 <div class="student-lyrics-info"><h3>Yo'ldashova Go'zalxon</h3>
                 <div class="poetic-lines">Go'zalxon — go'zallik timsoli qiz,<br>Sinfdoshlar ichida yorqin siymo.<br>Kelajak yo'lida — yulduzday egiz,<br>Maktab xotiralari — umr ko'rki...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -472,7 +472,7 @@
         <!-- 34. Yo'ldashova Muxlisa (Sapphire Blue) -->
         <a href="royhat/muxlisa.html" class="student-album-link" style="--accent-glow: #3b82f6; --accent-glow-rgb: 59, 130, 246;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Muxlisa/muxlisa (1).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Muxlisa/muxlisa (1).jpg','Sayt/Muxlisa/muxlisa (1).PNG','Sayt/Muxlisa/muxlisa (1).png'])" alt="Muxlisa" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Muxlisa/muxlisa (1)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Muxlisa"></div>
                 <div class="student-lyrics-info"><h3>Yo'ldashova Muxlisa</h3>
                 <div class="poetic-lines">Muxlis ko'ngil — sadoqat va mehr,<br>Sinfdoshlar sevgan aziz hamroh.<br>Kelajak yo'lida — porloq bir she'r,<br>Maktab yillari — umrga guvoh...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -482,7 +482,7 @@
         <!-- 35. Yuldashova Sarvinoz (Emerald Green) -->
         <a href="royhat/sarvinoz.html" class="student-album-link" style="--accent-glow: #10b981; --accent-glow-rgb: 16, 185, 129;">
             <div class="student-row-card">
-                <div class="img-box"><img decoding="async" src="Sayt/Sarvinoz/sarvinoz (2).JPG" onload="this.classList.add('loaded')" onerror="tryNext(this,['Sayt/Sarvinoz/sarvinoz (2).jpg','Sayt/Sarvinoz/sarvinoz (2).PNG','Sayt/Sarvinoz/sarvinoz (2).png'])" alt="Sarvinoz" loading="lazy"></div>
+                <div class="img-box"><img decoding="async" data-basepath="Sayt/Sarvinoz/sarvinoz (2)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 450'></svg>" alt="Sarvinoz"></div>
                 <div class="student-lyrics-info"><h3>Yuldashova Sarvinoz</h3>
                 <div class="poetic-lines">Sarvinoz — sarvdek to'g'ri va qomat,<br>Sinfdoshlar qalbida bahor sochadi.<br>Mehr to'la ko'ngil — yuksak saodat,<br>Kelajakka qadam bilan yetishadi...</div>
                 <div class="click-hint">Albomni varaqlash uchun bosing →</div></div>
@@ -504,19 +504,79 @@
         }
         const next = formats.shift();
         img.onerror = function() { tryNext(img, formats); };
-        img.classList.remove('loaded'); 
         img.src = next;
     }
 
-    // Smooth Cinematic Fade-In Optimizer
-    document.querySelectorAll('.img-box img').forEach(img => {
-        if (img.complete) {
-            img.classList.add('loaded');
-        } else {
-            img.addEventListener('load', () => { 
-                requestAnimationFrame(() => img.classList.add('loaded'));
-            }, { passive: true });
+    const extensions = ['.JPG', '.jpg', '.png', '.PNG', '.jpeg', '.JPEG'];
+
+    function loadStudentImage(imgElement, basePath) {
+        let extIndex = 0;
+        
+        function probe() {
+            if (extIndex >= extensions.length) {
+                imgElement.style.display = 'none';
+                const box = imgElement.parentElement;
+                box.innerHTML = '<div class="no-photo">Rasm topilmadi</div>';
+                return;
+            }
+            
+            const tempImg = new Image();
+            tempImg.src = basePath + extensions[extIndex];
+            
+            tempImg.onload = () => {
+                imgElement.src = tempImg.src;
+                requestAnimationFrame(() => {
+                    imgElement.classList.add('loaded');
+                });
+            };
+            
+            tempImg.onerror = () => {
+                extIndex++;
+                probe();
+            };
         }
+        probe();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const studentImages = document.querySelectorAll('.img-box img');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '350px', // Preloads 350px before entering viewport
+            threshold: 0.01
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const basePath = img.dataset.basepath;
+                    if (basePath) {
+                        loadStudentImage(img, basePath);
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, observerOptions);
+
+        // Stagger load for first 5 cards instantly
+        const firstBatchCount = 5;
+        let batchIndex = 0;
+
+        studentImages.forEach((img, idx) => {
+            if (idx < firstBatchCount) {
+                setTimeout(() => {
+                    const basePath = img.dataset.basepath;
+                    if (basePath) {
+                        loadStudentImage(img, basePath);
+                    }
+                }, batchIndex * 85); // Beautiful 85ms staggered fading on page load
+                batchIndex++;
+            } else {
+                observer.observe(img);
+            }
+        });
     });
 
     const hamburger = document.getElementById('hamburger');
@@ -557,3 +617,4 @@
 </script>
 </body>
 </html>
+
