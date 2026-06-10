@@ -76,7 +76,6 @@
             contain: layout paint;
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
-            /* ULTRA OPTIMIZATION: Browser ignores layout calculation for off-screen cards */
             content-visibility: auto;
             contain-intrinsic-size: auto 373px;
         }
@@ -156,7 +155,7 @@
         .comments-list::-webkit-scrollbar { width: 4px; }
         .comments-list::-webkit-scrollbar-thumb { background: #363636; border-radius: 4px; }
         
-        footer { text-align: center; padding: 2rem; background: rgba(15, 20, 32, 0.6); margin-top: auto; border-top: 1px solid rgba(20, 184, 166, 0.1); }
+        footer { text-align: center; padding: 2rem; background: rgba(15, 20, 32, 0.6); margin-top: auto; border-top: 1px solid rgba(20, 184, 166, 0.15); }
         footer p { font-size: 0.9rem; color: rgba(232, 238, 245, 0.6); }
         
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
@@ -171,7 +170,7 @@
             .photo-card { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
             .photo-card:hover { box-shadow: 0 8px 16px rgba(20, 184, 166, 0.1); }
             .nav-right { gap: 1rem; }
-            .contact-text { display: none; } /* Hide text on mobile to save space */
+            .contact-text { display: none; }
             @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
         }
     </style>
@@ -260,6 +259,10 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 11-V Family | <span id="footer-text">Shaxsiy Albom</span>. Barcha huquqlar himoyalangan. ✨</p>
+    </footer>
 
     <script>
         // ==========================================
