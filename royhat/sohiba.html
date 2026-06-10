@@ -34,14 +34,14 @@
         .nav-links a { color: rgba(232, 238, 245, 0.7); text-decoration: none; font-weight: 500; transition: all 0.3s; }
         .nav-links a:hover { color: var(--accent-main); }
         
-        /* PREMIUM BIZ BILAN ALOQA BOX */
-        .contact-box { display: flex; align-items: center; gap: 10px; padding: 0.4rem 1rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; transition: border-color 0.3s, background-color 0.3s; }
+        /* PREMIUM BIZ BILAN ALOQA BOX - TOUCH FRIENDLY FOR MOBILE */
+        .contact-box { display: flex; align-items: center; gap: 10px; padding: 0.5rem 1.2rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 30px; transition: border-color 0.3s, background-color 0.3s; }
         .contact-box:hover { border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.05); }
         .contact-text { font-size: 0.85rem; font-weight: 600; color: rgba(232, 238, 245, 0.8); letter-spacing: 0.5px; text-transform: uppercase; }
-        .social-icons { display: flex; gap: 8px; align-items: center; }
-        .social-icon { color: rgba(232, 238, 245, 0.6); display: flex; align-items: center; justify-content: center; transition: color 0.3s, transform 0.2s; }
-        .social-icon svg { width: 18px; height: 18px; }
-        .social-icon:hover { color: #ffffff; transform: scale(1.1); }
+        .social-icons { display: flex; gap: 12px; align-items: center; }
+        .social-icon { color: rgba(232, 238, 245, 0.6); display: flex; align-items: center; justify-content: center; min-width: 32px; min-height: 32px; transition: color 0.3s, transform 0.2s; }
+        .social-icon svg { width: 20px; height: 24px; }
+        .social-icon:hover { color: #ffffff; transform: scale(1.15); }
         .social-icon.telegram:hover { color: #229ED9; filter: drop-shadow(0 0 8px rgba(34, 158, 217, 0.5)); }
         .social-icon.instagram:hover { color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.5)); }
         
@@ -60,7 +60,6 @@
         
         .gallery-title { font-size: 1.8rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid rgba(99, 102, 241, 0.1); padding-bottom: 0.5rem; letter-spacing: 2px; font-weight: 700; }
         
-        /* */
         /* GRID AND ULTRA CINEMATIC LOAD STYLE (LAG-FREE GPU ACCELERATED) */
         .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .photo-card { 
@@ -113,13 +112,15 @@
         .lightbox-img-box { width: 100%; background: var(--ig-black); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; will-change: auto; }
         .lightbox-img { width: 100%; max-height: 65vh; object-fit: contain; cursor: zoom-in; user-select: none; transform-origin: center center; transition: transform 0.2s ease-out; will-change: transform; }
         
-        .lightbox-close { position: absolute; top: 15px; right: 15px; color: #fff; font-size: 1.8rem; cursor: pointer; z-index: 25; opacity: 0.6; transition: opacity 0.2s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        /* TOUCH FRIENDLY CLOSE TARGET FOR MOBILE */
+        .lightbox-close { position: absolute; top: 15px; right: 15px; color: #fff; font-size: 2.2rem; cursor: pointer; z-index: 25; opacity: 0.65; transition: opacity 0.2s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); padding: 10px; }
         .lightbox-close:hover { opacity: 1; }
 
         .lightbox-panel { padding: 14px 18px; display: flex; flex-direction: column; background: var(--ig-panel); border-top: 1px solid #262626; width: 100%; z-index: 5; }
         .action-bar { display: flex; align-items: center; gap: 20px; justify-content: flex-start; }
         
-        .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 4px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; }
+        /* TOUCH FRIENDLY ACTION TARGETS FOR MOBILE */
+        .ig-action-btn { background: none; border: none; cursor: pointer; color: #f5f5f5; padding: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease; min-width: 44px; min-height: 44px; }
         .ig-action-btn:active { transform: scale(1.2); }
         .ig-action-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
         
@@ -129,14 +130,13 @@
         .big-heart { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); color: #ec4899; font-size: 4rem; pointer-events: none; z-index: 15; opacity: 0; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
         @keyframes heartPop { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } 70% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; } 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; } }
 
-        /* */
         /* SLIDE UP COMMENTS DRAWER */
         .comment-drawer { position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; background: #0f141c; border-top: 1px solid #262626; border-radius: 16px 16px 0 0; z-index: 30; transform: translateY(100%); transition: transform 0.25s ease-out; display: flex; flex-direction: column; padding: 14px 16px; will-change: transform; }
         .comment-drawer.active { transform: translateY(0); }
         
         .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #262626; margin-bottom: 10px; }
         .drawer-title { font-size: 1rem; font-weight: 600; color: #fff; }
-        .drawer-close { color: #737373; font-size: 1.4rem; cursor: pointer; }
+        .drawer-close { color: #737373; font-size: 1.6rem; cursor: pointer; padding: 6px; }
         
         .comments-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; font-size: 0.9rem; }
         .comment-item { line-height: 1.4; color: #e5e7eb; word-break: break-word; }
@@ -144,8 +144,8 @@
         .no-comments { color: #737373; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 20px; }
         
         .comment-form { display: flex; align-items: center; border-top: 1px solid #262626; padding-top: 10px; margin-top: auto; }
-        .comment-input { flex: 1; background: transparent; border: none; padding: 8px 0; color: #fff; font-size: 0.9rem; outline: none; }
-        .comment-submit { background: none; border: none; color: var(--accent-main); font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+        .comment-input { flex: 1; background: transparent; border: none; padding: 10px 0; color: #fff; font-size: 0.9rem; outline: none; }
+        .comment-submit { background: none; border: none; color: var(--accent-main); font-weight: 600; font-size: 0.9rem; cursor: pointer; padding: 8px; }
 
         .lightbox.zoom-active { background: #000; }
         .lightbox.zoom-active .lightbox-wrapper { max-width: 100vw; width: 100%; max-height: 100vh; height: 100vh; border: none; border-radius: 0; background: #000; }
@@ -261,11 +261,6 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 11-V Family | <span id="footer-text">Shaxsiy Albom</span>. Barcha huquqlar himoyalangan. ✨</p>
-    </footer>
-
-    <!-- -->
     <script>
         // ==========================================
         // 🛠 ALBOM SOZLAMALARI (Faqat shu yerni o'zgartiring!)
@@ -340,7 +335,6 @@
             threshold: 0.05
         };
 
-        /* */
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -368,7 +362,7 @@
                         img.onload = () => {
                             img.classList.add('loaded');
                             img.dataset.loaded = 'true';
-                            // Remove compositing memory layer when animation completes
+                            // Remove compositing memory layer when animation completes to save RAM on mobile devices
                             setTimeout(() => {
                                 card.classList.remove('rendering');
                             }, 850);
@@ -507,4 +501,3 @@
     </script>
 </body>
 </html>
-
