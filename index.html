@@ -12,9 +12,8 @@
 
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #060913 0%, #0b1528 50%, #1a102f 100%);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
             --text-main: #f3f4f6;
             --accent-glow: #3b82f6;
         }
@@ -28,23 +27,40 @@
         }
 
         body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
+            background-color: #060913;
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            will-change: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HARDWARE ACCELERATED FIXED BACKGROUND LAYER (NO MORE SCROLL LAGS) */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #0c152b 0%, #060913 100%);
+            z-index: -2;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            pointer-events: none;
         }
 
         header {
-            background-color: rgba(6, 9, 19, 0.7);
+            background-color: rgba(6, 9, 19, 0.85);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: translate3d(0, 0, 0);
         }
 
         nav {
@@ -65,6 +81,12 @@
             text-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             list-style: none;
             display: flex;
@@ -76,7 +98,7 @@
             text-decoration: none;
             font-size: 1.05rem;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
         }
 
         .nav-links a:hover, .nav-links a.active {
@@ -89,7 +111,7 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 6px;
+            padding: 10px;
             border: none;
             background: transparent;
             z-index: 1100;
@@ -97,20 +119,19 @@
 
         .hamburger span {
             display: block;
-            width: 26px;
+            width: 24px;
             height: 2px;
             background: #ffffff;
             border-radius: 2px;
-            transition: all 0.3s ease;
-            transform-origin: center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
         }
 
         .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+        /* GPU POWERED MOBILE DRAWER MENU */
         .mobile-menu {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -118,16 +139,23 @@
             height: 100%;
             background: rgba(6, 9, 19, 0.98);
             z-index: 999;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 2.5rem;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-            backdrop-filter: blur(10px);
+            transform: translate3d(100%, 0, 0);
+            -webkit-transform: translate3d(100%, 0, 0);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            backface-visibility: hidden;
         }
 
-        .mobile-menu.active { display: flex; opacity: 1; }
+        .mobile-menu.active {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
 
         .mobile-menu a {
             color: #9ca3af;
@@ -135,7 +163,7 @@
             font-size: 1.6rem;
             font-weight: 600;
             letter-spacing: 1px;
-            transition: all 0.2s ease;
+            transition: color 0.2s, text-shadow 0.2s;
         }
 
         .mobile-menu a:hover, .mobile-menu a.active {
@@ -153,6 +181,7 @@
             text-align: center;
             background-color: #060913;
             overflow: hidden;
+            contain: strict;
         }
 
         #bosh-sahifa::before {
@@ -162,18 +191,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(rgba(6, 9, 19, 0.55), rgba(6, 9, 19, 0.88)), url('DSC08744.JPG');
+            background-image: linear-gradient(rgba(6, 9, 19, 0.65), rgba(6, 9, 19, 0.92)), url('DSC08744.JPG');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
             z-index: 1;
-            animation: heroBgBlur 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            transform: translate3d(0,0,0);
+            will-change: transform;
+            animation: heroBgBlur 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes heroBgBlur {
-            0% { filter: blur(25px); opacity: 0; transform: scale(1.1); }
-            100% { filter: blur(0); opacity: 1; transform: scale(1); }
+            0% { filter: blur(25px); opacity: 0; transform: scale(1.08) translate3d(0,0,0); }
+            100% { filter: blur(0); opacity: 1; transform: scale(1) translate3d(0,0,0); }
         }
 
         .hero-content-wrapper {
@@ -181,12 +211,13 @@
             max-width: 800px;
             padding: 0 20px;
             z-index: 2;
-            animation: textBlurIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s backwards;
+            transform: translate3d(0,0,0);
+            animation: textBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
         }
 
         @keyframes textBlurIn {
-            0% { opacity: 0; filter: blur(12px); transform: translateY(20px); }
-            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+            0% { opacity: 0; filter: blur(12px); transform: translate3d(0, 20px, 0); }
+            100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0); }
         }
 
         .hero-title {
@@ -237,8 +268,15 @@
             gap: 2.5rem;
         }
 
-        .album-link { text-decoration: none; color: inherit; display: block; }
+        .album-link { 
+            text-decoration: none; 
+            color: inherit; 
+            display: block; 
+            content-visibility: auto;
+            contain-intrinsic-size: auto 480px;
+        }
 
+        /* GPU OPTIMIZED COMPOSITING LAYERS */
         .photo-card {
             background: var(--glass-bg);
             border-radius: 24px;
@@ -248,32 +286,59 @@
             min-height: 480px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s, background 0.3s;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.4s ease, 
+                        background-color 0.4s ease, 
+                        box-shadow 0.4s ease;
             will-change: transform;
-            transform: translateZ(0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .album-link:hover .photo-card {
-            transform: translateY(-6px);
+            transform: translate3d(0, -6px, 0);
+            -webkit-transform: translate3d(0, -6px, 0);
             border-color: rgba(var(--theme-rgb, 59, 130, 246), 0.5); 
-            box-shadow: 0 10px 32px rgba(var(--theme-rgb, 59, 130, 246), 0.25);
+            box-shadow: 0 12px 32px rgba(var(--theme-rgb, 59, 130, 246), 0.25);
             background: rgba(255, 255, 255, 0.05);
         }
 
-        .photo-card img {
+        /* LOCKED RATIO ASPECT BOX FOR ZERO CUMULATIVE LAYOUT SHIFT (CLS) */
+        .card-img-wrapper {
             width: 100%;
             height: 360px;
-            object-fit: cover;
+            overflow: hidden;
+            background: #0c101d; /* Elegant solid placeholder color */
             border-bottom: 1px solid var(--glass-border);
-            opacity: 0;
-            filter: blur(8px) scale(1.02);
-            transition: opacity 0.4s ease-out, filter 0.4s ease-out;
-            will-change: opacity, filter;
+            position: relative;
         }
 
-        .photo-card img.loaded {
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            filter: blur(10px) saturate(0.4) scale(1.02);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, filter, transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .card-img-wrapper img.loaded {
             opacity: 1;
-            filter: blur(0) scale(1);
+            filter: blur(0) saturate(1) scale(1);
+        }
+
+        .album-link:hover .card-img-wrapper img.loaded {
+            transform: scale(1.025) translate3d(0, 0, 0);
+            -webkit-transform: scale(1.025) translate3d(0, 0, 0);
         }
 
         .photo-info {
@@ -303,21 +368,25 @@
             border-top: 1px solid var(--glass-border);
             color: #64748b;
             font-weight: 500;
+            transform: translate3d(0,0,0);
         }
 
         @media (max-width: 768px) {
-            #bosh-sahifa::before { background-attachment: scroll; }
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .hero-title { font-size: 2.8rem; }
             .hero-subtitle { font-size: 1.1rem; }
             .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
             .photo-card { min-height: 400px; border-radius: 20px; }
-            .photo-card img { height: 280px; }
+            .card-img-wrapper { height: 280px; }
             .section-title { font-size: 2rem; }
             
-            .photo-card { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
-            .album-link:hover .photo-card { box-shadow: 0 6px 16px rgba(var(--theme-rgb, 59, 130, 246), 0.15); transform: translateY(-3px); }
+            .photo-card { transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s ease; }
+            .album-link:hover .photo-card { 
+                box-shadow: 0 6px 16px rgba(var(--theme-rgb, 59, 130, 246), 0.15); 
+                transform: translate3d(0, -3px, 0); 
+                -webkit-transform: translate3d(0, -3px, 0); 
+            }
             
             @media (prefers-reduced-motion: reduce) {
                 * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -334,18 +403,23 @@
 </head>
 <body>
 
+    <!-- HIGH SPEED GRAPHICS BACKGROUND WRAPPER -->
+    <div class="bg-layer"></div>
+
     <header>
         <nav>
             <div class="logo">11-V Family</div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
-            </ul>
-            <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Bosh sahifa</a></li>
+                    <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
+                </ul>
+                <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -371,9 +445,11 @@
             <!-- 1. VINETKA SINF (Ko'k: 59, 130, 246) -->
             <a href="royhat/vinsinf.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 59, 130, 246;">
-                    <img src="Vinetka sinf/vinsinf (82).jpg" alt="Vinetka Sinf" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Vinetka sinf/vinsinf (82).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Vinetka sinf/vinsinf (82)" alt="Vinetka Sinf">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka Sinf</h3>
+                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Vinetka Sinf</h3>
                         <p>Sinfdoshlar bilan vinetka xotiralari</p>
                     </div>
                 </div>
@@ -382,9 +458,11 @@
             <!-- 2. MAKTAB HOVLISI (Yashil: 16, 185, 129) -->
             <a href="royhat/maktabhovlisi.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 16, 185, 129;">
-                    <img src="Maktabhovlisi/maktabhovlisi (18).JPG" alt="Maktab Hovlisi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Maktabhovlisi/maktabhovlisi (18).jpg';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Maktabhovlisi/maktabhovlisi (18)" alt="Maktab Hovlisi">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maktab Hovlisi</h3>
+                        <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Maktab Hovlisi</h3>
                         <p>Qadrdon maktab bag'ridagi damlar</p>
                     </div>
                 </div>
@@ -393,9 +471,11 @@
             <!-- 3. FOTOZONA (Siyohrang/Binafsha: 139, 92, 246) -->
             <a href="royhat/fotozona.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 139, 92, 246;">
-                    <img src="Fotozona/fotozona (52).jpg" alt="Fotozona" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Fotozona/fotozona (52).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Fotozona/fotozona (52)" alt="Fotozona">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Fotozona</h3>
+                        <h3 style="background: linear-gradient(to right, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Fotozona</h3>
                         <p>Maxsus tayyorlangan fotozonada</p>
                     </div>
                 </div>
@@ -404,9 +484,11 @@
             <!-- 4. ARDA XIVA (Pushti/Qizil: 244, 63, 94) -->
             <a href="royhat/ardaxiva.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 244, 63, 94;">
-                    <img src="ArdaXiva/ardaxiva (48).JPG" alt="Arda Xiva" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='ArdaXiva/ardaxiva (48).jpg';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="ArdaXiva/ardaxiva (48)" alt="Arda Xiva">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Arda Xiva</h3>
+                        <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Arda Xiva</h3>
                         <p>Arda restorani va Xiva xotiralari</p>
                     </div>
                 </div>
@@ -415,9 +497,11 @@
             <!-- 5. XIVA PARKI (Havorang/Cyan: 6, 182, 212) -->
             <a href="royhat/xiva_park.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 6, 182, 212;">
-                    <img src="Xivapark/park (225).jpg" alt="Xiva Parki" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Xivapark/park (225).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Xivapark/park (225)" alt="Xiva Parki">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Xiva Parki</h3>
+                        <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Xiva Parki</h3>
                         <p>Sinfdoshlar bilan parkdagi sarguzashtlar</p>
                     </div>
                 </div>
@@ -426,9 +510,11 @@
             <!-- 6. ICHAN QAL'A (Oltin/Sariq: 245, 158, 11) -->
             <a href="royhat/ichanqala.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 245, 158, 11;">
-                    <img src="Ichanqala/ichanqala (119).jpg" alt="Ichan Qal'a" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Ichanqala/ichanqala (119).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Ichanqala/ichanqala (119)" alt="Ichan Qal'a">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ichan Qal'a</h3>
+                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Ichan Qal'a</h3>
                         <p>Qadimiy Xiva sayohati xotiralari</p>
                     </div>
                 </div>
@@ -437,9 +523,11 @@
             <!-- 7. 25-MAY ALBOMI (Yorqin Sariq: 234, 179, 8) -->
             <a href="royhat/25may.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 234, 179, 8;">
-                    <img src="25may/25may (1).jpg" alt="25-May Xotiralari" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='25may/25may (1).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="25may/25may (1)" alt="25-May Xotiralari">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #eab308, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">25-May (So'nggi Qo'ng'iroq)</h3>
+                        <h3 style="background: linear-gradient(to right, #eab308, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">25-May (So'nggi Qo'ng'iroq)</h3>
                         <p>Maktab bilan xayrlashuv damlari</p>
                     </div>
                 </div>
@@ -448,9 +536,11 @@
             <!-- 8. QOR (Kumush/Oqish: 203, 213, 225) -->
             <a href="royhat/qor.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 203, 213, 225;">
-                    <img src="Qor/qor (18).jpg" alt="Qor Albomi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Qor/qor (18).JPG';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Qor/qor (18)" alt="Qor Albomi">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #e2e8f0, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Qor</h3>
+                        <h3 style="background: linear-gradient(to right, #e2e8f0, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Qor</h3>
                         <p>Qishki qorbo'ron va quvnoq damlar</p>
                     </div>
                 </div>
@@ -459,9 +549,11 @@
             <!-- 9. DIANA & DUSHAMBOY (To'q Sariq: 249, 115, 22) -->
             <a href="royhat/dd.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 249, 115, 22;">
-                    <img src="Diana&Dushamboy/dd (1).JPG" alt="Diana & Dushamboy" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Diana&Dushamboy/dd (1).jpg';">
+                    <div class="card-img-wrapper">
+                        <img data-basepath="Diana&Dushamboy/dd (1)" alt="Diana & Dushamboy">
+                    </div>
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f97316, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Diana & Dushamboy</h3>
+                        <h3 style="background: linear-gradient(to right, #f97316, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Diana & Dushamboy</h3>
                         <p>Ajoyib xotiralar jamlanmasi</p>
                     </div>
                 </div>
@@ -475,39 +567,104 @@
     </footer>
 
     <script>
+        // Formatlarni bir vaqtda parallel ravishda mutlaqo tezkor tekshirish va ochish tizimi
+        function loadCardImage(imgElement, basePath) {
+            const extensions = ['.JPG', '.jpg', '.png', '.PNG', '.jpeg', '.JPEG'];
+            let resolved = false;
+            
+            extensions.forEach(ext => {
+                const tempImg = new Image();
+                tempImg.src = basePath + ext;
+                
+                tempImg.onload = () => {
+                    if (!resolved) {
+                        resolved = true;
+                        imgElement.src = tempImg.src;
+                        requestAnimationFrame(() => {
+                            imgElement.classList.add('loaded');
+                        });
+                    }
+                };
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const lazyImages = document.querySelectorAll('.card-img-wrapper img');
+            
+            // Ultra tezkor fondagi datchik (scroll laglardan butunlay xalos qiladi)
+            const observerOptions = {
+                root: null,
+                rootMargin: '450px', // Foydalanuvchi yetib kelmasidan 450px oldin fonda yuklanadi
+                threshold: 0.01
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        const basePath = img.dataset.basepath;
+                        if (basePath) {
+                            loadCardImage(img, basePath);
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            }, observerOptions);
+
+            // Birinchi 3 ta albom kartasini joriy sahifada zumda, stagger effekt bilan ochamiz
+            const firstBatchCount = 3;
+            let batchIndex = 0;
+
+            lazyImages.forEach((img, idx) => {
+                if (idx < firstBatchCount) {
+                    setTimeout(() => {
+                        const basePath = img.dataset.basepath;
+                        if (basePath) {
+                            loadCardImage(img, basePath);
+                        }
+                    }, batchIndex * 60); // 60ms staggered soft entry
+                    batchIndex++;
+                } else {
+                    observer.observe(img);
+                }
+            });
+        });
+
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
 
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        }, { passive: true });
+
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== hamburger) {
+                closeMenu();
+            }
+        }, { passive: true });
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            }, 100);
+        }, { passive: true });
+
+        function toggleMenu() {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }, { passive: true });
+        }
 
         function closeMenu() {
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
             document.body.style.overflow = '';
         }
-
-        // Rasm yuklashini optimize qilish
-        document.addEventListener("DOMContentLoaded", function() {
-            const lazyImages = document.querySelectorAll('.photo-card img');
-            
-            lazyImages.forEach(img => {
-                if (img.complete) {
-                    img.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', () => {
-                        requestAnimationFrame(() => img.classList.add('loaded'));
-                    }, { passive: true });
-                    
-                    img.addEventListener('error', () => {
-                        img.classList.add('loaded');
-                    }, { passive: true });
-                }
-            });
-        });
     </script>
 
 </body>
