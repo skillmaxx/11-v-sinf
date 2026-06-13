@@ -77,9 +77,9 @@
             object-position: top center;
             opacity: 0;
             filter: blur(12px) saturate(0.5) scale(1.03);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                        filter 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             image-orientation: from-image;
             will-change: transform, opacity, filter;
             transform: translate3d(0, 0, 0);
@@ -495,55 +495,47 @@
 <footer><p>&copy; 2026 11-V Family. Barcha huquqlar himoyalangan. ✨</p></footer>
 
 <script>
-    function tryNext(img, formats) {
-        if (!formats || formats.length === 0) {
-            img.style.display = 'none';
-            const box = img.parentElement;
-            box.innerHTML = '<div class="no-photo">Rasm topilmadi</div>';
-            return;
-        }
-        const next = formats.shift();
-        img.onerror = function() { tryNext(img, formats); };
-        img.src = next;
-    }
-
-    const extensions = ['.JPG', '.jpg', '.png', '.PNG', '.jpeg', '.JPEG'];
-
+    // Format tekshiruvini parallel ravishda mutlaqo tezkor amalga oshiruvchi pool tizimi
     function loadStudentImage(imgElement, basePath) {
-        let extIndex = 0;
+        const extensions = ['.JPG', '.jpg', '.png', '.PNG', '.jpeg', '.JPEG'];
+        let resolved = false;
+        let failCount = 0;
         
-        function probe() {
-            if (extIndex >= extensions.length) {
-                imgElement.style.display = 'none';
-                const box = imgElement.parentElement;
-                box.innerHTML = '<div class="no-photo">Rasm topilmadi</div>';
-                return;
-            }
-            
+        // Tizim parallel TCP so'rov yuborib, birinchi yuklangan formatni ekranga ulaydi
+        extensions.forEach(ext => {
             const tempImg = new Image();
-            tempImg.src = basePath + extensions[extIndex];
+            tempImg.src = basePath + ext;
             
             tempImg.onload = () => {
-                imgElement.src = tempImg.src;
-                requestAnimationFrame(() => {
-                    imgElement.classList.add('loaded');
-                });
+                if (!resolved) {
+                    resolved = true;
+                    imgElement.src = tempImg.src;
+                    requestAnimationFrame(() => {
+                        imgElement.classList.add('loaded');
+                    });
+                }
             };
             
             tempImg.onerror = () => {
-                extIndex++;
-                probe();
+                failCount++;
+                if (failCount === extensions.length && !resolved) {
+                    imgElement.style.display = 'none';
+                    const box = imgElement.parentElement;
+                    if (box && !box.querySelector('.no-photo')) {
+                        box.innerHTML = '<div class="no-photo">Rasm topilmadi</div>';
+                    }
+                }
             };
-        }
-        probe();
+        });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
         const studentImages = document.querySelectorAll('.img-box img');
         
+        // Skrol qilib bormasdanoq rasmlarni parallel yuklaydigan ultra datchik
         const observerOptions = {
             root: null,
-            rootMargin: '350px', // Preloads 350px before entering viewport
+            rootMargin: '450px', // Foydalanuvchi yetib bormasdan 450px oldin yuklaydi!
             threshold: 0.01
         };
 
@@ -560,7 +552,7 @@
             });
         }, observerOptions);
 
-        // Stagger load for first 5 cards instantly
+        // Birinchi 5ta kartani kutishlarsiz, parallel ravishda silliq jilo berib ochamiz
         const firstBatchCount = 5;
         let batchIndex = 0;
 
@@ -571,7 +563,7 @@
                     if (basePath) {
                         loadStudentImage(img, basePath);
                     }
-                }, batchIndex * 85); // Beautiful 85ms staggered fading on page load
+                }, batchIndex * 60); // 60ms staggered soft entry
                 batchIndex++;
             } else {
                 observer.observe(img);
@@ -617,4 +609,3 @@
 </script>
 </body>
 </html>
-
