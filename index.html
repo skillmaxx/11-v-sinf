@@ -14,7 +14,7 @@
         :root {
             /* Koinot va qora tuynuk ranglar palitrasi */
             --bg-dark: #010104;
-            --glass-bg: rgba(5, 5, 18, 0.4);
+            --glass-bg: rgba(5, 5, 18, 0.45);
             --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #f3f4f6;
             --accent-orange: #ff7b00;
@@ -30,7 +30,6 @@
         }
 
         body {
-            /* Orqa fondagi jonli koinot ko'rinishi uchun body va barcha bo'limlar mutlaqo shaffof bo'lishi shart */
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
@@ -50,45 +49,55 @@
             border-radius: 4px;
         }
 
-        /* JONLI WEBGL GARGANTUA CANVASI (Siz yuklagan rasm asosida) */
-        #blackhole-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -3;
-            pointer-events: none;
-            will-change: transform;
-        }
-
-        /* JONLI KOINOT YULDUZLARI CANVASI */
-        #universe-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Qora tuynuk yuklanguncha orqa fon tutilishi */
+        /* 1. QORA TUYNUK ORQA FON RASMI (O'z joyida qo'zg'almasdan turadi) */
         .blackhole-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -4;
-            background: radial-gradient(circle at 50% 50%, #06050c 0%, #000000 100%);
-            transition: opacity 1s ease-in-out;
+            z-index: -3;
+            overflow: hidden;
+            background: #000;
         }
 
-        /* */
-        /* Navigatsiya paneli */
+        /* Rasm o'z joyida barqaror va mukammal joylashishi uchun fixed cover */
+        .blackhole-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.9) contrast(1.1) saturate(1.05);
+            will-change: transform;
+        }
+
+        /* Qora tuynukning chetlarini ekran bilan silliq birlashtiruvchi qatlam */
+        .blackhole-singularity-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 30%, rgba(1, 1, 4, 0.85) 90%);
+            pointer-events: none;
+        }
+
+        /* 2. JONLI KOINOT YULDUZLARI CANVASI (Albomlar va matnlar ustida suzadi) */
+        #universe-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 3; /* Albomlar ustida uchib yurishi uchun eng yuqori z-index */
+            pointer-events: none; /* Tugmalarni va albomlarni bosishga xalal bermaydi */
+        }
+
         header {
-            background-color: rgba(2, 2, 8, 0.4);
+            background-color: rgba(2, 2, 8, 0.45);
             position: fixed;
             width: 100%;
             top: 0;
@@ -212,7 +221,6 @@
             text-shadow: 0 0 15px var(--accent-orange);
         }
 
-        /* Bosh Sahifa (Hero) - To'liq shaffof interfeys */
         #bosh-sahifa {
             position: relative;
             height: 100vh;
@@ -226,14 +234,13 @@
             background: transparent;
         }
 
-        /* */
         .hero-content-wrapper {
             position: relative;
             max-width: 900px;
             padding: 3.5rem 2.5rem;
             border-radius: 32px;
-            background: rgba(4, 4, 12, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(4, 4, 12, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 2;
@@ -269,7 +276,6 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
 
-        /* Fotoalbomlar bo'limi - to'liq shaffof va oq fonlar olib tashlangan */
         #albomlar {
             padding: 140px 5% 100px;
             max-width: 1300px;
@@ -307,7 +313,7 @@
             display: block; 
         }
 
-        /* Neon jiloga ega shaffof kartochkalar */
+        /* Shaffof va premium ko'rinishdagi albom kartochkalari */
         .photo-card {
             background: var(--glass-bg);
             border-radius: 28px;
@@ -381,7 +387,9 @@
 
         /* Footer */
         footer {
-            background: rgba(2, 2, 8, 0.9);
+            background: rgba(2, 2, 8, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             text-align: center;
             padding: 3rem;
             border-top: 1px solid var(--glass-border);
@@ -421,13 +429,13 @@
 </head>
 <body>
 
-    <!-- Statik qora tuynuk foni yuklanguniga qadar -->
-    <div class="blackhole-container"></div>
+    <!-- Qora tuynuk fondagi rasmi (Mutlaqo statik, o'z joyida) -->
+    <div class="blackhole-container">
+        <div class="blackhole-backdrop"></div>
+        <div class="blackhole-singularity-overlay"></div>
+    </div>
 
-    <!-- 1. JONLI WEBGL GARGANTUA CANVASI -->
-    <canvas id="blackhole-canvas"></canvas>
-
-    <!-- 2. JONLI YULDUZLAR CANVASI (Butun sahifa uchun xizmat qiladi) -->
+    <!-- JONLI KOINOT YULDUZLARI CANVASI (Albomlar ustidan cheksiz yaqinlashish) -->
     <canvas id="universe-canvas"></canvas>
 
     <header id="main-header">
@@ -615,258 +623,29 @@
             });
         });
 
-        // ================= JONLI WEBGL GARGANTUA SHADER TIZIMI =================
-        const bhCanvas = document.getElementById('blackhole-canvas');
-        const gl = bhCanvas.getContext('webgl') || bhCanvas.getContext('experimental-webgl');
+        const backdrop = document.querySelector('.blackhole-backdrop');
+        const img = new Image();
+        img.src = 'rgsyD_2.jpg';
+        img.onload = () => {
+            // Rasm o'z joyida fixed bo'lib o'rnatiladi
+            backdrop.style.backgroundImage = "url('rgsyD_2.jpg')";
+        };
+        img.onerror = () => {
+            // Agar rgsyD_2 yuklanmasa, rgsyD.jpg ni o'rnatamiz
+            backdrop.style.backgroundImage = "url('rgsyD.jpg')";
+        };
 
-        let program;
-        let positionBuffer;
-        let uTexture, uTime, uScroll, uMouse, uResolution;
-        let bgTexture;
-        let isTextureLoaded = false;
-        let globalTime = 0;
-        let smoothScrollY = 0;
-        let currentScrollY = window.scrollY;
-        let targetMouse = { x: 0.5, y: 0.5 };
-        let currentMouse = { x: 0.5, y: 0.5 };
-
-        // Vertex shader kodi
-        const vsSource = `
-            attribute vec2 position;
-            varying vec2 vUv;
-            void main() {
-                vUv = position * 0.5 + 0.5;
-                gl_Position = vec4(position, 0.0, 1.0);
-            }
-        `;
-
-        // Fragment shader (Aynan siz taqdim etgan rgsyD.jpg rasmini real vaqtda egib, harakatlantiradi)
-        const fsSource = `
-            precision mediump float;
-            varying vec2 vUv;
-            uniform sampler2D uTexture;
-            uniform float uTime;
-            uniform float uScroll;
-            uniform vec2 uMouse;
-            uniform vec2 uResolution;
-
-            // Fluid/Cosmic noise simulated mathematically to avoid static warp
-            float noise(in vec2 p) {
-                return sin(p.x * 2.0) * cos(p.y * 2.0) + sin(p.y * 4.0) * cos(p.x * 4.0);
-            }
-
-            void main() {
-                vec2 uv = vUv;
-                
-                // Qora tuynuk markazini rasmga moslab o'rnatamiz (Sizning rasmingizda Gargantua salgina o'ng-pastda)
-                vec2 mouseOffset = (uMouse - 0.5) * 0.015;
-                // Skrol qilinganda parallaks siljish effekti
-                vec2 scrollOffset = vec2(0.0, uScroll * 0.06);
-                
-                vec2 center = vec2(0.485, 0.47) + mouseOffset - scrollOffset;
-
-                vec2 d = uv - center;
-                // Ekran o'lchami proporsiyasini to'g'rilash
-                d.x *= uResolution.x / uResolution.y;
-                float r = length(d);
-
-                // Qora tuynuk Event Horizon (Singulyarlik) radiusi
-                float horizon = 0.07;
-
-                if (r < horizon) {
-                    // Markaz mutlaqo qora tutilish
-                    gl_FragColor = vec4(0.005, 0.003, 0.008, 1.0);
-                } else {
-                    // Gravitatsion Linza bukilishi (Einstein Lensing)
-                    float bend = 0.009 / (r - horizon + 0.006);
-                    vec2 warpDir = normalize(d);
-
-                    // Akkretsion diskning egri burchakli plazma oqimini harakatlantiramiz (Keplerian Flow)
-                    // Siz yuklagan rgsyD.jpg rasmining aynan shu qismini dynamic aylantiramiz
-                    float angle = atan(d.y, d.x);
-                    
-                    // Markazga yaqinroq gazlar tezroq aylanishini ta'minlaymiz (Interstellar fizikasiga mos)
-                    float flowSpeed = 0.12 / (r + 0.05);
-                    float diskInfluence = smoothstep(0.46, 0.22, r) * smoothstep(0.06, 0.14, r);
-                    
-                    // To'lqinli va gazsimon harakat simulyatsiyasi
-                    float wave = noise(vec2(r * 22.0 - uTime * 1.8, angle * 4.0 + uTime * 0.3));
-                    float warpedAngle = angle + (uTime * flowSpeed + wave * 0.05) * diskInfluence;
-
-                    // Yangi burilgan koordinatalar
-                    vec2 rotatedD = vec2(cos(warpedAngle), sin(warpedAngle)) * r;
-                    rotatedD.x /= uResolution.x / uResolution.y;
-
-                    // Egilgan koordinatalarni rasm teksturasiga qayta bog'laymiz
-                    vec2 finalUv = center + rotatedD - warpDir * bend;
-                    
-                    // Ekran chetlaridagi buzilishlarni oldini olish
-                    finalUv = clamp(finalUv, 0.002, 0.998);
-
-                    // Haqiqiy siz yuklagan rgsyD.jpg rasmidan ranglarni olamiz
-                    vec4 color = texture2D(uTexture, finalUv);
-
-                    // Plazmaning real vaqtda issiqlik porlashi (Atmospheric Glow)
-                    float glowMask = smoothstep(0.38, 0.12, r) * smoothstep(0.07, 0.16, r);
-                    vec3 goldenGlow = vec3(1.0, 0.44, 0.08) * glowMask * (0.07 + 0.04 * wave);
-
-                    gl_FragColor = vec4(color.rgb + goldenGlow, 1.0);
-                }
-            }
-        `;
-
-        function initWebGL() {
-            if (!gl) {
-                console.warn("WebGL yuklanmadi. Canvas 2D ishlatiladi.");
-                return;
-            }
-
-            const vs = compileShader(gl.VERTEX_SHADER, vsSource);
-            const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
-            
-            program = gl.createProgram();
-            gl.attachShader(program, vs);
-            gl.attachShader(program, fs);
-            gl.linkProgram(program);
-
-            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-                console.error("Shader xatoligi:", gl.getProgramInfoLog(program));
-                return;
-            }
-
-            gl.useProgram(program);
-
-            const positions = new Float32Array([
-                -1, -1,  1, -1, -1,  1,
-                -1,  1,  1, -1,  1,  1,
-            ]);
-            positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-
-            const positionLocation = gl.getAttribLocation(program, "position");
-            gl.enableVertexAttribArray(positionLocation);
-            gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
-            uTexture = gl.getUniformLocation(program, "uTexture");
-            uTime = gl.getUniformLocation(program, "uTime");
-            uScroll = gl.getUniformLocation(program, "uScroll");
-            uMouse = gl.getUniformLocation(program, "uMouse");
-            uResolution = gl.getUniformLocation(program, "uResolution");
-
-            // Rasm teksturasini WebGL tizimiga yuklash
-            bgTexture = gl.createTexture();
-            const image = new Image();
-            
-            // XAVFSIZ CORS yuklash rejimi (WebGL teksturalari xatoliksiz ishlashi uchun zarur!)
-            image.crossOrigin = "anonymous";
-            
-            // Ko'rib chiqilgan rasm nomlarining navbati (Fallback chain)
-            const imageSources = ['rgsyD_2.jpg', 'rgsyD.jpg'];
-            let currentSourceIndex = 0;
-
-            function tryLoadImage() {
-                image.src = imageSources[currentSourceIndex];
-            }
-
-            // Rasmni WebGL formatida to'g'ri joylashtirish uchun Y-o'qini to'g'rilaymiz
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-
-            image.onload = () => {
-                gl.bindTexture(gl.TEXTURE_2D, bgTexture);
-                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-                isTextureLoaded = true;
-                
-                // Yuklab olingandan keyin statik qora fonsiz silliq o'tish
-                document.querySelector('.blackhole-container').style.opacity = '0';
-            };
-
-            image.onerror = () => {
-                currentSourceIndex++;
-                if (currentSourceIndex < imageSources.length) {
-                    // Keyingi rasm manbasini sinab ko'rish
-                    tryLoadImage();
-                } else {
-                    console.warn("Tashqi rasm bloklandi yoki topilmadi. Procedural fallback tekstura ishga tushirilmoqda...");
-                    createProceduralFallbackTexture();
-                }
-            };
-
-            tryLoadImage();
-        }
-
-        // Agar kutilmaganda rasmlar serverdan CORS/yo'qlik tufayli yuklanmasa, WebGL uchun mukammal procedural qora tuynuk generatsiya qilish
-        function createProceduralFallbackTexture() {
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = 512;
-            tempCanvas.height = 512;
-            const tempCtx = tempCanvas.getContext('2d');
-            
-            // Fon
-            tempCtx.fillStyle = '#010104';
-            tempCtx.fillRect(0, 0, 512, 512);
-            
-            // Olovli plazma effekti
-            const grad = tempCtx.createRadialGradient(256, 256, 35, 256, 256, 230);
-            grad.addColorStop(0, '#000000');
-            grad.addColorStop(0.08, '#ff5100');
-            grad.addColorStop(0.2, '#ffaa00');
-            grad.addColorStop(0.5, '#220055');
-            grad.addColorStop(1, '#010104');
-            
-            tempCtx.fillStyle = grad;
-            tempCtx.beginPath();
-            tempCtx.arc(256, 256, 256, 0, Math.PI * 2);
-            tempCtx.fill();
-            
-            // Akkresion disk tasviri
-            tempCtx.strokeStyle = 'rgba(255, 180, 50, 0.4)';
-            tempCtx.lineWidth = 14;
-            tempCtx.beginPath();
-            tempCtx.ellipse(256, 256, 110, 30, Math.PI / 6, 0, Math.PI * 2);
-            tempCtx.stroke();
-            
-            // WebGL fonga ulash
-            gl.bindTexture(gl.TEXTURE_2D, bgTexture);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tempCanvas);
-            isTextureLoaded = true;
-            document.querySelector('.blackhole-container').style.opacity = '0';
-        }
-
-        function compileShader(type, source) {
-            const shader = gl.createShader(type);
-            gl.shaderSource(shader, source);
-            gl.compileShader(shader);
-            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                console.error("Kompilyatsiya xatoligi:", gl.getShaderInfoLog(shader));
-                gl.deleteShader(shader);
-                return null;
-            }
-            return shader;
-        }
-
-        function resizeWebGL() {
-            if (!gl) return;
-            bhCanvas.width = window.innerWidth;
-            bhCanvas.height = window.innerHeight;
-            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-        }
-
-        // ================= BUTUN SAHIFA UCHUN JONLI YULDUZLAR TIZIMI (CANVAS 2D) =================
+        // ================= JONLI KOINOT CHEKSIZ YAQLINLASHISH TIZIMI (CANVAS 2D) =================
         const starCanvas = document.getElementById('universe-canvas');
         const starCtx = starCanvas.getContext('2d');
 
         let stars = [];
         let numStars = 250;
         let starSpeed = 0;
+        let smoothScrollY = 0;
+        let currentScrollY = window.scrollY;
+        let targetMouse = { x: 0.5, y: 0.5 };
+        let currentMouse = { x: 0.5, y: 0.5 };
 
         function resizeStars() {
             starCanvas.width = window.innerWidth;
@@ -877,73 +656,77 @@
         class Star {
             constructor() {
                 this.reset();
-                // Yulduzlarni ekran bo'ylab tekis yoyish
-                this.x = Math.random() * starCanvas.width;
-                this.y = Math.random() * starCanvas.height;
+                // Dastlabki yulduzlarni chuqurlik bo'ylab tekis joylash
+                this.z = Math.random() * starCanvas.width;
+                this.x = (Math.random() - 0.5) * starCanvas.width * 2;
+                this.y = (Math.random() - 0.5) * starCanvas.height * 2;
             }
 
             reset() {
-                this.x = Math.random() * starCanvas.width;
-                this.y = Math.random() * starCanvas.height;
-                this.z = Math.random() * starCanvas.width; // 3D chuqurlik effekti
-                this.size = Math.random() * 0.9 + 0.3;
+                // Cheksiz yaqinlashish uchun yulduzni uzoq masofaga (Z-oqining oxiriga) o'rnatish
+                this.z = starCanvas.width;
+                // Perspektiv buzulmasligi uchun markazdan uzoqligi
+                this.x = (Math.random() - 0.5) * starCanvas.width * 2;
+                this.y = (Math.random() - 0.5) * starCanvas.height * 2;
+                this.size = Math.random() * 0.8 + 0.3;
                 
-                // Gargantua olov ranglariga mos (oltin, to'q sariq, oq) yulduzlar
+                // Gargantua olov ranglariga mos sokin va iliq koinot yulduzlari
                 const colors = [
                     'rgba(255, 255, 255, ',
-                    'rgba(255, 190, 110, ',
-                    'rgba(180, 210, 255, ',
-                    'rgba(255, 130, 60, '
+                    'rgba(255, 200, 130, ',
+                    'rgba(180, 220, 255, ',
+                    'rgba(255, 140, 70, '
                 ];
                 this.colorBase = colors[Math.floor(Math.random() * colors.length)];
-                this.opacity = Math.random() * 0.4 + 0.5;
+                this.opacity = Math.random() * 0.4 + 0.6;
             }
 
             update() {
-                // Skrol qilinganda yulduzlar tunnel bo'ylab uchadi (Warp-speed)
-                let speed = 1.0 + starSpeed * 2.5;
+                // Harakat tezligi - sokin holatda doimiy ravishda yaqinlashadi
+                // Skrol qilinganda esa silliq ravishda bir oz tezlashadi
+                let speed = 1.2 + starSpeed * 2.2;
                 this.z -= speed;
 
+                // Agar yulduz foydalanuvchidan o'tib ketgan bo'lsa (Z noldan kichik bo'lsa) qayta uzoqqa o'rnatiladi
                 if (this.z <= 0) {
                     this.reset();
-                    this.z = starCanvas.width;
                 }
 
-                let cx = starCanvas.width / 2;
-                let cy = starCanvas.height / 2;
-
-                // Qora tuynuk gravitatsiyasi: yulduzlar markazga yaqinlashganda uning atrofida girdob kabi aylanadi
-                let dx = this.x - cx;
-                let dy = this.y - cy;
-                let dist = Math.sqrt(dx * dx + dy * dy);
+                // Girdob shaklida sekin burilish effekti (qora tuynuk markazidagi gravitatsiya)
+                let angle = 0.001 * (starCanvas.width / (this.z + 10));
+                let cosA = Math.cos(angle);
+                let sinA = Math.sin(angle);
                 
-                let orbitSpeed = 0.002 * (160 / (dist + 35));
-                let cosA = Math.cos(orbitSpeed);
-                let sinA = Math.sin(orbitSpeed);
-
-                let rx = dx * cosA - dy * sinA + cx;
-                let ry = dx * sinA + dy * cosA + cy;
-
+                let rx = this.x * cosA - this.y * sinA;
+                let ry = this.x * sinA + this.y * cosA;
+                
                 this.x = rx;
                 this.y = ry;
 
-                // Sichqoncha va skrol harakatiga silliq parallaks reaksiya
-                let targetX = cx + (currentMouse.x - 0.5) * 140;
-                let targetY = cy + (currentMouse.y - 0.5) * 140 + (smoothScrollY * 90);
+                // Perspektiv projection (3D -> 2D)
+                // Yulduzlar markazdan chiqib ekranga yaqinlashadi (Cheksiz tunnel ko'rinishi)
+                let cx = starCanvas.width / 2;
+                let cy = starCanvas.height / 2;
 
-                this.px = ((this.x - targetX) * (starCanvas.width / this.z)) + targetX;
-                this.py = ((this.y - targetY) * (starCanvas.width / this.z)) + targetY;
+                // Sichqoncha va skrol harakatiga ko'ra markazning bir oz silliq siljishi (Parallax)
+                let targetX = cx + (currentMouse.x - 0.5) * 100;
+                let targetY = cy + (currentMouse.y - 0.5) * 100 + (smoothScrollY * 15);
 
+                this.px = (this.x * (starCanvas.width / this.z)) + targetX;
+                this.py = (this.y * (starCanvas.width / this.z)) + targetY;
+
+                // Ekrandan butunlay chiqib ketganlarni qayta uzoqlashtirish
                 if (this.px < 0 || this.px > starCanvas.width || this.py < 0 || this.py > starCanvas.height) {
                     this.reset();
                 }
             }
 
             draw() {
-                let r = this.size * (starCanvas.width / this.z) * 0.5;
+                // Yaqinlashgan sari yulduz kattalashadi va yorqinlashadi
+                let r = this.size * (starCanvas.width / this.z) * 0.6;
+                // Ko'p kattarib ko'zni charchatmasligi uchun cheklov
                 if (r > 3.0) r = 3.0;
 
-                // Harakat izlarini silliq tasvirlash uchun chiziq ko'rinishi
                 starCtx.beginPath();
                 starCtx.arc(this.px, this.py, r, 0, Math.PI * 2);
                 starCtx.fillStyle = this.colorBase + this.opacity + ')';
@@ -961,9 +744,7 @@
 
         // ================= ANIMATSIYA DOIMIY SIKLI =================
         function renderLoop() {
-            globalTime += 0.015;
-
-            // Skrol va sichqoncha harakatlarini inertsiya orqali o'ta silliq qilish (smooth easing)
+            // Skrol va sichqoncha harakatlarini silliq easing qilish
             currentScrollY = window.scrollY;
             smoothScrollY += (currentScrollY / window.innerHeight - smoothScrollY) * 0.08;
             
@@ -972,17 +753,7 @@
 
             starSpeed *= 0.94; // Tezlik tormozlanishi
 
-            // 1. WebGL Qora tuynukni yangilash
-            if (gl && isTextureLoaded) {
-                gl.uniform1f(uTime, globalTime);
-                gl.uniform1f(uScroll, smoothScrollY);
-                gl.uniform2f(uMouse, currentMouse.x, currentMouse.y);
-                gl.uniform2f(uResolution, bhCanvas.width, bhCanvas.height);
-                
-                gl.drawArrays(gl.TRIANGLES, 0, 6);
-            }
-
-            // 2. Yulduzlarning harakati (Mutlaqo shaffof va silliq)
+            // Har doim shaffof tozalaymiz, shunda orqa fondagi mahobatli rasm to'liq ko'rinib turadi
             starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
 
             stars.forEach(star => {
@@ -995,14 +766,13 @@
 
         // Hodisalarni tinglash
         window.addEventListener('resize', () => {
-            resizeWebGL();
             resizeStars();
         });
 
         window.addEventListener('scroll', () => {
             let speedDelta = Math.abs(window.scrollY - currentScrollY);
             if (speedDelta > 0) {
-                starSpeed = Math.min(speedDelta * 0.12, 20.0); // O'ta yuqori tezlikdan cheklov
+                starSpeed = Math.min(speedDelta * 0.12, 12.0); // O'ta yuqori xaotik tezlikdan cheklov
             }
         }, { passive: true });
 
@@ -1019,8 +789,6 @@
         }, { passive: true });
 
         // Tizimni ishga tushirish
-        initWebGL();
-        resizeWebGL();
         resizeStars();
         renderLoop();
     </script>
