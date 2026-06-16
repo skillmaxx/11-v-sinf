@@ -8,14 +8,17 @@
     <!-- Meta taglar (Telegram/Instagram da ulashish uchun) -->
     <meta property="og:title" content="11-V Family | Bitiruv - 2026">
     <meta property="og:description" content="11-V sinf o'quvchilarining eng go'zal maktab xotiralari va vinetkalari bitta joyda jamlandi.">
-    <meta property="og:image" content="Vinetka sinf/vinsinf (82).jpg">
-
+    <meta property="og:image" content="rgsyD_2.jpg">
+    
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.06);
+            /* Koinot va qora tuynuk ranglar palitrasi */
+            --bg-dark: #010104;
+            --glass-bg: rgba(5, 5, 18, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #f3f4f6;
-            --accent-glow: #3b82f6;
+            --accent-orange: #ff7b00;
+            --accent-blue: #3b82f6;
         }
 
         * {
@@ -27,64 +30,94 @@
         }
 
         body {
-            background-color: #060913;
+            /* Orqa fondagi jonli koinot ko'rinishi uchun body va barcha bo'limlar mutlaqo shaffof bo'lishi shart */
+            background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            perspective: 1000px;
         }
 
-        /* HARDWARE ACCELERATED FIXED BACKGROUND LAYER (NO MORE SCROLL LAGS) */
-        .bg-layer {
+        /* Kosmik silliq skrolbar dizayni */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(1, 1, 4, 0.95);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent-orange), var(--accent-blue));
+            border-radius: 4px;
+        }
+
+        /* JONLI WEBGL GARGANTUA CANVASI (Siz yuklagan rasm asosida) */
+        #blackhole-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 50% 50%, #0c152b 0%, #060913 100%);
+            z-index: -3;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* JONLI KOINOT YULDUZLARI CANVASI */
+        #universe-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -2;
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             pointer-events: none;
         }
 
+        /* Qora tuynuk yuklanguncha orqa fon tutilishi */
+        .blackhole-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -4;
+            background: radial-gradient(circle at 50% 50%, #06050c 0%, #000000 100%);
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* */
+        /* Navigatsiya paneli */
         header {
-            background-color: rgba(6, 9, 19, 0.85);
+            background-color: rgba(2, 2, 8, 0.4);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transform: translate3d(0, 0, 0);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background 0.3s ease, box-shadow 0.3s;
         }
-
+        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 5%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: auto;
         }
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 800;
+            font-weight: 900;
             color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 123, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, #fff 40%, #ff9d00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
@@ -97,13 +130,31 @@
             color: #9ca3af;
             text-decoration: none;
             font-size: 1.05rem;
-            font-weight: 500;
-            transition: color 0.2s ease, text-shadow 0.2s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-orange), var(--accent-blue));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
         }
 
         .nav-links a:hover, .nav-links a.active {
             color: #ffffff;
-            text-shadow: 0 0 8px var(--accent-glow);
+            text-shadow: 0 0 10px rgba(255,123,0,0.5);
         }
 
         .hamburger {
@@ -111,7 +162,7 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 10px;
+            padding: 6px;
             border: none;
             background: transparent;
             z-index: 1100;
@@ -119,58 +170,49 @@
 
         .hamburger span {
             display: block;
-            width: 24px;
+            width: 26px;
             height: 2px;
             background: #ffffff;
             border-radius: 2px;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* GPU POWERED MOBILE DRAWER MENU */
         .mobile-menu {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(6, 9, 19, 0.98);
+            background: rgba(2, 2, 8, 0.98);
             z-index: 999;
-            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 2.5rem;
-            transform: translate3d(100%, 0, 0);
-            -webkit-transform: translate3d(100%, 0, 0);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            backface-visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(20px);
         }
-
-        .mobile-menu.active {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-        }
-
+        .mobile-menu.active { display: flex; opacity: 1; }
         .mobile-menu a {
             color: #9ca3af;
             text-decoration: none;
-            font-size: 1.6rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: color 0.2s, text-shadow 0.2s;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
         }
-
         .mobile-menu a:hover, .mobile-menu a.active {
             color: #ffffff;
-            text-shadow: 0 0 12px var(--accent-glow);
+            text-shadow: 0 0 15px var(--accent-orange);
         }
 
+        /* Bosh Sahifa (Hero) - To'liq shaffof interfeys */
         #bosh-sahifa {
             position: relative;
             height: 100vh;
@@ -179,247 +221,227 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #060913;
             overflow: hidden;
-            contain: strict;
-        }
-
-        #bosh-sahifa::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(rgba(6, 9, 19, 0.65), rgba(6, 9, 19, 0.92)), url('DSC08744.JPG');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             z-index: 1;
-            transform: translate3d(0,0,0);
-            will-change: transform;
-            animation: heroBgBlur 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            background: transparent;
         }
 
-        @keyframes heroBgBlur {
-            0% { filter: blur(25px); opacity: 0; transform: scale(1.08) translate3d(0,0,0); }
-            100% { filter: blur(0); opacity: 1; transform: scale(1) translate3d(0,0,0); }
-        }
-
+        /* */
         .hero-content-wrapper {
             position: relative;
-            max-width: 800px;
-            padding: 0 20px;
+            max-width: 900px;
+            padding: 3.5rem 2.5rem;
+            border-radius: 32px;
+            background: rgba(4, 4, 12, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 2;
-            transform: translate3d(0,0,0);
-            animation: textBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+            animation: textBlurIn 1.5s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
         }
 
         @keyframes textBlurIn {
-            0% { opacity: 0; filter: blur(12px); transform: translate3d(0, 20px, 0); }
-            100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0); }
+            0% { opacity: 0; filter: blur(20px); transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
         }
 
         .hero-title {
-            font-size: 4.8rem;
+            font-size: 5rem;
             font-weight: 900;
             margin-bottom: 1.5rem;
             color: #ffffff;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #ffffff, #ffd099, #ff7b00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 45px rgba(255, 123, 0, 0.25);
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: #cbd5e1;
-            max-width: 650px;
+            font-size: 1.35rem;
+            color: #e2e8f0;
+            max-width: 700px;
             margin: 0 auto;
             font-weight: 400;
             line-height: 1.8;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
 
+        /* Fotoalbomlar bo'limi - to'liq shaffof va oq fonlar olib tashlangan */
         #albomlar {
-            padding: 120px 5% 80px;
-            max-width: 1200px;
+            padding: 140px 5% 100px;
+            max-width: 1300px;
             margin: auto;
+            position: relative;
+            z-index: 2;
+            background: transparent;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
             color: #ffffff;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
             display: inline-block;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
         }
 
         .title-wrapper { text-align: center; }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
         }
 
         .album-link { 
             text-decoration: none; 
             color: inherit; 
             display: block; 
-            content-visibility: auto;
-            contain-intrinsic-size: auto 480px;
         }
 
-        /* GPU OPTIMIZED COMPOSITING LAYERS */
+        /* Neon jiloga ega shaffof kartochkalar */
         .photo-card {
             background: var(--glass-bg);
-            border-radius: 24px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
             border: 1px solid var(--glass-border);
-            min-height: 480px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            min-height: 500px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        border-color 0.4s ease, 
-                        background-color 0.4s ease, 
-                        box-shadow 0.4s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.5s ease;
             will-change: transform;
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
         }
 
         .album-link:hover .photo-card {
-            transform: translate3d(0, -6px, 0);
-            -webkit-transform: translate3d(0, -6px, 0);
-            border-color: rgba(var(--theme-rgb, 59, 130, 246), 0.5); 
-            box-shadow: 0 12px 32px rgba(var(--theme-rgb, 59, 130, 246), 0.25);
-            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-12px) scale(1.03) rotateX(3deg);
+            border-color: rgba(var(--theme-rgb), 0.7);
+            box-shadow: 0 25px 60px rgba(var(--theme-rgb), 0.3),
+                        0 0 40px rgba(var(--theme-rgb), 0.15);
         }
 
-        /* LOCKED RATIO ASPECT BOX FOR ZERO CUMULATIVE LAYOUT SHIFT (CLS) */
-        .card-img-wrapper {
+        .photo-card img {
             width: 100%;
-            height: 360px;
-            overflow: hidden;
-            background: #0c101d; /* Elegant solid placeholder color */
-            border-bottom: 1px solid var(--glass-border);
-            position: relative;
-        }
-
-        .card-img-wrapper img {
-            width: 100%;
-            height: 100%;
+            height: 380px;
             object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             opacity: 0;
-            filter: blur(10px) saturate(0.4) scale(1.02);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        filter 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, filter, transform;
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-            pointer-events: none;
-            user-select: none;
+            filter: blur(10px) scale(1.05);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, filter;
         }
 
-        .card-img-wrapper img.loaded {
+        .photo-card img.loaded {
+            opacity: 0.85;
+            filter: blur(0) scale(1);
+        }
+
+        .album-link:hover .photo-card img.loaded {
             opacity: 1;
-            filter: blur(0) saturate(1) scale(1);
-        }
-
-        .album-link:hover .card-img-wrapper img.loaded {
-            transform: scale(1.025) translate3d(0, 0, 0);
-            -webkit-transform: scale(1.025) translate3d(0, 0, 0);
         }
 
         .photo-info {
-            padding: 1.5rem;
+            padding: 1.8rem;
             text-align: center;
             margin: auto 0;
+            background: linear-gradient(to top, rgba(2,2,10,0.7), transparent);
         }
 
         .photo-info h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.6rem;
+            transition: text-shadow 0.3s;
+        }
+
+        .album-link:hover .photo-info h3 {
+            text-shadow: 0 0 15px rgba(var(--theme-rgb), 0.8);
         }
 
         .photo-info p {
             color: #94a3b8;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
+        /* Footer */
         footer {
-            background: rgba(6, 9, 19, 0.6);
+            background: rgba(2, 2, 8, 0.9);
             text-align: center;
-            padding: 2.5rem;
+            padding: 3rem;
             border-top: 1px solid var(--glass-border);
             color: #64748b;
-            font-weight: 500;
-            transform: translate3d(0,0,0);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
         }
 
+        footer p {
+            background: linear-gradient(to right, #94a3b8, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Mobil qurilmalar */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
-            .hero-title { font-size: 2.8rem; }
-            .hero-subtitle { font-size: 1.1rem; }
-            .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .photo-card { min-height: 400px; border-radius: 20px; }
-            .card-img-wrapper { height: 280px; }
-            .section-title { font-size: 2rem; }
-            
-            .photo-card { transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s ease; }
-            .album-link:hover .photo-card { 
-                box-shadow: 0 6px 16px rgba(var(--theme-rgb, 59, 130, 246), 0.15); 
-                transform: translate3d(0, -3px, 0); 
-                -webkit-transform: translate3d(0, -3px, 0); 
-            }
-            
-            @media (prefers-reduced-motion: reduce) {
-                * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-            }
+            .hero-title { font-size: 3.2rem; }
+            .hero-subtitle { font-size: 1.15rem; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .photo-card { min-height: 420px; border-radius: 24px; }
+            .photo-card img { height: 300px; }
+            .section-title { font-size: 2.2rem; }
         }
 
         @media (max-width: 480px) {
-            .logo { font-size: 1.4rem; letter-spacing: 1px; }
-            .hero-title { font-size: 2.2rem; }
+            .logo { font-size: 1.4rem; letter-spacing: 1.5px; }
+            .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1rem; }
-            nav { padding: 0.8rem 3%; }
+            nav { padding: 0.8rem 4%; }
+            .hero-content-wrapper { padding: 1.5rem; border-radius: 24px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HIGH SPEED GRAPHICS BACKGROUND WRAPPER -->
-    <div class="bg-layer"></div>
+    <!-- Statik qora tuynuk foni yuklanguniga qadar -->
+    <div class="blackhole-container"></div>
 
-    <header>
+    <!-- 1. JONLI WEBGL GARGANTUA CANVASI -->
+    <canvas id="blackhole-canvas"></canvas>
+
+    <!-- 2. JONLI YULDUZLAR CANVASI (Butun sahifa uchun xizmat qiladi) -->
+    <canvas id="universe-canvas"></canvas>
+
+    <header id="main-header">
         <nav>
             <div class="logo">11-V Family</div>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">Bosh sahifa</a></li>
-                    <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
-                </ul>
-                <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Bosh sahifa</a></li>
+                <li><a href="vinetka.html">Vinetka Rasmlar</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menyuni ochish">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
@@ -431,7 +453,7 @@
     <section id="bosh-sahifa">
         <div class="hero-content-wrapper">
             <h1 class="hero-title">Bitiruv - 2026</h1>
-            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda katta oilamiz!</p>
+            <p class="hero-subtitle">11-V sinf o'quvchilarining eng go'zal xotiralari, vinetkalari va maktab davridagi ajoyib lahzalari bitta joyda jamlandi. Biz birgalikda ulkan koinot va yagona oilamiz!</p>
         </div>
     </section>
 
@@ -442,123 +464,104 @@
         
         <div class="gallery-grid">
             
-            <!-- 1. VINETKA SINF (Ko'k: 59, 130, 246) -->
+            <!-- 1. VINETKA SINF (Ko'k) -->
             <a href="royhat/vinsinf.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 59, 130, 246;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Vinetka sinf/vinsinf (82)" alt="Vinetka Sinf">
-                    </div>
+                    <img src="Vinetka sinf/vinsinf (82).jpg" alt="Vinetka Sinf" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Vinetka sinf/vinsinf (82).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Vinetka Sinf</h3>
+                        <h3 style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vinetka Sinf</h3>
                         <p>Sinfdoshlar bilan vinetka xotiralari</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 2. MAKTAB HOVLISI (Yashil: 16, 185, 129) -->
+            <!-- 2. MAKTAB HOVLISI (Yashil) -->
             <a href="royhat/maktabhovlisi.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 16, 185, 129;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Maktabhovlisi/maktabhovlisi (18)" alt="Maktab Hovlisi">
-                    </div>
+                    <img src="Maktabhovlisi/maktabhovlisi (18).JPG" alt="Maktab Hovlisi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Maktabhovlisi/maktabhovlisi (18).jpg';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Maktab Hovlisi</h3>
+                        <h3 style="background: linear-gradient(to right, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maktab Hovlisi</h3>
                         <p>Qadrdon maktab bag'ridagi damlar</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 3. FOTOZONA (Siyohrang/Binafsha: 139, 92, 246) -->
+            <!-- 3. FOTOZONA (Binafsha) -->
             <a href="royhat/fotozona.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 139, 92, 246;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Fotozona/fotozona (52)" alt="Fotozona">
-                    </div>
+                    <img src="Fotozona/fotozona (52).jpg" alt="Fotozona" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Fotozona/fotozona (52).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Fotozona</h3>
+                        <h3 style="background: linear-gradient(to right, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Fotozona</h3>
                         <p>Maxsus tayyorlangan fotozonada</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 4. ARDA XIVA (Pushti/Qizil: 244, 63, 94) -->
+            <!-- 4. ARDA XIVA (Qizil) -->
             <a href="royhat/ardaxiva.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 244, 63, 94;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="ArdaXiva/ardaxiva (48)" alt="Arda Xiva">
-                    </div>
+                    <img src="ArdaXiva/ardaxiva (48).JPG" alt="Arda Xiva" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='ArdaXiva/ardaxiva (48).jpg';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Arda Xiva</h3>
+                        <h3 style="background: linear-gradient(to right, #f43f5e, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Arda Xiva</h3>
                         <p>Arda restorani va Xiva xotiralari</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 5. XIVA PARKI (Havorang/Cyan: 6, 182, 212) -->
+            <!-- 5. XIVA PARKI (Havorang) -->
             <a href="royhat/xiva_park.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 6, 182, 212;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Xivapark/park (225)" alt="Xiva Parki">
-                    </div>
+                    <img src="Xivapark/park (225).jpg" alt="Xiva Parki" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Xivapark/park (225).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Xiva Parki</h3>
+                        <h3 style="background: linear-gradient(to right, #06b6d4, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Xiva Parki</h3>
                         <p>Sinfdoshlar bilan parkdagi sarguzashtlar</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 6. ICHAN QAL'A (Oltin/Sariq: 245, 158, 11) -->
+            <!-- 6. ICHAN QAL'A (Oltin) -->
             <a href="royhat/ichanqala.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 245, 158, 11;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Ichanqala/ichanqala (119)" alt="Ichan Qal'a">
-                    </div>
+                    <img src="Ichanqala/ichanqala (119).jpg" alt="Ichan Qal'a" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Ichanqala/ichanqala (119).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Ichan Qal'a</h3>
+                        <h3 style="background: linear-gradient(to right, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ichan Qal'a</h3>
                         <p>Qadimiy Xiva sayohati xotiralari</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 7. 25-MAY ALBOMI (Yorqin Sariq: 234, 179, 8) -->
+            <!-- 7. 25-MAY ALBOMI (Sariq) -->
             <a href="royhat/25may.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 234, 179, 8;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="25may/25may (1)" alt="25-May Xotiralari">
-                    </div>
+                    <img src="25may/25may (1).jpg" alt="25-May Xotiralari" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='25may/25may (1).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #eab308, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">25-May (So'nggi Qo'ng'iroq)</h3>
+                        <h3 style="background: linear-gradient(to right, #eab308, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">25-May (So'nggi Qo'ng'iroq)</h3>
                         <p>Maktab bilan xayrlashuv damlari</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 8. QOR (Kumush/Oqish: 203, 213, 225) -->
+            <!-- 8. QOR (Kumush) -->
             <a href="royhat/qor.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 203, 213, 225;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Qor/qor (18)" alt="Qor Albomi">
-                    </div>
+                    <img src="Qor/qor (18).jpg" alt="Qor Albomi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Qor/qor (18).JPG';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #e2e8f0, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Qor</h3>
+                        <h3 style="background: linear-gradient(to right, #e2e8f0, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Qor</h3>
                         <p>Qishki qorbo'ron va quvnoq damlar</p>
                     </div>
                 </div>
             </a>
 
-            <!-- 9. DIANA & DUSHAMBOY (To'q Sariq: 249, 115, 22) -->
+            <!-- 9. DIANA & DUSHAMBOY (To'q Sariq) -->
             <a href="royhat/dd.html" class="album-link">
                 <div class="photo-card" style="--theme-rgb: 249, 115, 22;">
-                    <div class="card-img-wrapper">
-                        <img data-basepath="Diana&Dushamboy/dd (1)" alt="Diana & Dushamboy">
-                    </div>
+                    <img src="Diana&Dushamboy/dd (1).JPG" alt="Diana & Dushamboy" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='Diana&Dushamboy/dd (1).jpg';">
                     <div class="photo-info">
-                        <h3 style="background: linear-gradient(to right, #f97316, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Diana & Dushamboy</h3>
+                        <h3 style="background: linear-gradient(to right, #f97316, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Diana & Dushamboy</h3>
                         <p>Ajoyib xotiralar jamlanmasi</p>
                     </div>
                 </div>
             </a>
-
         </div>
     </section>
 
@@ -567,105 +570,459 @@
     </footer>
 
     <script>
-        // Formatlarni bir vaqtda parallel ravishda mutlaqo tezkor tekshirish va ochish tizimi
-        function loadCardImage(imgElement, basePath) {
-            const extensions = ['.JPG', '.jpg', '.png', '.PNG', '.jpeg', '.JPEG'];
-            let resolved = false;
-            
-            extensions.forEach(ext => {
-                const tempImg = new Image();
-                tempImg.src = basePath + ext;
-                
-                tempImg.onload = () => {
-                    if (!resolved) {
-                        resolved = true;
-                        imgElement.src = tempImg.src;
-                        requestAnimationFrame(() => {
-                            imgElement.classList.add('loaded');
-                        });
-                    }
-                };
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const lazyImages = document.querySelectorAll('.card-img-wrapper img');
-            
-            // Ultra tezkor fondagi datchik (scroll laglardan butunlay xalos qiladi)
-            const observerOptions = {
-                root: null,
-                rootMargin: '450px', // Foydalanuvchi yetib kelmasidan 450px oldin fonda yuklanadi
-                threshold: 0.01
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        const basePath = img.dataset.basepath;
-                        if (basePath) {
-                            loadCardImage(img, basePath);
-                        }
-                        observer.unobserve(img);
-                    }
-                });
-            }, observerOptions);
-
-            // Birinchi 3 ta albom kartasini joriy sahifada zumda, stagger effekt bilan ochamiz
-            const firstBatchCount = 3;
-            let batchIndex = 0;
-
-            lazyImages.forEach((img, idx) => {
-                if (idx < firstBatchCount) {
-                    setTimeout(() => {
-                        const basePath = img.dataset.basepath;
-                        if (basePath) {
-                            loadCardImage(img, basePath);
-                        }
-                    }, batchIndex * 60); // 60ms staggered soft entry
-                    batchIndex++;
-                } else {
-                    observer.observe(img);
-                }
-            });
-        });
-
+        // Mobil Menu Boshqaruvi
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMenu();
-        }, { passive: true });
-
-        document.addEventListener('click', (e) => {
-            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== hamburger) {
-                closeMenu();
-            }
-        }, { passive: true });
-
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
-                    closeMenu();
-                }
-            }, 100);
-        }, { passive: true });
-
-        function toggleMenu() {
+        
+        hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
+        }, { passive: true });
+        
         function closeMenu() {
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
             document.body.style.overflow = '';
         }
-    </script>
 
+        // Sahifa skrol qilinganda headerni o'zgartirish
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(2, 2, 8, 0.85)';
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.85)';
+            } else {
+                header.style.background = 'rgba(2, 2, 10, 0.4)';
+                header.style.boxShadow = 'none';
+            }
+        }, { passive: true });
+
+        // Rasmlar yuklanishini nazorat qilish
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll('.photo-card img');
+            lazyImages.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        requestAnimationFrame(() => img.classList.add('loaded'));
+                    }, { passive: true });
+                    img.addEventListener('error', () => {
+                        img.classList.add('loaded');
+                    }, { passive: true });
+                }
+            });
+        });
+
+        // ================= JONLI WEBGL GARGANTUA SHADER TIZIMI =================
+        const bhCanvas = document.getElementById('blackhole-canvas');
+        const gl = bhCanvas.getContext('webgl') || bhCanvas.getContext('experimental-webgl');
+
+        let program;
+        let positionBuffer;
+        let uTexture, uTime, uScroll, uMouse, uResolution;
+        let bgTexture;
+        let isTextureLoaded = false;
+        let globalTime = 0;
+        let smoothScrollY = 0;
+        let currentScrollY = window.scrollY;
+        let targetMouse = { x: 0.5, y: 0.5 };
+        let currentMouse = { x: 0.5, y: 0.5 };
+
+        // Vertex shader kodi
+        const vsSource = `
+            attribute vec2 position;
+            varying vec2 vUv;
+            void main() {
+                vUv = position * 0.5 + 0.5;
+                gl_Position = vec4(position, 0.0, 1.0);
+            }
+        `;
+
+        // Fragment shader (Aynan siz taqdim etgan rgsyD.jpg rasmini real vaqtda egib, harakatlantiradi)
+        const fsSource = `
+            precision mediump float;
+            varying vec2 vUv;
+            uniform sampler2D uTexture;
+            uniform float uTime;
+            uniform float uScroll;
+            uniform vec2 uMouse;
+            uniform vec2 uResolution;
+
+            // Fluid/Cosmic noise simulated mathematically to avoid static warp
+            float noise(in vec2 p) {
+                return sin(p.x * 2.0) * cos(p.y * 2.0) + sin(p.y * 4.0) * cos(p.x * 4.0);
+            }
+
+            void main() {
+                vec2 uv = vUv;
+                
+                // Qora tuynuk markazini rasmga moslab o'rnatamiz (Sizning rasmingizda Gargantua salgina o'ng-pastda)
+                vec2 mouseOffset = (uMouse - 0.5) * 0.015;
+                // Skrol qilinganda parallaks siljish effekti
+                vec2 scrollOffset = vec2(0.0, uScroll * 0.06);
+                
+                vec2 center = vec2(0.485, 0.47) + mouseOffset - scrollOffset;
+
+                vec2 d = uv - center;
+                // Ekran o'lchami proporsiyasini to'g'rilash
+                d.x *= uResolution.x / uResolution.y;
+                float r = length(d);
+
+                // Qora tuynuk Event Horizon (Singulyarlik) radiusi
+                float horizon = 0.07;
+
+                if (r < horizon) {
+                    // Markaz mutlaqo qora tutilish
+                    gl_FragColor = vec4(0.005, 0.003, 0.008, 1.0);
+                } else {
+                    // Gravitatsion Linza bukilishi (Einstein Lensing)
+                    float bend = 0.009 / (r - horizon + 0.006);
+                    vec2 warpDir = normalize(d);
+
+                    // Akkretsion diskning egri burchakli plazma oqimini harakatlantiramiz (Keplerian Flow)
+                    // Siz yuklagan rgsyD.jpg rasmining aynan shu qismini dynamic aylantiramiz
+                    float angle = atan(d.y, d.x);
+                    
+                    // Markazga yaqinroq gazlar tezroq aylanishini ta'minlaymiz (Interstellar fizikasiga mos)
+                    float flowSpeed = 0.12 / (r + 0.05);
+                    float diskInfluence = smoothstep(0.46, 0.22, r) * smoothstep(0.06, 0.14, r);
+                    
+                    // To'lqinli va gazsimon harakat simulyatsiyasi
+                    float wave = noise(vec2(r * 22.0 - uTime * 1.8, angle * 4.0 + uTime * 0.3));
+                    float warpedAngle = angle + (uTime * flowSpeed + wave * 0.05) * diskInfluence;
+
+                    // Yangi burilgan koordinatalar
+                    vec2 rotatedD = vec2(cos(warpedAngle), sin(warpedAngle)) * r;
+                    rotatedD.x /= uResolution.x / uResolution.y;
+
+                    // Egilgan koordinatalarni rasm teksturasiga qayta bog'laymiz
+                    vec2 finalUv = center + rotatedD - warpDir * bend;
+                    
+                    // Ekran chetlaridagi buzilishlarni oldini olish
+                    finalUv = clamp(finalUv, 0.002, 0.998);
+
+                    // Haqiqiy siz yuklagan rgsyD.jpg rasmidan ranglarni olamiz
+                    vec4 color = texture2D(uTexture, finalUv);
+
+                    // Plazmaning real vaqtda issiqlik porlashi (Atmospheric Glow)
+                    float glowMask = smoothstep(0.38, 0.12, r) * smoothstep(0.07, 0.16, r);
+                    vec3 goldenGlow = vec3(1.0, 0.44, 0.08) * glowMask * (0.07 + 0.04 * wave);
+
+                    gl_FragColor = vec4(color.rgb + goldenGlow, 1.0);
+                }
+            }
+        `;
+
+        function initWebGL() {
+            if (!gl) {
+                console.warn("WebGL yuklanmadi. Canvas 2D ishlatiladi.");
+                return;
+            }
+
+            const vs = compileShader(gl.VERTEX_SHADER, vsSource);
+            const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
+            
+            program = gl.createProgram();
+            gl.attachShader(program, vs);
+            gl.attachShader(program, fs);
+            gl.linkProgram(program);
+
+            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                console.error("Shader xatoligi:", gl.getProgramInfoLog(program));
+                return;
+            }
+
+            gl.useProgram(program);
+
+            const positions = new Float32Array([
+                -1, -1,  1, -1, -1,  1,
+                -1,  1,  1, -1,  1,  1,
+            ]);
+            positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+            const positionLocation = gl.getAttribLocation(program, "position");
+            gl.enableVertexAttribArray(positionLocation);
+            gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+            uTexture = gl.getUniformLocation(program, "uTexture");
+            uTime = gl.getUniformLocation(program, "uTime");
+            uScroll = gl.getUniformLocation(program, "uScroll");
+            uMouse = gl.getUniformLocation(program, "uMouse");
+            uResolution = gl.getUniformLocation(program, "uResolution");
+
+            // Rasm teksturasini WebGL tizimiga yuklash
+            bgTexture = gl.createTexture();
+            const image = new Image();
+            
+            // XAVFSIZ CORS yuklash rejimi (WebGL teksturalari xatoliksiz ishlashi uchun zarur!)
+            image.crossOrigin = "anonymous";
+            
+            // Ko'rib chiqilgan rasm nomlarining navbati (Fallback chain)
+            const imageSources = ['rgsyD_2.jpg', 'rgsyD.jpg'];
+            let currentSourceIndex = 0;
+
+            function tryLoadImage() {
+                image.src = imageSources[currentSourceIndex];
+            }
+
+            // Rasmni WebGL formatida to'g'ri joylashtirish uchun Y-o'qini to'g'rilaymiz
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+
+            image.onload = () => {
+                gl.bindTexture(gl.TEXTURE_2D, bgTexture);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+                isTextureLoaded = true;
+                
+                // Yuklab olingandan keyin statik qora fonsiz silliq o'tish
+                document.querySelector('.blackhole-container').style.opacity = '0';
+            };
+
+            image.onerror = () => {
+                currentSourceIndex++;
+                if (currentSourceIndex < imageSources.length) {
+                    // Keyingi rasm manbasini sinab ko'rish
+                    tryLoadImage();
+                } else {
+                    console.warn("Tashqi rasm bloklandi yoki topilmadi. Procedural fallback tekstura ishga tushirilmoqda...");
+                    createProceduralFallbackTexture();
+                }
+            };
+
+            tryLoadImage();
+        }
+
+        // Agar kutilmaganda rasmlar serverdan CORS/yo'qlik tufayli yuklanmasa, WebGL uchun mukammal procedural qora tuynuk generatsiya qilish
+        function createProceduralFallbackTexture() {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 512;
+            tempCanvas.height = 512;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Fon
+            tempCtx.fillStyle = '#010104';
+            tempCtx.fillRect(0, 0, 512, 512);
+            
+            // Olovli plazma effekti
+            const grad = tempCtx.createRadialGradient(256, 256, 35, 256, 256, 230);
+            grad.addColorStop(0, '#000000');
+            grad.addColorStop(0.08, '#ff5100');
+            grad.addColorStop(0.2, '#ffaa00');
+            grad.addColorStop(0.5, '#220055');
+            grad.addColorStop(1, '#010104');
+            
+            tempCtx.fillStyle = grad;
+            tempCtx.beginPath();
+            tempCtx.arc(256, 256, 256, 0, Math.PI * 2);
+            tempCtx.fill();
+            
+            // Akkresion disk tasviri
+            tempCtx.strokeStyle = 'rgba(255, 180, 50, 0.4)';
+            tempCtx.lineWidth = 14;
+            tempCtx.beginPath();
+            tempCtx.ellipse(256, 256, 110, 30, Math.PI / 6, 0, Math.PI * 2);
+            tempCtx.stroke();
+            
+            // WebGL fonga ulash
+            gl.bindTexture(gl.TEXTURE_2D, bgTexture);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tempCanvas);
+            isTextureLoaded = true;
+            document.querySelector('.blackhole-container').style.opacity = '0';
+        }
+
+        function compileShader(type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error("Kompilyatsiya xatoligi:", gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+
+        function resizeWebGL() {
+            if (!gl) return;
+            bhCanvas.width = window.innerWidth;
+            bhCanvas.height = window.innerHeight;
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        }
+
+        // ================= BUTUN SAHIFA UCHUN JONLI YULDUZLAR TIZIMI (CANVAS 2D) =================
+        const starCanvas = document.getElementById('universe-canvas');
+        const starCtx = starCanvas.getContext('2d');
+
+        let stars = [];
+        let numStars = 250;
+        let starSpeed = 0;
+
+        function resizeStars() {
+            starCanvas.width = window.innerWidth;
+            starCanvas.height = window.innerHeight;
+            initStars();
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+                // Yulduzlarni ekran bo'ylab tekis yoyish
+                this.x = Math.random() * starCanvas.width;
+                this.y = Math.random() * starCanvas.height;
+            }
+
+            reset() {
+                this.x = Math.random() * starCanvas.width;
+                this.y = Math.random() * starCanvas.height;
+                this.z = Math.random() * starCanvas.width; // 3D chuqurlik effekti
+                this.size = Math.random() * 0.9 + 0.3;
+                
+                // Gargantua olov ranglariga mos (oltin, to'q sariq, oq) yulduzlar
+                const colors = [
+                    'rgba(255, 255, 255, ',
+                    'rgba(255, 190, 110, ',
+                    'rgba(180, 210, 255, ',
+                    'rgba(255, 130, 60, '
+                ];
+                this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.4 + 0.5;
+            }
+
+            update() {
+                // Skrol qilinganda yulduzlar tunnel bo'ylab uchadi (Warp-speed)
+                let speed = 1.0 + starSpeed * 2.5;
+                this.z -= speed;
+
+                if (this.z <= 0) {
+                    this.reset();
+                    this.z = starCanvas.width;
+                }
+
+                let cx = starCanvas.width / 2;
+                let cy = starCanvas.height / 2;
+
+                // Qora tuynuk gravitatsiyasi: yulduzlar markazga yaqinlashganda uning atrofida girdob kabi aylanadi
+                let dx = this.x - cx;
+                let dy = this.y - cy;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                let orbitSpeed = 0.002 * (160 / (dist + 35));
+                let cosA = Math.cos(orbitSpeed);
+                let sinA = Math.sin(orbitSpeed);
+
+                let rx = dx * cosA - dy * sinA + cx;
+                let ry = dx * sinA + dy * cosA + cy;
+
+                this.x = rx;
+                this.y = ry;
+
+                // Sichqoncha va skrol harakatiga silliq parallaks reaksiya
+                let targetX = cx + (currentMouse.x - 0.5) * 140;
+                let targetY = cy + (currentMouse.y - 0.5) * 140 + (smoothScrollY * 90);
+
+                this.px = ((this.x - targetX) * (starCanvas.width / this.z)) + targetX;
+                this.py = ((this.y - targetY) * (starCanvas.width / this.z)) + targetY;
+
+                if (this.px < 0 || this.px > starCanvas.width || this.py < 0 || this.py > starCanvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                let r = this.size * (starCanvas.width / this.z) * 0.5;
+                if (r > 3.0) r = 3.0;
+
+                // Harakat izlarini silliq tasvirlash uchun chiziq ko'rinishi
+                starCtx.beginPath();
+                starCtx.arc(this.px, this.py, r, 0, Math.PI * 2);
+                starCtx.fillStyle = this.colorBase + this.opacity + ')';
+                starCtx.fill();
+            }
+        }
+
+        function initStars() {
+            stars = [];
+            numStars = window.innerWidth < 768 ? 100 : 220;
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        // ================= ANIMATSIYA DOIMIY SIKLI =================
+        function renderLoop() {
+            globalTime += 0.015;
+
+            // Skrol va sichqoncha harakatlarini inertsiya orqali o'ta silliq qilish (smooth easing)
+            currentScrollY = window.scrollY;
+            smoothScrollY += (currentScrollY / window.innerHeight - smoothScrollY) * 0.08;
+            
+            currentMouse.x += (targetMouse.x - currentMouse.x) * 0.08;
+            currentMouse.y += (targetMouse.y - currentMouse.y) * 0.08;
+
+            starSpeed *= 0.94; // Tezlik tormozlanishi
+
+            // 1. WebGL Qora tuynukni yangilash
+            if (gl && isTextureLoaded) {
+                gl.uniform1f(uTime, globalTime);
+                gl.uniform1f(uScroll, smoothScrollY);
+                gl.uniform2f(uMouse, currentMouse.x, currentMouse.y);
+                gl.uniform2f(uResolution, bhCanvas.width, bhCanvas.height);
+                
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+            }
+
+            // 2. Yulduzlarning harakati (Mutlaqo shaffof va silliq)
+            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        // Hodisalarni tinglash
+        window.addEventListener('resize', () => {
+            resizeWebGL();
+            resizeStars();
+        });
+
+        window.addEventListener('scroll', () => {
+            let speedDelta = Math.abs(window.scrollY - currentScrollY);
+            if (speedDelta > 0) {
+                starSpeed = Math.min(speedDelta * 0.12, 20.0); // O'ta yuqori tezlikdan cheklov
+            }
+        }, { passive: true });
+
+        window.addEventListener('mousemove', (e) => {
+            targetMouse.x = e.clientX / window.innerWidth;
+            targetMouse.y = e.clientY / window.innerHeight;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                targetMouse.x = e.touches[0].clientX / window.innerWidth;
+                targetMouse.y = e.touches[0].clientY / window.innerHeight;
+            }
+        }, { passive: true });
+
+        // Tizimni ishga tushirish
+        initWebGL();
+        resizeWebGL();
+        resizeStars();
+        renderLoop();
+    </script>
 </body>
 </html>
